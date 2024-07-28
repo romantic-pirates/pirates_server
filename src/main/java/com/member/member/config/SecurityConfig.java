@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -22,15 +21,18 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/members/register", "/members/login").permitAll()
+                .requestMatchers("/home").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(formLogin -> formLogin
                 .loginPage("/members/login")
                 .loginProcessingUrl("/members/login")
-                .defaultSuccessUrl("/home", true) // 로그인 성공 시 이동할 페이지
+                .defaultSuccessUrl("/home", true)
                 .permitAll()
             )
             .logout(logout -> logout
+                .logoutUrl("/members/logout")
+                .logoutSuccessUrl("/members/login")
                 .permitAll()
             );
         return http.build();
