@@ -36,4 +36,12 @@ public class MemberService implements UserDetailsService {
                 .roles("USER") // 필요한 권한 설정
                 .build();
     }
+
+    public Member findByUsernameAndPassword(String username, String password) {
+        Member member = memberRepository.findByMid(username); // 사용자 아이디로 조회
+        if (member != null && passwordEncoder.matches(password, member.getMpw())) {
+            return member; // 비밀번호가 일치하면 사용자 반환
+        }
+        return null; // 일치하지 않으면 null 반환
+    }
 }

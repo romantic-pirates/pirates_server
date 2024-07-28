@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -35,9 +36,32 @@ public class MemberController {
         return "login";
     }
 
+    @Controller
+    public class HomeController {
+
+    @GetMapping("/home")
+    public String home() {
+        return "home"; 
+    }
+}
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/members/login";
     }
+    @PostMapping("/login")
+    public String loginMember(@RequestParam("username") String username, 
+                          @RequestParam("password") String password, 
+                          HttpSession session, 
+                          Model model) {
+    Member member = memberService.findByUsernameAndPassword(username, password);
+    if (member != null) {
+        session.setAttribute("loggedInUser", member);
+        return "redirect:/home"; 
+    } else {
+        model.addAttribute("loginError", "Invalid username or password.");
+        return "login";
+    }
+}
 }
