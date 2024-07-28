@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <h2>회원가입</h2>
+    <form action="#" th:action="@{/members/register}" th:object="${member}" method="post">
+        <label for="mnum">회원 번호:</label>
+        <input type="text" id="mnum" th:field="*{mnum}" required />
+        <br/>
+        <label for="mname">회원 이름:</label>
+        <input type="text" id="mname" th:field="*{mname}" required />
+        <br/>
+        <label for="mnick">별명:</label>
+        <input type="text" id="mnick" th:field="*{mnick}" required />
+        <br/>
+        <label for="mid">회원 아이디 (이메일):</label>
+        <input type="email" id="mid" th:field="*{mid}" required />
+        <br/>
+        <label for="mpw">비밀번호:</label>
+        <input type="password" id="mpw" th:field="*{mpw}" required />
+        <br/>
+        <label for="mbirth">생년월일:</label>
+        <input type="text" id="mbirth" th:field="*{mbirth}" required />
+        <br/>
+        <label for="mhp">휴대폰 번호:</label>
+        <input type="text" id="mhp" th:field="*{mhp}" required />
+        <br/>
+        <label for="mgender">성별:</label>
+        <input type="text" id="mgender" th:field="*{mgender}" required />
+        <br/>
+        <label for="mzonecode">우편번호:</label>
+        <input type="text" id="mzonecode" th:field="*{mzonecode}" required />
+        <br/>
+        <label for="mroad">도로명 주소:</label>
+        <input type="text" id="mroad" th:field="*{mroad}" />
+        <br/>
+        <label for="mroaddetail">자세한 주소:</label>
+        <input type="text" id="mroaddetail" th:field="*{mroaddetail}" />
+        <br/>
+        <label for="mjibun">지번 주소:</label>
+        <input type="text" id="mjibun" th:field="*{mjibun}" />
+        <br/>
+        <button type="submit">회원가입</button>
+    </form>
+</body>
+</html>
