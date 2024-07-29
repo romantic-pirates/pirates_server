@@ -14,9 +14,8 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long mnum; // 자동 생성되는 회원 번호
 
-    private String mnum;
     private String mname;
     private String mnick;
     private String mid;
