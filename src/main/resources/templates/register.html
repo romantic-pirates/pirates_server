@@ -7,9 +7,6 @@
 <body>
     <h2>회원가입</h2>
     <form action="#" th:action="@{/members/register}" th:object="${member}" method="post">
-        <label for="mnum">회원 번호:</label>
-        <input type="text" id="mnum" th:field="*{mnum}" required />
-        <br/>
         <label for="mname">회원 이름:</label>
         <input type="text" id="mname" th:field="*{mname}" required />
         <br/>
