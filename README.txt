@@ -39,4 +39,3 @@ git push origin --delete feature/#이슈번호_이슈제목
 develop 브랜치를 최신 상태로 유지하기 위해, 다른 팀원들이 병합한 변경 사항을 가져옵니다.
 git checkout develop
 
-api key가 있는 경우 pr이 안된다 주석처리하고 해라 그리고 readMe file에 노티 해놓기
