@@ -36,32 +36,38 @@ public class MemberController {
         return "login";
     }
 
-    @Controller
-    public class HomeController {
-
-    @GetMapping("/home")
-    public String home() {
-        return "home"; 
+    @PostMapping("/login")
+    public String loginMember(@RequestParam("username") String username, 
+                              @RequestParam("password") String password, 
+                              HttpSession session, 
+                              Model model) {
+        Member member = memberService.findByUsernameAndPassword(username, password);
+        if (member != null) {
+            session.setAttribute("loggedInUser", member);
+            return "redirect:/home"; 
+        } else {
+            model.addAttribute("loginError", "Invalid username or password.");
+            return "login";
+        }
     }
-}
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/members/login";
     }
-    @PostMapping("/login")
-    public String loginMember(@RequestParam("username") String username, 
-                          @RequestParam("password") String password, 
-                          HttpSession session, 
-                          Model model) {
-    Member member = memberService.findByUsernameAndPassword(username, password);
-    if (member != null) {
-        session.setAttribute("loggedInUser", member);
-        return "redirect:/home"; 
-    } else {
-        model.addAttribute("loginError", "Invalid username or password.");
-        return "login";
+
+    @Controller
+    public class HomeController {
+
+        @GetMapping("/")
+        public String index() {
+            return "home"; 
+        }
+
+        @GetMapping("/home")
+        public String home() {
+            return "home"; 
+        }
     }
-}
 }
