@@ -38,3 +38,5 @@ git push origin --delete feature/#이슈번호_이슈제목
 7. 최신 develop 브랜치로 체크아웃
 develop 브랜치를 최신 상태로 유지하기 위해, 다른 팀원들이 병합한 변경 사항을 가져옵니다.
 git checkout develop
+
+8. git branch -a 현재 자기 디렉토리 확인

@@ -20,6 +20,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/css/**","/js/**").permitAll()  // static 리소스 접근 허용
                 .requestMatchers("/members/register", "/members/login").permitAll()
                 .requestMatchers("/home").authenticated()
                 .anyRequest().authenticated()
