@@ -1,4 +1,4 @@
-package com.member.member.config;
+package com.member.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +21,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
+
+                .requestMatchers("/css/**","/js/**").permitAll()  // static 리소스 접근 허용
+                .requestMatchers("/members/register", "/members/login").permitAll()
+                .requestMatchers("/home").authenticated()
+                .requestMatchers("/", "/home", "/members/register", "/members/login", "/css/**", "/js/**", "/images/**", "/icons/**", "/static/**", "/medias/**").permitAll()
 
                 .anyRequest().authenticated()
             )

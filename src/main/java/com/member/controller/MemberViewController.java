@@ -1,7 +1,5 @@
-package com.member.member.controller;
+package com.member.controller;
 
-import com.member.member.entity.Member;
-import com.member.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,24 +8,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.member.dto.MemberDTO;
+import com.member.entity.Member;
+import com.member.service.MemberService;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/members")
-public class MemberController {
+public class MemberViewController {
 
     @Autowired
     private MemberService memberService;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("member", new Member());
+        model.addAttribute("member", new MemberDTO());
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerMember(Member member) {
-        memberService.saveMember(member);
+    public String registerMember(MemberDTO memberDTO) {
+        memberService.saveMember(memberDTO);
         return "redirect:/members/login";
     }
 

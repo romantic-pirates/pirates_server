@@ -1,15 +1,19 @@
-package com.member.member.service;
+package com.member.service;
 
-import com.member.member.entity.Member;
-import com.member.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.member.dto.MemberDTO;
+import com.member.entity.Member;
+import com.member.repository.MemberRepository;
 
 @Service
+@Transactional
 public class MemberService implements UserDetailsService {
 
     @Autowired
@@ -18,9 +22,12 @@ public class MemberService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void saveMember(Member member) {
+    public void saveMember(MemberDTO memberDTO) {
         // 비밀번호 암호화
-        member.setMpw(passwordEncoder.encode(member.getMpw()));
+        if (memberDTO.getMadmin() == null || memberDTO.getMadmin().isEmpty()) {
+            memberDTO.setMadmin("N");
+        }
+        Member member = memberDTO.toEntity(passwordEncoder);
         memberRepository.save(member);
     }
 
@@ -43,5 +50,23 @@ public class MemberService implements UserDetailsService {
             return member; // 비밀번호가 일치하면 사용자 반환
         }
         return null; // 일치하지 않으면 null 반환
+    }
+
+    public MemberDTO updateMember(Long mnum, MemberDTO memberDTO) {
+        Member existingMember = memberRepository.findById(mnum).orElse(null);
+        if (existingMember == null) {
+            throw new UsernameNotFoundException("Member not found");
+        }
+
+        Member updatedMember = memberDTO.toEntity(passwordEncoder).toBuilder()
+                .mnum(existingMember.getMnum())
+                .insertdate(existingMember.getInsertdate())
+                .build();
+        memberRepository.save(updatedMember);
+        return MemberDTO.fromEntity(updatedMember); 
+    }
+
+    public void deleteMember(Long mnum) {
+        memberRepository.deleteById(mnum);
     }
 }
