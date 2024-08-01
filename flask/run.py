@@ -1,9 +1,14 @@
 import pandas as pd
 from flask import Flask, request, url_for, jsonify, render_template
 from flask_project.routes import main_bp
+from pyngrok import conf, ngrok
 
 app = Flask(__name__, template_folder='flask_project/templates/', static_folder='flask_project/static')
 app.register_blueprint(main_bp)
+
+conf.get_default().auth_token = "2jxbjtHJxUYjGJuHlk8r4zQXce1_6sLAdhq7W1HVtTEkWcKGr" # 추가된 부분
+http_tunnel = ngrok.connect(5000)
+tunnels = ngrok.get_tunnels()
 
 # csv 읽어오기
 df = pd.read_csv('./flask_project/static/data/food_menus.csv', encoding='utf-8')
