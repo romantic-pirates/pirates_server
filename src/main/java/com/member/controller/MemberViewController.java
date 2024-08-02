@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.member.dto.MemberDTO;
 import com.member.entity.Member;
@@ -36,40 +35,22 @@ public class MemberViewController {
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
-    }
-
-    @PostMapping("/login")
-    public String loginMember(@RequestParam("username") String username, 
-                              @RequestParam("password") String password, 
-                              HttpSession session, 
-                              Model model) {
-        Member member = memberService.findByUsernameAndPassword(username, password);
-        if (member != null) {
-            session.setAttribute("loggedInUser", member);
-            return "redirect:/home"; 
-        } else {
-            model.addAttribute("loginError", "Invalid username or password.");
-            return "login";
-        }
-    }
+    }   
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/members/login";
+        return "redirect:/";
     }
 
-    @Controller
-    public class HomeController {
-
-        @GetMapping("/")
-        public String index() {
-            return "home"; 
-        }
-
-        @GetMapping("/home")
-        public String home() {
-            return "home"; 
-        }
+    @GetMapping("/mypage")
+    public String showMyPage() {
+        return "mypage";
     }
+
+    @GetMapping("/edit")
+    public String editPage(){
+        return "edit";
+    }
+
 }

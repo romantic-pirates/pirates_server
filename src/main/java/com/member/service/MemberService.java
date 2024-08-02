@@ -1,6 +1,7 @@
 package com.member.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,6 +13,9 @@ import com.member.dto.MemberDTO;
 import com.member.entity.Member;
 import com.member.repository.MemberRepository;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class MemberService implements UserDetailsService {
@@ -33,15 +37,18 @@ public class MemberService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findByMid(username); // mid로 사용자 조회
+        Member member = memberRepository.findByMid(username);
         if (member == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(member.getMid())
-                .password(member.getMpw())
-                .roles("USER") // 필요한 권한 설정
-                .build();
+        return User.withUsername(member.getMid())
+                   .password(member.getMpw())
+                   .roles("USER")
+                   .build();
+    }
+
+    public Member findByUsername(String username) {
+        return memberRepository.findByMid(username);
     }
 
     public Member findByUsernameAndPassword(String username, String password) {

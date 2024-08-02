@@ -19,6 +19,14 @@
   <link rel="stylesheet" th:href="@{/css/template.css}">
   <link rel="stylesheet" th:href="@{/css/common.css}">
   <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+  <script>
+    function editProfile() {
+      location.href = '/members/mypage';
+    }
+  </script>
 </head>
 
 <body>
@@ -61,12 +69,20 @@
           </ul>
         </div>
         <div class="header-right">
-            <a class="header-gnblink" href="/login">
-              <span>로그인/회원가입</span>
-            </a>
-          </div>         
+          <a class="header-gnblink" id="login-link" href="/members/login" style="display: none;">
+            <span id="login_user_greeting">로그인/회원가입</span>
+          </a>
+          <a class="header-gnblink" id="logout-link" href="javascript:void(0)" onclick="toggleProfilePanel()" style="display: none;">
+            <span id="logout_user_greeting">환영합니다, 사용자님</span>
+          </a>
+        </div>   
         </div>
       </div>
+    </div>
+    <!-- 프로필 패널 -->
+    <div id="profile-panel"  class="profile-panel">
+      <button class="edit-btn" onclick="editProfile()">내정보 조회</button>
+      <button class="logout-btn" id="logout-button">로그아웃</button>
     </div>
     <div class="header-dim"></div>
   </header>
@@ -315,5 +331,6 @@
   <script th:src="@{/js/template.js}"></script>
   <script th:src="@{/js/common.js}"></script>
   <script th:src="@{/js/script.js}"></script>
+  <script th:src="@{/js/login.js}"></script>
 </body>
 </html>
