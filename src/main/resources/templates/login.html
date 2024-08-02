@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 </head>
 <body>
     <h2>로그인</h2>
-    <form action="#" th:action="@{/members/login}" method="post">
+    <form id="login_form" action="/members/login" method="post">
         <label for="username">아이디 (이메일):</label>
         <input type="text" id="username" name="username" required />
         <br/>
         <label for="password">비밀번호:</label>
         <input type="password" id="password" name="password" required />
         <br/>
-        <button type="submit">로그인</button>       
+        <button type="submit">로그인</button>
+        <p id="login_error" style="color: red; display: none;">아이디 또는 비밀번호가 잘못되었습니다.</p>
     </form>
     <button type="button" onclick="location.href='/members/register'">회원가입</button>
+    <script src="/js/login.js"></script> 
 </body>
 </html>
