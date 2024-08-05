@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀번호 변경</title>
+    <link rel="stylesheet" th:href="@{/css/setting.css}">
+    <link rel="stylesheet" th:href="@{/css/plugin.css}">
+    <link rel="stylesheet" th:href="@{/css/template.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+</head>
+<body>
+    <header class="basic-N1">
+        <!-- header content here -->
+    </header>
+    <main class="th-layout-main">
+        <div class="container-md">
+            <h2>비밀번호 변경</h2>
+            <div class="change-password-form">
+                <form id="change-password-form">
+                    <div class="input-group">
+                        <label for="current-password">현재 비밀번호</label>
+                        <input type="password" id="current-password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="new-password">새 비밀번호</label>
+                        <input type="password" id="new-password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirm-password">새 비밀번호 확인</label>
+                        <input type="password" id="confirm-password" required>
+                    </div>
+                    <button type="button" onclick="validateAndSubmit()">비밀번호 변경</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer class="basic-N4">
+        <!-- footer content here -->
+    </footer>
+    <script>
+        function validateAndSubmit() {
+            const currentPassword = $('#current-password').val();
+            const newPassword = $('#new-password').val();
+            const confirmPassword = $('#confirm-password').val();
+
+            if (newPassword !== confirmPassword) {
+                Swal.fire({
+                    title: '비밀번호 불일치',
+                    text: '새 비밀번호가 일치하지 않습니다.',
+                    icon: 'error'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: '비밀번호 변경',
+                text: '정말로 비밀번호를 변경하시겠습니까?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '예',
+                cancelButtonText: '아니오'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    changePassword(currentPassword, newPassword);
+                }
+            });
+        }
+
+        function changePassword(currentPassword, newPassword) {
+            const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+            const username = loggedInUser ? loggedInUser.mid : null;
+
+            if (!username) {
+                Swal.fire({
+                    title: '오류',
+                    text: '로그인 정보가 없습니다.',
+                    icon: 'error'
+                });
+                return;
+            }
+
+            $.ajax({
+                url: `/api/members/change_password`,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ username: username, currentPassword: currentPassword, newPassword: newPassword }),
+                success: function(response) {
+                    Swal.fire({
+                        title: '성공',
+                        text: '비밀번호가 변경되었습니다.',
+                        icon: 'success'
+                    }).then(() => {
+                        location.href = '/members/mypage';
+                    });
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        title: '오류',
+                        text: xhr.responseText,
+                        icon: 'error'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

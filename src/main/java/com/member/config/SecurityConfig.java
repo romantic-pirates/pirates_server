@@ -48,7 +48,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/css/**","/js/**").permitAll()  // static 리소스 접근 허용
-                .requestMatchers("/members/register", "/members/login","/members/mypage").permitAll()
+                .requestMatchers("/members/register", "/members/login","/members/mypage","/members/edit","/members/find", "/api/find/password").permitAll()
                 .requestMatchers("/home").authenticated()
                 .requestMatchers("/", "/home", "/members/register", "/members/login", "/css/**", "/js/**", "/images/**", "/icons/**", "/static/**", "/medias/**","/api/members/**").permitAll()
                 .anyRequest().authenticated()

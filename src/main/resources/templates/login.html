@@ -32,8 +32,8 @@
         <div class="header-inner">
           <div class="header-container container-lg">
             <h1 class="header-title">
-              <a href="javascript:void(0)">
-                <img src="/icons/ico_user_black.svg" alt="">
+              <a href="/">
+                <img src="/images/Logo.png" alt="">
               </a>
             </h1>
             <div class="header-center">
@@ -75,7 +75,7 @@
         <h2>LOGIN</h2>
         <form id="login_form" action="/members/login" method="post">
             <label for="username">아이디 (이메일)</label>
-            <input type="text" id="username" name="username" required />
+            <input type="text" id="username" name="username"/>
             
             <!-- 아이디 저장 체크박스 -->
             <div class="remember-me">
@@ -84,17 +84,14 @@
             </div>
           
             <label for="password">비밀번호</label>
-            <input type="password" id="password" name="password" required />
-            
-            <!-- 비밀번호 찾기 버튼 -->
-            <div class="find-password">
-                <button type="checkbox" id="findPw" name="findPw">비밀번호 찾기</button>
-            </div>
-            
+            <input type="password" id="password" name="password" />            
             <button type="submit">로그인</button>
             <p id="login_error" style="color: red; display: none;">아이디 또는 비밀번호가 잘못되었습니다.</p>
         </form>
-      
+       <!-- 비밀번호 찾기 버튼 -->
+       <div class="find-password">
+        <button type="checkbox" id="findPw" name="findPw" onclick="location.href='/members/find'">비밀번호 찾기</button>
+       </div>
         <!-- 회원가입 버튼 -->
         <button type="button" class="find-register-button" onclick="location.href='/members/register'">회원가입</button>
 
@@ -182,6 +179,7 @@
       <script src="/js/common.js"></script>
       <script src="/js/script.js"></script>
       <script src="/js/login.js"></script>
+      
 
 </body>
 </html>
