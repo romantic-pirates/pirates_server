@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이페이지</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/css/setting.css}">
     <link rel="stylesheet" th:href="@{/css/plugin.css}">
     <link rel="stylesheet" th:href="@{/css/template.css}">
@@ -14,6 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <script src="/js/login.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
     <header class="basic-N1" data-bid="kNlY6uYvo7" id="">
@@ -21,7 +23,7 @@
             <div class="header-container container-lg">
                 <h1 class="header-title">
                     <a href="/">
-                        <img th:src="@{/icons/ico_user_black.svg}" alt="로고">
+                        <img th:src="@{/images/Logo.png}" alt="로고">
                     </a>
                 </h1>
                 <div class="header-center">
@@ -61,6 +63,52 @@
                 <p><strong>상세 주소:</strong> <span id="mroaddetail">상세 주소</span></p>
                 <p><strong>지번 주소:</strong> <span id="mjibun">지번 주소</span></p>
                 <button onclick="editProfile()">비밀번호 변경</button>
+                <div class="button-container">
+                    <button type="button" class="btn btn-deleteAsk btn-danger" id="deleteButton">회원 탈퇴</button>
+                </div>
+
+                <!-- 회원 탈퇴 모달 -->
+                <div id="deleteConfirmationModal" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">회원 탈퇴</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>정말 회원 탈퇴를 하시겠습니까?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="confirmDeleteButton">예</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">아니오</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 비밀번호 입력 모달 -->
+                <div id="passwordInputModal" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">비밀번호 확인</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>비밀번호를 입력해 주세요:</p>
+                                <input type="password" id="passwordInput" class="form-control">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="confirmPasswordButton">확인</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -169,6 +217,51 @@
                     location.href = '/members/login';
                 });
             }
+
+            // 회원 탈퇴 버튼 클릭 이벤트
+            $('#deleteButton').click(function() {
+                $('#deleteConfirmationModal').modal('show');
+            });
+
+            // 탈퇴 확인 버튼 클릭 이벤트
+            $('#confirmDeleteButton').click(function() {
+                $('#deleteConfirmationModal').modal('hide');
+                $('#passwordInputModal').modal('show');
+            });
+
+            // 비밀번호 확인 버튼 클릭 이벤트
+            $('#confirmPasswordButton').click(function() {
+                const password = $('#passwordInput').val();
+                if (loggedInUser) {
+                    $.ajax({
+                        url: `/api/members/delete`,
+                        type: 'POST',
+                        data: JSON.stringify({
+                            username: loggedInUser.mid,
+                            password: password
+                        }),
+                        contentType: 'application/json',
+                        success: function() {
+                            Swal.fire({
+                                title: '탈퇴 완료',
+                                text: '탈퇴가 완료되었습니다. 홈 화면으로 이동합니다',
+                                icon: 'success'
+                            }).then(() => {
+                                sessionStorage.removeItem('loggedInUser');
+                                sessionStorage.removeItem('mnick');
+                                location.href = '/';
+                            });
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                title: '탈퇴 실패',
+                                text: xhr.responseText,
+                                icon: 'error'
+                            });
+                        }
+                    });
+                }
+            });
         });
 
         function editProfile() {
