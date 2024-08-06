@@ -217,3 +217,85 @@
  .basic-N4 .footer-menulist { justify-content: flex-start; overflow-x: auto; }
  .basic-N4 .footer-menuitem { flex-shrink: 0; }
 }
+
+
+.profile-panel {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    width: 300px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1000;
+    font-family: var(--font-family); /* 기존 폰트 스타일과 일치 */
+    font-size: var(--fs-p3); /* 기존 폰트 크기와 일치 */
+ }
+ 
+ .profile-panel h2 {
+    text-align: center;
+    margin: 10px 0;
+ }
+ 
+ .profile-panel .info {
+    margin: 10px 0;
+ }
+ 
+ .profile-panel .info strong {
+    display: block;
+    color: #333;
+    margin-bottom: 5px;
+ }
+ 
+ .profile-panel .info span, .profile-panel .info input {
+    display: block;
+    width: calc(100% - 20px);
+    color: #555;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+ }
+ 
+ .profile-panel .button-container {
+    display: flex;
+    justify-content: space-between;
+ }
+ 
+ .profile-panel .edit-btn, .profile-panel .save-btn, .profile-panel .logout-btn
+    {
+    flex: 1;
+    margin: 5px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+ }
+ 
+ .profile-panel .edit-btn:hover, .profile-panel .save-btn:hover,
+    .profile-panel .logout-btn:hover {
+    background-color: #45a049;
+ }
+ 
+ .profile-panel .save-btn {
+    display: none;
+ }
+ 
+ .profile-panel .close {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Make sure this is set correctly */
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #ff0000;
+ }
+ 
+ .profile-panel .close:hover {
+    color: #000;
+ }
