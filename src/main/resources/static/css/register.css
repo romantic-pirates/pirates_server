@@ -1,129 +1,219 @@
-:root {
-    --primary-color: #4EA685;
-    --secondary-color: #57B894;
-    --black: #000000;
-    --white: #ffffff;
-    --gray: #efefef;
-    --gray-2: #757575;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
-
-* {
-    font-family: 'Poppins', sans-serif;
+/* 기본 스타일링 */
+body {
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(-45deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-}
-
-h2 {
-    font-size: 2.5rem; /* 제목 폰트 크기 */
-    color: var(--white);
-    margin: 0; /* 상단과 하단 여백 제거 */
-    text-align: center;
-    font-weight: 700; /* 제목 두껍게 */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 텍스트 그림자 */
-}
-
-p {
-    font-size: 1.2rem; /* 문구 폰트 크기 */
-    color: var(--white);
-    text-align: center;
-    max-width: 400px; /* 문구 폭 제한 */
-    margin: 0 auto 1.5rem; /* 상단 여백 0, 하단 여백 1.5rem */
-    font-weight: 400; /* 문구 기본 두께 */
-    line-height: 1.5; /* 줄 간격 조정 */
 }
 
 form {
-    width: 100%;
-    max-width: 800px; /* 폼의 최대 너비 */
-    padding: 2rem;
-    background-color: var(--white);
-    border-radius: 0.5rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
-    margin-top: 1rem;
-    box-sizing: border-box;
-    transform: translateX(280px);
+    max-width: 800px; /* 폼 너비를 넓힘 */
+    margin: 2rem auto; /* 상하 마진을 줄임 */
+    padding: 2rem; /* 폼 내부 패딩 조정 */
+    background-color: #fff; /* 배경색을 흰색으로 변경 */
+    border-radius: 8px; /* 테두리 반경 추가 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
 .input-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem; /* 그룹 간격 조정 */
 }
 
 .input-wrap {
-    flex: 1 1 calc(50% - 1rem);
-    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem; /* 입력창 간격 조정 */
+    padding: 0.5rem 0; /* 입력창 위아래 여백 추가 */
 }
 
 .input-wrap label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--black); /* 레이블 색상 */
+    flex: 0 0 200px; /* 레이블 너비 조정 */
+    font-size: 1.5rem; /* 글씨 크기 증가 */
+    font-weight: bold;
+    margin-right: 1.5rem; /* 레이블과 입력창 간격 조정 */
+    color: #333;
 }
 
-.input-wrap input {
-    width: 100%;
-    padding: 0.8rem;
+.input-wrap input[type="text"],
+.input-wrap input[type="email"],
+.input-wrap input[type="password"],
+.input-wrap input[type="date"] {
+    flex: 1; /* 입력창이 가능한 한 많은 공간을 차지하도록 설정 */
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.2rem; /* 글씨 크기 증가 */
+    box-sizing: border-box; /* padding과 border를 너비에 포함 */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    min-width: 300px; /* 최소 너비 설정 */
+}
+
+input[type="date"] {
+    font-size: 2rem; /* 날짜 입력 글씨 크기 증가 */
+    padding: 1rem; /* 패딩 조정 */
+}
+
+/* 이메일 입력창 스타일 */
+.email-container {
+    display: flex;
+    align-items: center;
+}
+
+.email-container input[type="email"] {
+    flex: 2; /* 이메일 입력창의 너비를 늘림 */
+    margin-right: 1rem; /* 이메일 입력창과 버튼 간격 조정 */
+    padding: 1rem; /* 패딩 추가 */
+    border: 1px solid #ccc; /* 테두리 색상 조정 */
+    border-radius: 4px; /* 테두리 반경 추가 */
+    font-size: 1.2rem; /* 폰트 사이즈 조정 */
+}
+
+.email-container input[type="email"]::placeholder {
+    color: #999; /* placeholder 텍스트 색상 연하게 설정 */
+    font-size: 1.2rem; /* placeholder 텍스트 크기 */
+}
+
+.email-container input[type="button"] {
+    padding: 0.8rem 1.2rem;
     font-size: 1rem;
-    border-radius: 0.25rem;
-    border: 1px solid var(--gray);
+    font-weight: bold;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.email-container input[type="button"]:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pwck{
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pwck:hover{
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* 우편번호 입력창 스타일 */
+.postcode-container {
+    display: flex;
+    align-items: center;
+}
+
+.postcode-container input[type="text"]#sample4_postcode {
+    flex: 0 0 100px; /* 우편번호 입력창의 너비를 줄임 */
+    max-width: 100px; /* 최대 너비를 100px로 설정 */
+    min-width: 60px; /* 최소 너비를 60px로 설정 */
+    margin-right: 1rem; /* 우편번호 입력창과 버튼 간격 조정 */
+    padding: 0.8rem; /* 패딩 조정 */
+    border: 1px solid #ccc; /* 테두리 색상 조정 */
+    border-radius: 4px; /* 테두리 반경 추가 */
+    font-size: 1.2rem; /* 폰트 사이즈 조정 */
+}
+
+.postcode-container input[type="text"]#sample4_postcode::placeholder {
+    color: #999; /* placeholder 텍스트 색상 연하게 설정 */
+    font-size: 1.2rem; /* placeholder 텍스트 크기 */
+}
+
+.postcode-container input[type="button"] {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.postcode-container input[type="button"]:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus {
+    border-color: #007bff;
     outline: none;
-    transition: border-color 0.3s, transform 0.3s;
 }
 
-.input-wrap input:focus {
-    border-color: var(--primary-color);
-    transform: scale(1.02);
-}
-
-input[type="button"] {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: var(--primary-color);
-    color: var(--white);
+button[type="submit"] {
+    display: block;
+    margin: 2rem auto 0; /* 버튼을 아래쪽으로 배치 */
+    padding: 0.8rem 1.8rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
     border: none;
-    border-radius: 0.25rem;
-    font-size: 1rem;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-input[type="button"]:hover {
-    background-color: var(--secondary-color);
+button[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
-button {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: var(--primary-color);
-    color: var(--white);
-    border: none;
-    border-radius: 0.25rem;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 1rem;
-}
-
-button:hover {
-    background-color: var(--secondary-color);
-}
-
-@media only screen and (max-width: 768px) {
+@media (max-width: 600px) {
     .input-wrap {
-        flex: 1 1 100%;
+        margin-bottom: 1rem; /* 작은 화면에서 간격 조정 */
+    }
+
+    .email-container input[type="email"],
+    .email-container input[type="button"],
+    .postcode-container input[type="text"],
+    .postcode-container input[type="button"] {
+        width: 100%;
+        margin-right: 0; /* 작은 화면에서 입력창과 버튼이 줄어들지 않도록 조정 */
     }
 }
+
+/* select 요소 스타일링 */
+input[type="radio"] + span {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+input[type="radio"]:checked + span {
+    background-color: #0056b3;
+}
+
+select {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+}
+
+ 
