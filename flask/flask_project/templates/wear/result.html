@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>결과</h1>
+    <div id="crawl-results">
+        {% if data %}
+            {% for item in data %}
+                <div class="product" data-product-name="{{ item.product_name }}">
+                    <h2>{{ item.brand }}</h2>
+                    <p>{{ item.product_name }}</p>
+                    <p>가격: {{ item.price }}</p>
+                    <img src="{{ item.image_url }}" alt="{{ item.product_name }}"><br>
+                    <a href="{{ item.buy_url }}" target="_blank">구매하러가기</a> <!-- 제품 구매 링크 -->
+                    <button class="like-btn">좋아요</button>
+                    <span class="likes-count">좋아요 수: {{ item.likes if item.likes else 0 }}</span>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>데이터를 찾을 수 없습니다.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.like-btn').on('click', function() {
+                var $product = $(this).closest('.product');
+                var productName = $product.data('product-name');
+                var brand = $product.find('h2').text();
+                var price = $product.find('p').eq(1).text().replace('가격: ', '');
+                var imageUrl = $product.find('img').attr('src');
+                var buyUrl = $product.find('a').attr('href');
+                
+                $.ajax({
+                    url: '/like',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        brand: brand,
+                        product_name: productName,
+                        price: price,
+                        image_url: imageUrl,
+                        buy_url: buyUrl
+                    }),
+                    success: function(response) {
+                        if (response.success) {
+                            var $likesCount = $product.find('.likes-count');
+                            var currentCount = parseInt($likesCount.text().split(': ')[1]);
+                            $likesCount.text('좋아요 수: ' + (currentCount + 1));
+                        } else {
+                            alert('좋아요를 업데이트하는데 실패했습니다.');
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Error:', textStatus, errorThrown);
+                        alert('서버와의 통신에 실패했습니다.');
+                    }
+                });
+            });
+        });
+        
+    </script>
+</body>
+</html>
