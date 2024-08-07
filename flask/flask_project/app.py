@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from flask import Flask, request, jsonify, send_from_directory, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_cors import CORS
 import logging
 from bson import ObjectId
@@ -7,10 +7,7 @@ from datetime import datetime
 import random
 import requests
 
-
-
-
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')  # 템플릿 폴더 명시적으로 설정
 CORS(app)
 
 client = MongoClient('mongodb://192.168.0.66:27017/')
@@ -28,7 +25,7 @@ collections = {
     }
 }
 
-TMDB_API_KEY = 'a16b7ecdeb28463bc207c810433078d8'  # TMDb API Key를 여기에 추가하세요
+TMDB_API_KEY = 'a16b7ecdeb28463bc207c810433078d8'
 
 def fetch_trailers_for_movies(movie_ids):
     """Fetch trailers for a list of movie IDs."""
@@ -160,10 +157,10 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
             result['trailers'] = []  
 
     return [serialize_document(result) for result in final_results]
-    print(f"MongoDB Query: {query}")
 
-
-
+@app.route('/test')
+def test():
+    return render_template('watch/test.html')
 
 @app.route('/watch')
 def index():
@@ -224,6 +221,5 @@ def recommend():
 
     return jsonify(final_results)
 
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=True)

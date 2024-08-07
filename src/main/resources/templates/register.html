@@ -2,71 +2,353 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="imagetoolbar" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="title" content="웹사이트">
+    <meta name="description" content="웹사이트입니다.">
+    <meta name="keywords" content="키워드,키워드,키워드">
+    <meta property="og:title" content="웹사이트">
+    <meta property="og:description" content="웹사이트입니다">
+    <meta property="og:image" content="https://웹사이트/images/opengraph.png">
+    <meta property="og:url" content="https://웹사이트">
     <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/setting.css}">
+    <link rel="stylesheet" th:href="@{/css/plugin.css}">
+    <link rel="stylesheet" th:href="@{/css/template.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/DaumPost/postcode.js"></script>
     <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 <body>   
-    <form action="#" th:action="@{/members/register}" th:object="${member}" method="post">
+
+    <header class="basic-N1" data-bid="kNlY6uYvo7" id="">
+        <div class="header-inner">
+          <div class="header-container container-lg">
+            <h1 class="header-title">
+              <a href="/">
+                <img th:src="@{/images/Logo.png}" alt="">
+              </a>
+            </h1>
+            <div class="header-center">
+              <div class="header-title header-mobile-top">
+                <a href="javascript:void(0)">
+                  <img th:src="@{/icons/ico_logo_black.svg}" alt="로고">
+                </a>
+              </div>
+              <ul class="header-gnblist">
+                <li class="header-gnbitem">
+                  <a class="header-gnblink" href="http://127.0.0.1:5000/eat">
+                    <span>뭐먹지</span>
+                  </a>
+                </li>
+                <li class="header-gnbitem">
+                  <a class="header-gnblink" href="javascript:void(0)">
+                    <span>뭐입지</span>
+                  </a>
+                </li>
+                <li class="header-gnbitem">
+                  <a class="header-gnblink" href="http://127.0.0.1:5000/watch">
+                    <span>뭐볼까</span>
+                  </a>
+                </li>
+                <li class="header-gnbitem item-active">
+                  <a class="header-gnblink" href="javascript:void(0)">
+                    <span>고객센터</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="header-right">
+                <a class="header-gnblink" href="/members/login">
+                  <span>로그인/회원가입</span>
+                </a>
+              </div>         
+            </div>
+          </div>
+        </div>
+        <div class="header-dim"></div>
+      </header>
+
+      <form id="register-form" th:action="@{/members/register}" th:object="${member}" method="post">
         <div class="input-group">
             <div class="input-wrap">
-                <label for="mname">회원 이름:</label>
-                <input type="text" id="mname" th:field="*{mname}" required />               
-            </div>
-            <div class="input-wrap">
-                <label for="mnick">별명:</label>
-                <input type="text" id="mnick" th:field="*{mnick}" required />
+                <label for="mname">회원 이름</label>
+                <input type="text" id="mname" th:field="*{mname}" placeholder="회원 이름을 입력해주세요." required />               
             </div>
         </div>
         <div class="input-group">
             <div class="input-wrap">
-                <label for="mid">회원 아이디 (이메일):</label>
-                <input type="email" id="mid" th:field="*{mid}" required />
-            </div>
-            <div class="input-wrap">
-                <label for="mpw">비밀번호:</label>
-                <input type="password" id="mpw" th:field="*{mpw}" required />
+                <label for="mnick">별명</label>
+                <input type="text" id="mnick" th:field="*{mnick}" placeholder="별명을 입력해주세요." required />
             </div>
         </div>
         <div class="input-group">
             <div class="input-wrap">
-                <label for="mbirth">생년월일:</label>
+                <label for="mid">회원 아이디 (이메일)</label>
+                <div class="email-container">
+                    <input type="email" id="mid" th:field="*{mid}" placeholder="이메일을 입력해주세요." required />
+                    <input type="button" value="아이디 중복 확인" id="check-username-btn" />
+                </div>               
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-wrap">
+                <label for="mpw">비밀번호</label>
+                <input type="password" id="mpw" th:field="*{mpw}" placeholder="비밀번호를 입력해주세요." required />
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-wrap">
+                <label for="mpw-confirm">비밀번호 확인</label>
+                <input type="password" id="mpw-confirm" placeholder="비밀번호를 다시 입력해주세요." required />
+                <input type="button" class="pwck" value="비밀번호 확인" id="check-password-btn" />
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-wrap">
+                <label for="mbirth">생년월일</label>
                 <input type="date" id="mbirth" th:field="*{mbirth}" required />
             </div>
-            <div class="input-wrap">
-                <label for="mhp">휴대폰 번호:</label>
-                <input type="text" id="mhp" th:field="*{mhp}" required />
-            </div>
         </div>
         <div class="input-group">
             <div class="input-wrap">
-                <label for="mgender">성별:</label>
-                <input type="text" id="mgender" th:field="*{mgender}" required />
+                <label for="mhp">휴대폰 번호</label>
+                <input type="text" id="mhp" th:field="*{mhp}" placeholder="휴대폰 번호를 입력해주세요." required />
             </div>
+        </div>
+
+        <div class="input-group">
             <div class="input-wrap">
-                <label for="mzonecode">우편번호:</label>
+                <label for="mgender">성별</label>
+                <select id="mgender" th:field="*{mgender}" required>
+                   
+                    <option value="M">남성</option>
+                    <option value="F">여성</option>
+                    
+                </select>
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-wrap postcode-container">
+                <label for="sample4_postcode">우편번호</label>
                 <input type="text" id="sample4_postcode" th:field="*{mzonecode}" required />
-                <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+                <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" />
             </div>
         </div>
         <div class="input-group">
             <div class="input-wrap">
-                <label for="mroad">도로명 주소:</label>
+                <label for="mroad">도로명 주소</label>
                 <input type="text" id="sample4_roadAddress" th:field="*{mroad}" />
             </div>
-            <div class="input-wrap">
-                <label for="mroaddetail">상세 주소:</label>
-                <input type="text" id="sample4_extraAddress" th:field="*{mroaddetail}" />
-            </div>
         </div>
         <div class="input-group">
             <div class="input-wrap">
-                <label for="mjibun">지번 주소:</label>
+                <label for="mjibun">지번 주소</label>
                 <input type="text" id="sample4_jibunAddress" th:field="*{mjibun}" />
             </div>
         </div>
-        <button type="submit">회원가입</button>
+        <div class="input-group">
+          <div class="input-wrap">
+              <label for="mroaddetail">상세 주소</label>
+              <input type="text" id="sample4_extraAddress" th:field="*{mroaddetail}" />
+          </div>
+      </div>
+        <button type="submit" id="register-btn">회원가입</button>
     </form>
+    
+    <footer class="basic-N4" data-bid="vPlY6uYwl2" id="">
+        <div class="footer-inner">
+          <div class="footer-container container-lg">
+            <div class="footer-top">
+              <h1 class="footer-logo">
+              </h1>
+              <ul class="footer-menulist">
+                <li class="footer-menuitem">
+                  <a href="javascript:void(0)">
+                    <span>이용약관</span>
+                  </a>
+                </li>
+                <li class="footer-menuitem">
+                  <a href="javascript:void(0)">
+                    <span>개인정보처리방침</span>
+                  </a>
+                </li>
+                <li class="footer-menuitem">
+                  <a href="javascript:void(0)">
+                    <span>KOSMO</span>
+                  </a>
+                </li>
+                <li class="footer-menuitem">
+                  <a href="javascript:void(0)">
+                    <span>HAHA</span>
+                  </a>
+                </li>
+              </ul>
+              <ul class="footer-snslist">
+                <li class="footer-snsitem">
+                  <a class="footer-snslink" href="javascript:void(0)">
+                    <img th:src="@{../static/icons/ico_instagram_lightgrey.svg}" alt="인스타그램">
+                  </a>
+                </li>
+                <li class="footer-snsitem">
+                  <a class="footer-snslink" href="javascript:void(0)">
+                    <img th:src="@{../static/icons/ico_youtube_lightgrey.svg}" alt="유튜브">
+                  </a>
+                </li>
+                <li class="footer-snsitem">
+                  <a class="footer-snslink" href="javascript:void(0)">
+                    <img th:src="@{../static/icons/ico_facebook_lightgrey.svg}" alt="페이스북">
+                  </a>
+                </li>
+                <li class="footer-snsitem">
+                  <a class="footer-snslink" href="javascript:void(0)">
+                    <img th:src="@{../static/icons/ico_kakao_lightgrey.svg}" alt="카카오톡">
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="footer-bottom">
+              <div class="footer-txt">
+                <p> 서울시 금천구 가산동 한라원엔원 307호 </p>
+                <p>
+                  <span>T. 070-8872-8874</span>
+                  <span>E. help@openfield.co.kr</span>
+                </p>
+              </div>
+              <div class="footer-txt">
+                <p>2022 BY TEMPLATEHOUSE. ALL RIGHTS RESEVED</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    <script th:src="@{/js/setting.js}"></script>
+    <script th:src="@{/js/plugin.js}"></script>
+    <script th:src="@{/js/template.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <script>
+        $(document).ready(function() {
+            let isUsernameChecked = false;
+            let isPasswordChecked = false;
+
+            // 이메일 형식 검증 함수
+            function validateEmail(email) {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(email);
+            }
+
+            // 비밀번호 확인 함수
+            function validatePassword() {
+                const password = $('#mpw').val();
+                const passwordConfirm = $('#mpw-confirm').val();
+                return password !== '' && passwordConfirm !== '' && password === passwordConfirm;
+            }
+
+            $('#check-username-btn').on('click', function() {
+                const username = $('#mid').val();
+                if (!username) {
+                    alert('아이디를 입력해주세요.');
+                    return;
+                }
+                if (!validateEmail(username)) {
+                    alert('올바른 이메일 형식을 입력해주세요.');
+                    return;
+                }
+                $.ajax({
+                    url: `/api/members/check_username?username=${username}`,
+                    type: 'GET',
+                    success: function(data) {
+                        if (data) {
+                            alert('아이디가 이미 사용 중입니다.');
+                            isUsernameChecked = false;
+                        } else {
+                            alert('사용 가능한 아이디입니다.');
+                            isUsernameChecked = true;
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('아이디 중복 확인 중 오류가 발생했습니다.');
+                        isUsernameChecked = false;
+                    }
+                });
+            });
+
+            $('#check-password-btn').on('click', function() {
+                if ($('#mpw').val() === '' || $('#mpw-confirm').val() === '') {
+                    Swal.fire({
+                        title: '비밀번호를 입력해주세요.',
+                        icon: 'warning',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
+                    isPasswordChecked = false;
+                } else if (validatePassword()) {
+                    Swal.fire({
+                        title: '비밀번호가 일치합니다.',
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
+                    isPasswordChecked = true;
+                } else {
+                    Swal.fire({
+                        title: '비밀번호가 일치하지 않습니다.',
+                        icon: 'error',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
+                    isPasswordChecked = false;
+                }
+            });
+
+            $('#register-form').on('submit', function(event) {
+                if (!isUsernameChecked) {
+                    Swal.fire({
+                        title: '아이디 중복 확인을 해주세요.',
+                        icon: 'warning',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
+                    event.preventDefault();
+                } else if (!isPasswordChecked) {
+                    Swal.fire({
+                        title: '비밀번호 확인을 해주세요.',
+                        icon: 'warning',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
+                    event.preventDefault();
+                } else {
+                    event.preventDefault();
+                    Swal.fire({
+                        title: '회원 가입에 성공했습니다!',
+                        text: '로그인 창으로 이동합니다.',
+                        icon: 'success',
+                        showConfirmButton: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#register-form').off('submit').submit();
+                        }
+                    });
+                }
+            });
+
+            $('#mid').on('input', function() {
+                isUsernameChecked = false;
+            });
+
+            $('#mpw, #mpw-confirm').on('input', function() {
+                isPasswordChecked = false;
+            });
+        });
+    </script>
 </body>
 </html>

@@ -2,25 +2,30 @@
 <html>
 <head>
     <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="imagetoolbar" content="no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="title" content="웹사이트">
+  <meta name="description" content="웹사이트입니다.">
+  <meta name="keywords" content="키워드,키워드,키워드">
+  <meta property="og:title" content="웹사이트">
+  <meta property="og:description" content="웹사이트입니다">
+  <meta property="og:image" content="https://웹사이트/images/opengraph.png">
+  <meta property="og:url" content="https://웹사이트">
+
     <title>Login</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/setting.css">
+    <link rel="stylesheet" href="/css/plugin.css">
+    <link rel="stylesheet" href="/css/template.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/style.css">
 
 </head>
 <body>
-    <h2>로그인</h2>
-    <form id="login_form" action="/members/login" method="post">
-        <label for="username">아이디 (이메일):</label>
-        <input type="text" id="username" name="username" required />
-        <br/>
-        <label for="password">비밀번호:</label>
-        <input type="password" id="password" name="password" required />
-        <br/>
-        <button type="submit">로그인</button>
-        <p id="login_error" style="color: red; display: none;">아이디 또는 비밀번호가 잘못되었습니다.</p>
-    </form>
-    <button type="button" onclick="location.href='/members/register'">회원가입</button>
-    <script src="/js/login.js"></script> 
 </body>
 </html>

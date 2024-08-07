@@ -76,4 +76,31 @@ public class MemberService implements UserDetailsService {
     public void deleteMember(Long mnum) {
         memberRepository.deleteById(mnum);
     }
+
+    public boolean usernameExists(String username) {
+        return memberRepository.findByMid(username) != null;
+    }
+    
+    public void changePassword(String username, String currentPassword, String newPassword) throws Exception {
+        Member member = memberRepository.findByMid(username);
+        if (member == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        if (!passwordEncoder.matches(currentPassword, member.getMpw())) {
+            throw new Exception("Current password is incorrect");
+        }
+
+        member.setMpw(passwordEncoder.encode(newPassword));
+        memberRepository.save(member);
+    }
+
+
+    public void updatePassword(String username, String newPassword) {
+        Member member = memberRepository.findByMid(username);
+        if (member != null) {
+            member.setMpw(passwordEncoder.encode(newPassword));
+            memberRepository.save(member);
+        }
+    }
 }

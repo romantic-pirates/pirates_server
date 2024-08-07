@@ -1,7 +1,6 @@
 package com.member.entity;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -68,5 +67,6 @@ public class Member {
 
     @Column(length = 1)
     private String deleteyn;
+
 
 }

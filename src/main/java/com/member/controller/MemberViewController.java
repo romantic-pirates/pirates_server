@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.member.dto.MemberDTO;
-import com.member.entity.Member;
 import com.member.service.MemberService;
 
 import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/members")
@@ -52,5 +52,11 @@ public class MemberViewController {
     public String editPage(){
         return "edit";
     }
+
+    @GetMapping("/find")
+    public String findPassword(){
+        return "findPassword";
+    }
+    
 
 }

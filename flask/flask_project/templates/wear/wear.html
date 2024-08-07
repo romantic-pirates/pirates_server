@@ -1,14 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>What to Wear</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wear Categories</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .main-category-btn, .category-btn, .subcategory-btn {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            text-align: center;
+        }
+        #category-container, #subcategory-container, #crawl-data {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>What to Wear</h1>
-    <ul>
-    {% for choice in choices %}
-        <li>{{ choice }}</li>
-    {% endfor %}
-    </ul>
+    <h1>카테고리 선택</h1>
+    <div>
+        <button class="main-category-btn" data-prefix="남성">남성</button>
+        <button class="main-category-btn" data-prefix="여성">여성</button>
+    </div>
+    <div id="category-container">
+        <!-- Categories will be loaded here -->
+    </div>
+    <div id="subcategory-container">
+        <!-- Subcategories will be loaded here -->
+    </div>
+    <div id="crawl-data">
+        <!-- Crawled data will be loaded here -->
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // 카테고리 버튼 클릭 시
+            $(document).on('click', '.main-category-btn', function() {
+                var prefix = $(this).data('prefix');
+
+                $.ajax({
+                    url: '/categories/' + encodeURIComponent(prefix),
+                    method: 'GET',
+                    success: function(data) {
+                        var $container = $('#category-container');
+                        $container.empty(); // Clear existing buttons
+                        $('#subcategory-container').empty(); // Clear subcategory container
+                        $('#crawl-data').empty(); // Clear crawl data container
+                        data.forEach(function(category) {
+                            $container.append('<button class="category-btn" data-category="' + category + '">' + category + '</button>');
+                        });
+                    }
+                });
+            });
+
+            // 서브카테고리 버튼 클릭 시
+            $(document).on('click', '.category-btn', function() {
+                var category = $(this).data('category');
+
+                $.ajax({
+                    url: '/subcategories/' + encodeURIComponent(category),
+                    method: 'GET',
+                    success: function(data) {
+                        var $container = $('#subcategory-container');
+                        $container.empty(); // Clear existing buttons
+                        $('#crawl-data').empty(); // Clear crawl data container
+                        data.forEach(function(subcategory) {
+                            $container.append('<button class="subcategory-btn" data-category="' + category + '">' + subcategory + '</button>');
+                        });
+                    }
+                });
+            });
+
+            // 서브카테고리 버튼 클릭 시 크롤링 데이터 요청 및 결과 페이지로 이동
+            $(document).on('click', '.subcategory-btn', function() {
+                var category = $(this).data('category');
+                var subcategory = $(this).text();
+
+                // 크롤링 결과 페이지로 이동
+                window.location.href = '/recommend/' + encodeURIComponent(category) + '/' + encodeURIComponent(subcategory);
+            });
+        });
+    </script>
 </body>
 </html>
