@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMDb Recommendation System</title>
+    <link rel="stylesheet" href="style_1.css">
+    <style>
+        .trailer-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 800px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            overflow: auto;
+        }
+        .trailer-popup iframe {
+            width: 100%;
+            height: 450px;
+        }
+        .trailer-popup button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="App">
+        <h1>TMDb Recommendation System</h1>
+        <div id="error" class="error"></div>
+        <div id="form-container" class="form-container"></div>
+        <div id="recommendation-container" class="recommendation-container"></div>
+    </div>
+
+    <div id="trailerPopup" class="trailer-popup">
+        <button id="closeTrailer">Close</button>
+        <iframe id="trailerVideo" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
