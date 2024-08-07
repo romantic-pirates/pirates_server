@@ -2,18 +2,18 @@
 <html>
 <head>
     <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="imagetoolbar" content="no">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="title" content="웹사이트">
-  <meta name="description" content="웹사이트입니다.">
-  <meta name="keywords" content="키워드,키워드,키워드">
-  <meta property="og:title" content="웹사이트">
-  <meta property="og:description" content="웹사이트입니다">
-  <meta property="og:image" content="https://웹사이트/images/opengraph.png">
-  <meta property="og:url" content="https://웹사이트">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="title" content="웹사이트">
+    <meta name="description" content="웹사이트입니다.">
+    <meta name="keywords" content="키워드,키워드,키워드">
+    <meta property="og:title" content="웹사이트">
+    <meta property="og:description" content="웹사이트입니다">
+    <meta property="og:image" content="https://웹사이트/images/opengraph.png">
+    <meta property="og:url" content="https://웹사이트">
+<!--    <meta name="google-signin-client_id" content=""> -->
     <title>Login</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
@@ -24,8 +24,149 @@
     <link rel="stylesheet" href="/css/template.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/style.css">
-
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
+
+    <header class="basic-N1" data-bid="kNlY6uYvo7" id="">
+        <div class="header-inner">
+            <div class="header-container container-lg">
+                <h1 class="header-title">
+                    <a href="/">
+                        <img src="/images/Logo.png" alt="">
+                    </a>
+                </h1>
+                <div class="header-center">
+                    <div class="header-title header-mobile-top">
+                        <a href="javascript:void(0)">
+                            <img src="/icons/ico_logo_black.svg" alt="로고">
+                        </a>
+                    </div>
+                    <ul class="header-gnblist">
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" href="http://127.0.0.1:5000/eat">
+                                <span>뭐먹지</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" href="javascript:void(0)">
+                                <span>뭐입지</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem">
+                            <a class="header-gnblink" href="http://127.0.0.1:5000/watch">
+                                <span>뭐볼까</span>
+                            </a>
+                        </li>
+                        <li class="header-gnbitem item-active">
+                            <a class="header-gnblink" href="javascript:void(0)">
+                                <span>고객센터</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header-dim"></div>
+    </header>
+
+    <div class="login-container">
+        <h2>LOGIN</h2>
+        <form id="login_form" action="/members/login" method="post">
+            <label for="username">아이디 (이메일)</label>
+            <input type="text" id="username" name="username"/>
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe" name="rememberMe" />
+                <label for="rememberMe">아이디 저장</label>
+            </div>
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password" />
+            <button type="submit">로그인</button>
+            <p id="login_error" style="color: red; display: none;">아이디 또는 비밀번호가 잘못되었습니다.</p>
+        </form>
+        <div class="find-password">
+            <button type="checkbox" id="findPw" onclick="location.href='/members/find'">비밀번호 찾기</button>
+        </div>
+        <button type="button" class="find-register-button" onclick="location.href='/members/register'">회원가입</button>
+        <div class="social-login">
+            <h3>간편 로그인</h3>
+            <button id="google-login-button" data-onsuccess="onSignIn" >Google로 로그인</button>
+            <button type="button" onclick="location.href='/auth/kakao'">Kakao로 로그인</button>
+            <button type="button" onclick="location.href='/auth/naver'">Naver로 로그인</button>
+        </div>
+    </div>
+    
+    <footer class="basic-N4" data-bid="vPlY6uYwl2" id="">
+        <div class="footer-inner">
+            <div class="footer-container container-lg">
+                <div class="footer-top">
+                    <h1 class="footer-logo"></h1>
+                    <ul class="footer-menulist">
+                        <li class="footer-menuitem">
+                            <a href="javascript:void(0)">
+                                <span>이용약관</span>
+                            </a>
+                        </li>
+                        <li class="footer-menuitem">
+                            <a href="javascript:void(0)">
+                                <span>개인정보처리방침</span>
+                            </a>
+                        </li>
+                        <li class="footer-menuitem">
+                            <a href="javascript:void(0)">
+                                <span>KOSMO</span>
+                            </a>
+                        </li>
+                        <li class="footer-menuitem">
+                            <a href="javascript:void(0)">
+                                <span>HAHA</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="footer-snslist">
+                        <li class="footer-snsitem">
+                            <a class="footer-snslink" href="javascript:void(0)">
+                                <img src="/icons/ico_instagram_lightgrey.svg" alt="인스타그램">
+                            </a>
+                        </li>
+                        <li class="footer-snsitem">
+                            <a class="footer-snslink" href="javascript:void(0)">
+                                <img src="/icons/ico_youtube_lightgrey.svg" alt="유튜브">
+                            </a>
+                        </li>
+                        <li class="footer-snsitem">
+                            <a class="footer-snslink" href="javascript:void(0)">
+                                <img src="/icons/ico_facebook_lightgrey.svg" alt="페이스북">
+                            </a>
+                        </li>
+                        <li class="footer-snsitem">
+                            <a class="footer-snslink" href="javascript:void(0)">
+                                <img src="/icons/ico_kakao_lightgrey.svg" alt="카카오톡">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-txt">
+                        <p> 서울시 금천구 가산동 한라원엔원 307호 </p>
+                        <p>
+                            <span>T. 070-8872-8874</span>
+                            <span>E. help@openfield.co.kr</span>
+                        </p>
+                    </div>
+                    <div class="footer-txt">
+                        <p>2022 BY TEMPLATEHOUSE. ALL RIGHTS RESEVED</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/setting.js"></script>
+    <script src="/js/plugin.js"></script>
+    <script src="/js/template.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/login.js"></script>
 </body>
 </html>
