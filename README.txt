@@ -12,7 +12,7 @@ git checkout -b feature/#이슈번호_이슈제목
 기능 브랜치에서 작업을 진행하고, 변경 사항을 커밋합니다.
 
 git add .
-git commit -m "Add feature: 작업내용"
+git commit -m "Add feature: 설명 추가"
 기능 개발이 완료될 때까지 이 단계를 반복합니다.
 
 3. 기능 브랜치 푸시
@@ -38,4 +38,3 @@ git push origin --delete feature/#이슈번호_이슈제목
 7. 최신 develop 브랜치로 체크아웃
 develop 브랜치를 최신 상태로 유지하기 위해, 다른 팀원들이 병합한 변경 사항을 가져옵니다.
 git checkout develop
-

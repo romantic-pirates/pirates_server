@@ -1,64 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>뭐 볼까</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_1.css') }}">
-    <style>
-        .trailer-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 800px;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            overflow: auto;
-        }
-        .trailer-popup iframe {
-            width: 100%;
-            height: 450px;
-        }
-        .trailer-popup button {
-            display: block;
-            margin: 10px auto;
-            padding: 10px;
-            background-color: #f44336;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
+    <title>What to Watch</title>
 </head>
 <body>
-    <div class="App">
-        <h1>뭐 볼래</h1>
-        <div id="error" class="error"></div>
-        <div id="form-container" class="form-container">
-            <!-- Form will be rendered here by JavaScript -->
-        </div>
-        <div>
-            <button id="sortRating">평점순으로</button>
-            <button id="sortRandom">랜덤으로</button>
-        </div>
-        <div id="recommendation-container" class="recommendation-container">
-            <!-- Recommendations will be rendered here by JavaScript -->
-        </div>
-    </div>
-
-    
-
-    <div id="trailerPopup" class="trailer-popup">
-        <button id="closeTrailer">Close</button>
-        <iframe id="trailerVideo" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
-    <script src="{{ url_for('static', filename='js/App.js') }}"></script>
+    <h1>What to Watch</h1>
+    <ul>
+    {% for choice in choices %}
+        <li>{{ choice }}</li>
+    {% endfor %}
+    </ul>
 </body>
 </html>

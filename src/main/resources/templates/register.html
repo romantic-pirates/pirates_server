@@ -3,69 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="/js/DaumPost/postcode.js"></script>
-    <link rel="stylesheet" href="/css/register.css">
 </head>
-<body>   
+<body>
+    <h2>회원가입</h2>
     <form action="#" th:action="@{/members/register}" th:object="${member}" method="post">
-        <div class="input-group">
-            <div class="input-wrap">
-                <label for="mname">회원 이름:</label>
-                <input type="text" id="mname" th:field="*{mname}" required />               
-            </div>
-            <div class="input-wrap">
-                <label for="mnick">별명:</label>
-                <input type="text" id="mnick" th:field="*{mnick}" required />
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="input-wrap">
-                <label for="mid">회원 아이디 (이메일):</label>
-                <input type="email" id="mid" th:field="*{mid}" required />
-            </div>
-            <div class="input-wrap">
-                <label for="mpw">비밀번호:</label>
-                <input type="password" id="mpw" th:field="*{mpw}" required />
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="input-wrap">
-                <label for="mbirth">생년월일:</label>
-                <input type="date" id="mbirth" th:field="*{mbirth}" required />
-            </div>
-            <div class="input-wrap">
-                <label for="mhp">휴대폰 번호:</label>
-                <input type="text" id="mhp" th:field="*{mhp}" required />
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="input-wrap">
-                <label for="mgender">성별:</label>
-                <input type="text" id="mgender" th:field="*{mgender}" required />
-            </div>
-            <div class="input-wrap">
-                <label for="mzonecode">우편번호:</label>
-                <input type="text" id="sample4_postcode" th:field="*{mzonecode}" required />
-                <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="input-wrap">
-                <label for="mroad">도로명 주소:</label>
-                <input type="text" id="sample4_roadAddress" th:field="*{mroad}" />
-            </div>
-            <div class="input-wrap">
-                <label for="mroaddetail">상세 주소:</label>
-                <input type="text" id="sample4_extraAddress" th:field="*{mroaddetail}" />
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="input-wrap">
-                <label for="mjibun">지번 주소:</label>
-                <input type="text" id="sample4_jibunAddress" th:field="*{mjibun}" />
-            </div>
-        </div>
+        <label for="mname">회원 이름:</label>
+        <input type="text" id="mname" th:field="*{mname}" required />
+        <br/>
+        <label for="mnick">별명:</label>
+        <input type="text" id="mnick" th:field="*{mnick}" required />
+        <br/>
+        <label for="mid">회원 아이디 (이메일):</label>
+        <input type="email" id="mid" th:field="*{mid}" required />
+        <br/>
+        <label for="mpw">비밀번호:</label>
+        <input type="password" id="mpw" th:field="*{mpw}" required />
+        <br/>
+        <label for="mbirth">생년월일:</label>
+        <input type="text" id="mbirth" th:field="*{mbirth}" required />
+        <br/>
+        <label for="mhp">휴대폰 번호:</label>
+        <input type="text" id="mhp" th:field="*{mhp}" required />
+        <br/>
+        <label for="mgender">성별:</label>
+        <input type="text" id="mgender" th:field="*{mgender}" required />
+        <br/>
+        <label for="mzonecode">우편번호:</label>
+        <input type="text" id="mzonecode" th:field="*{mzonecode}" required />
+        <br/>
+        <label for="mroad">도로명 주소:</label>
+        <input type="text" id="mroad" th:field="*{mroad}" />
+        <br/>
+        <label for="mroaddetail">자세한 주소:</label>
+        <input type="text" id="mroaddetail" th:field="*{mroaddetail}" />
+        <br/>
+        <label for="mjibun">지번 주소:</label>
+        <input type="text" id="mjibun" th:field="*{mjibun}" />
+        <br/>
         <button type="submit">회원가입</button>
     </form>
 </body>
