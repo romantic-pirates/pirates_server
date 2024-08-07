@@ -3,44 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/eat.css') }}">
     <title>메뉴 카테고리</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .button-container {
-            display: flex;
-            gap: 10px;
-        }
-        .menu-button {
-            padding: 15px 25px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .menu-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
 <body>
-    <div class="button-container">
-        <button class="menu-button" onclick="handleClick('한식')">한식</button>
-        <button class="menu-button" onclick="handleClick('중식')">중식</button>
-        <button class="menu-button" onclick="handleClick('양식')">양식</button>
-        <button class="menu-button" onclick="handleClick('일식')">일식</button>
-        <button class="menu-button" onclick="handleClick('아시안음식')">아시안음식</button>
+    {% include 'header.html' %}
+    <div class="main-container">
+        <div class="food-preference-section">
+            <h2>어느 나라 음식이 끌리시나요?</h2><br><br><br>
+        </div>
+        <div class="button-container">
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/food_images/비빔밥.jpg') }}" alt="한식 이미지" class="menu-image">
+                <button class="menu-button" onclick="handleClick('한식')">한식</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/food_images/짜장면.jpg') }}" alt="중식 이미지" class="menu-image">
+                <button class="menu-button" onclick="handleClick('중식')">중식</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/food_images/스테이크.jpg') }}" alt="양식 이미지" class="menu-image">
+                <button class="menu-button" onclick="handleClick('양식')">양식</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/food_images/초밥.jpg') }}" alt="일식 이미지" class="menu-image">
+                <button class="menu-button" onclick="handleClick('일식')">일식</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/food_images/쌀국수.jpg') }}" alt="아시안음식 이미지" class="menu-image">
+                <button class="menu-button" onclick="handleClick('아시안음식')">아시안음식</button>
+            </div>
+        </div>
     </div>
+    
 
     <script>
         function handleClick(category) {
@@ -62,5 +57,6 @@
             });
         }
     </script>
+    {% include 'footer.html' %}
 </body>
 </html>

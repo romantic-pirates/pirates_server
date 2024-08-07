@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+header {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+.main-container {
+    flex: 1;
+    width: 100%;
+    margin: 20px auto;
+    padding: 100px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* 변경: 세로 방향으로 정렬 */
+    align-items: center; /* 중앙 정렬 */
+}
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px; /* 버튼과 이미지의 동일 너비 설정 */
+}
+.menu-image {
+    width: 100%; /* 이미지의 너비를 부모 요소에 맞추기 */
+    height: 120px; /* 이미지 높이는 자동으로 조정 */
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.menu-button {
+    width: 100%; /* 버튼의 너비를 부모 요소에 맞추기 */
+    padding: 15px 0; /* 버튼의 패딩을 상하만 조정 */
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.menu-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+.food-preference-section {
+    text-align: center; /* 문구와 이미지 중앙 정렬 */
+    margin-bottom: 20px; /* 문구와 음식 사진 사이의 하단 여백 */
+}
+.food-preference-section h2 {
+    font-size: 24px; /* 제목 크기 조정 */
+}
