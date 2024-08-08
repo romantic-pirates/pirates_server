@@ -7,27 +7,34 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=564c3a19dd3a8e8bf077ecfe7447fd77&libraries=services"></script>
     <title>추천 메뉴</title>
+
 </head>
 <body>
-    {% include 'header.html' %}
-    <div class="container">
-        <div class="menu-container">
-            <h1 class="menu-title">추천 메뉴</h1>
-            <div class="menu-item" id="menu-item">{{ menu if menu else '메뉴가 없습니다.' }}</div>
-            <img class="menu-image" id="menu-image" src="{{ url }}" alt="{{ menu }}" style="max-width: 100%; height: auto;">
-            <br/>
-            <button class="menu-button" onclick="getAnotherMenu()">다른 메뉴 추천</button>
-            <br/>
-            <button class="menu-button" onclick="locateCurrentPosition()">현재 위치 확인</button>
-            <br/>
-            <button class="menu-button" onclick="findNearbyRestaurants()">음식점 추천</button>
-            <br/>
-            <ul id="restaurant-list"></ul>
+    <div class="loading">Loading&#8230;</div>
+    <div class="main-container" style="display: none;">
+        {% include 'header.html' %}
+        <div class="container">
+            <div class="menu-container">
+                    <div class="menu-info">
+                        <h1 class="menu-title">오늘의 추천 메뉴</h1>
+                        
+                        <!-- 메뉴 이미지 액자 컨테이너 -->
+                        <div class="menu-image-container">
+                            <img class="menu-image" id="menu-image" src="{{ url }}" alt="{{ menu }}">
+                        </div>
+                        <div class="menu-item" id="menu-item">{{ menu if menu else '메뉴가 없습니다.' }}</div>
+                    </div>
+                    <div class="menu-buttons">
+                        <button class="menu-button" onclick="getAnotherMenu()">다른 메뉴 추천받기</button>
+                        <button class="menu-button" id="locate-current-position-button" onclick="locateCurrentPosition()">주변 음식점을 추천 해드릴까요?</button>
+                        <button class="menu-button hidden" id="find-restaurants-button" onclick="findNearbyRestaurants()">주변 음식점 추천받기</button>
+                    </div>
+                </div>
+                <br/>
+                <div id="map"></div>
+            </div>
         </div>
-        <div id="map"></div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const category = "{{ category }}";
         let currentMenu = "{{ menu }}";
@@ -99,12 +106,23 @@
                                 // 도로명 주소가 있는 경우
                                 if (roadAddress) {
                                     // 도로명 주소에서 필요한 부분만 추출
-                                    currentAddress = roadAddress.split(' ').slice(2, 4).join(' ');
+                                    currentAddress = roadAddress.split(' ').slice(2, 3).join(' ');
                                 } else {
                                     // 지번 주소에서 필요한 부분만 추출
                                     currentAddress = landAddress.split(' ').slice(2, 3).join(' ');
                                 }
                                 console.log('현재 주소:', currentAddress);
+
+                                // 애니메이션을 사용하여 주변 음식점 추천 버튼 표시
+                                document.getElementById('find-restaurants-button').classList.remove('hidden');
+                                document.getElementById('find-restaurants-button').classList.add('fade-in');
+
+                                // 주변 음식점 추천 버튼 애니메이션을 추가하여 숨기기
+                                const locateButton = document.getElementById('locate-current-position-button');
+                                locateButton.classList.add('fade-out');
+                                setTimeout(() => {
+                                    locateButton.classList.add('hidden');
+                                }, 500); // 애니메이션 시간과 맞추기
                             } else {
                                 console.error('주소를 가져오는 데 실패했습니다:', status);
                             }
@@ -126,7 +144,6 @@
             }
             const searchQuery = `${currentAddress} ${currentMenu}`;
             console.log('검색어:', searchQuery);
-        
         
             const searchOptions = {
                 location: map.getCenter(), // 현재 지도 중심을 위치로 사용
@@ -165,8 +182,14 @@
             }
         }
         
-        window.onload = initMap;
+        // 페이지가 로드되면 로딩 애니메이션을 숨기고 메뉴를 표시합니다.
+        window.onload = function() {
+            document.querySelector('.loading').style.display = 'none'; // 로딩 애니메이션 숨기기
+            document.querySelector('.main-container').style.display = 'block'; // 콘텐츠 표시
+            initMap(); // 지도를 초기화
+        };
     </script>
+
     {% include 'footer.html' %}
 </body>
 </html>
