@@ -1,0 +1,276 @@
+[33mcommit 2016346cf0ea7777d9579112da7a9c857cf589f8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mFeature/#030/SNS_로그인[m[33m)[m
+Author: emong97 <wprms02@naver.com>
+Date:   Wed Aug 7 18:14:55 2024 +0900
+
+    holy
+
+[33mcommit e12aa74500c05dff2307159f056edb13deeb7bb0[m[33m ([m[1;31morigin/Feature/#030/SNS_로그인[m[33m)[m
+Author: emong97 <wprms02@naver.com>
+Date:   Wed Aug 7 14:35:15 2024 +0900
+
+    why
+
+[33mcommit 0ed8f36fd59adb46a0e2ec6b51ebb7e1c86c66e4[m
+Author: emong97 <wprms02@naver.com>
+Date:   Wed Aug 7 14:31:27 2024 +0900
+
+    주석
+
+[33mcommit fcedc6000aa46867ba7b649000870f7dca422f5a[m
+Author: emong97 <wprms02@naver.com>
+Date:   Wed Aug 7 14:31:14 2024 +0900
+
+    Clint_ID_PW 주석입니다
+
+[33mcommit b3e701f30cfa26b3b35a9422e74f23f68a736c4e[m[33m ([m[1;31mupstream/develop[m[33m, [m[1;32mdevelop[m[33m)[m
+Merge: 622f6f8 e360dd0
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Mon Aug 5 11:19:29 2024 +0900
+
+    Merge pull request #29 from emong97/Feature/#025/구글_API_비밀번호_찾기
+    
+    해냈다
+
+[33mcommit e360dd085285b994fde9b5abe9c0547aab23e7d0[m[33m ([m[1;32mFeature/#025/구글_API_비밀번호_찾기[m[33m)[m
+Author: emong97 <wprms02@naver.com>
+Date:   Mon Aug 5 11:07:03 2024 +0900
+
+    해냈다
+
+[33mcommit 622f6f8c659bc4985aab1418a7d61d4c949173b7[m
+Merge: 2e26b8a 6d580b1
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Fri Aug 2 12:33:55 2024 +0900
+
+    Merge pull request #28 from emong97/develop
+    
+    중간 점검
+
+[33mcommit 6d580b1aa3ff7068c34ff4a96729f6435752ee7e[m
+Author: emong97 <wprms02@naver.com>
+Date:   Fri Aug 2 12:31:46 2024 +0900
+
+    중간 점검
+
+[33mcommit 2e26b8a749bd12fb2e0233103b2b1f8197cf02f3[m
+Merge: d27f0c8 9eb20e0
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Fri Aug 2 11:09:37 2024 +0900
+
+    Merge pull request #26 from HeyEggListen/Feature/#008/플라스크_개발_환경
+    
+    Feature/#008/플라스크 개발 환경
+
+[33mcommit 9eb20e06bcb25970b4c5b35454929acb257f103f[m
+Merge: 8d8d5cc d27f0c8
+Author: HeyEggListen <hyungjin941@gmail.com>
+Date:   Fri Aug 2 11:00:24 2024 +0900
+
+    Merge remote-tracking branch 'origin/develop' into Feature/#008/플라스크_개발_환경
+
+[33mcommit 8d8d5cc80144596fd0f5650420db2cd466b3eb66[m
+Author: HeyEggListen <hyungjin941@gmail.com>
+Date:   Fri Aug 2 10:55:01 2024 +0900
+
+    Feature : (플라스크개발환경) 구축
+
+[33mcommit d27f0c8143f6816f466f233040b4e741840a27aa[m
+Merge: 1d2286a 6752bca
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Fri Aug 2 10:42:18 2024 +0900
+
+    Merge pull request #24 from emong97/Feature/#020/세션_관리
+    
+    Feature : (세션) 관리
+
+[33mcommit 6752bcad6348a6e2e8ca68a8d852c2e22f4f7014[m[33m ([m[1;32mFeature/#020/세션_관리[m[33m)[m
+Author: emong97 <wprms02@naver.com>
+Date:   Fri Aug 2 10:36:06 2024 +0900
+
+    Feature : (세션) 관리
+
+[33mcommit 1d2286a0350c3e711f81beb380f4df5c70a05cca[m
+Merge: 7516f63 ff3be8c
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Wed Jul 31 14:57:29 2024 +0900
+
+    수정된 커밋 메시지
+
+[33mcommit ff3be8c6c930abb830c5ca8bfbb33092c5c968a2[m[33m ([m[1;32mFeture/#013/로그인_세션_구현[m[33m)[m
+Author: emong97 <wprms02@naver.com>
+Date:   Wed Jul 31 14:52:21 2024 +0900
+
+    제근커밋
+
+[33mcommit 6a29531aa86f5a0349ed09fc0d014c9d9d77ee7b[m
+Author: emong97 <wprms02@naver.com>
+Date:   Tue Jul 30 14:25:35 2024 +0900
+
+    하이헬로우
+
+[33mcommit 7516f6352edd18094eaf15b936dc23909c593833[m[33m ([m[1;32mmain[m[33m)[m
+Merge: a0138b8 92e1b77
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Mon Jul 29 17:04:35 2024 +0900
+
+    Merge pull request #14 from rtrt1594/Feature/#009/스프링개발환경구
+    
+    Add feature: 설명 추가
+
+[33mcommit 92e1b7795b6c2072bb38273bbb80d11506ae47a4[m
+Merge: 5a4a244 a0138b8
+Author: rtrt1594 <rtrt1594@naver.com>
+Date:   Mon Jul 29 17:04:01 2024 +0900
+
+    Merge branch 'develop' into Feature/#009/스프링개발환경구
+
+[33mcommit 5a4a2441c180f3bb1a3067d3e89deaf2d15d4509[m
+Author: rtrt1594 <rtrt1594@naver.com>
+Date:   Mon Jul 29 17:00:35 2024 +0900
+
+    Add feature: 설명 추가
+
+[33mcommit a0138b89dfb26af164e6955b45e3a9813ed4a0e2[m
+Merge: 4978529 a23490d
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Mon Jul 29 15:03:20 2024 +0900
+
+    Merge pull request #12 from emong97/Feature/#010_홈화면_연결
+    
+    Feature/#010 홈화면 연결
+
+[33mcommit a23490daaf23974e1aaa368dcab5f10d655d3437[m[33m ([m[1;32mFeature/#010_홈화면_연결[m[33m)[m
+Author: emong97 <wprms02@naver.com>
+Date:   Mon Jul 29 15:02:01 2024 +0900
+
+    add feature: 홈화면경로설정 #010
+
+[33mcommit 0cb1375b935227bf682a490abf6acf5921d62039[m[33m ([m[1;31mupstream/main[m[33m, [m[1;32mupstream/develop[m[33m)[m
+Merge: 62ac5ab a54609e
+Author: dongkyukim1 <ehdrb12123@naver.com>
+Date:   Mon Jul 29 09:14:35 2024 +0900
+
+    Merge branch 'main' of https://github.com/romantic-pirates/pirates_server
+
+[33mcommit 62ac5abfca6553951004681f54978dd79d6c55fd[m
+Merge: 672aea6 4978529
+Author: dongkyukim1 <ehdrb12123@naver.com>
+Date:   Mon Jul 29 09:13:23 2024 +0900
+
+    Merge branch 'develop'
+
+[33mcommit a54609e5fbd20a08e02b43150ca364fab1ac69cd[m
+Merge: ac16645 4978529
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Mon Jul 29 09:09:26 2024 +0900
+
+    Merge pull request #6 from romantic-pirates/develop
+    
+    Add feature: db최적화
+
+[33mcommit 4978529467663363663b61178a2ee0a97be58d9b[m
+Author: dongkyukim1 <ehdrb12123@naver.com>
+Date:   Mon Jul 29 09:07:18 2024 +0900
+
+    Add feature: db최적화
+
+[33mcommit ac16645db31f0cce8855f0837b1c191c94442397[m
+Merge: 8f3c2a8 b5262a1
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Sun Jul 28 18:11:03 2024 +0900
+
+    Merge pull request #5 from romantic-pirates/develop
+    
+    개발 환경 전체 구축
+
+[33mcommit b5262a199fc9770411be3efc31602a3db418be62[m
+Merge: b660bbd e6c0d81
+Author: dongkyukim1 <ehdrb12123@naver.com>
+Date:   Sun Jul 28 18:08:50 2024 +0900
+
+    Merge branch 'develop' of https://github.com/romantic-pirates/pirates_server into develop
+
+[33mcommit b660bbd861bfdb2ac385bb82b44dd1217c412172[m
+Author: dongkyukim1 <ehdrb12123@naver.com>
+Date:   Sun Jul 28 18:01:05 2024 +0900
+
+    플라스크 작업 환경 구축
+
+[33mcommit e6c0d81e20e1a647f4610696e728bf3890aaada3[m
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Sun Jul 28 17:34:51 2024 +0900
+
+    README.txt
+
+[33mcommit 35ec828e38673a3cf496b46c4357a70169b0f65e[m
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Sun Jul 28 17:34:10 2024 +0900
+
+    Update README.md
+
+[33mcommit 8d0e3779098c7f5d39e53538311a00d8b0787bb0[m
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Sun Jul 28 17:30:33 2024 +0900
+
+    깃 사용법.md
+
+[33mcommit 71d02e559fd93d69643c642b2a626666e608d127[m
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Sun Jul 28 17:29:44 2024 +0900
+
+    깃 사용법.md
+
+[33mcommit 03c22269ce6f38e4013af9fdc2aab625d2070283[m
+Merge: 70a75e5 4a98cbc
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Sun Jul 28 17:03:51 2024 +0900
+
+    Merge pull request #4 from romantic-pirates/feature/issue-3
+    
+    Fixes #3: 브랜치 테스트용 작업 완료
+
+[33mcommit 4a98cbc7ee0f696fb34f03c92de86641bd5ac046[m
+Author: dongkyukim1 <ehdrb12123@naver.com>
+Date:   Sun Jul 28 17:03:09 2024 +0900
+
+    Fixes #3: 브랜치 테스트용 작업 완료
+
+[33mcommit 8f3c2a8e33a238daab6812368b6ce51d983be95b[m
+Merge: 672aea6 70a75e5
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Sun Jul 28 16:55:50 2024 +0900
+
+    Merge pull request #2 from romantic-pirates/develop
+    
+    Fixes #1: 개발 환경 구축 작업 완료
+
+[33mcommit 70a75e584e8d460c6ebb29176bda23e84538829f[m
+Author: dongkyukim1 <ehdrb12123@naver.com>
+Date:   Sun Jul 28 16:48:43 2024 +0900
+
+    Fixes #1: 개발 환경 구축 작업 완료
+
+[33mcommit 672aea66365f75f2412a09b41251a4331be3846a[m
+Merge: 8d5fd26 1ac5f04
+Author: dongkyukim1 <ehdrb12123@naver.com>
+Date:   Sun Jul 28 16:08:15 2024 +0900
+
+    Merge branch 'main' of https://github.com/romantic-pirates/pirates_server
+
+[33mcommit 8d5fd260f5fc232ee68c6be6493264301b7637b8[m
+Author: dongkyukim1 <ehdrb12123@naver.com>
+Date:   Sun Jul 28 16:06:45 2024 +0900
+
+    Resolved conflicts during merge of main into develop
+
+[33mcommit fa8593f0363867b3882ee189126a64bd0903fafb[m
+Author: dongkyukim1 <ehdrb12123@naver.com>
+Date:   Sun Jul 28 15:53:57 2024 +0900
+
+    Initial commit
+
+[33mcommit 1ac5f044f9fab8d4b8952c7f0d3b0b2faaaec26d[m
+Author: dongkyukim1 <wlsntus55@gmail.com>
+Date:   Sun Jul 28 15:53:06 2024 +0900
+
+    Initial commit

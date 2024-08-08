@@ -135,4 +135,61 @@ $(document).ready(function() {
     function deleteCookie(name) {
         document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
     }
+
+    $('#google-login-button').on('click', function() {
+        location.href = '/auth/google';
+    });
+
+    // 구글 로그인 관련 함수 추가
+    window.onSignIn = function(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        var id_token = googleUser.getAuthResponse().id_token;
+
+        $.ajax({
+            url: '/api/auth/google-login',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                token: id_token
+            }),
+            success: function(data) {
+                console.log('Google login successful:', data);
+
+                // 로그인 성공 시 세션 데이터를 sessionStorage에 저장
+                sessionStorage.setItem('loggedInUser', JSON.stringify(data));
+                sessionStorage.setItem('mnick', data.mnick); // 여기서 mnick 값을 설정
+
+                Swal.fire({
+                    title: '로그인에 성공했습니다!', // Alert 제목
+                    icon: 'success', // Alert 타입
+                }).then(() => {
+                    // 알림 표시 후 홈 페이지로 리다이렉트
+                    location.href = '/';
+                });
+            },
+            error: function(xhr) {
+                console.log('Google login failed:', xhr.responseText);
+            }
+        });
+    }
+
+    function getSessionInfo() {
+        $.ajax({
+            url: '/api/auth/sessionInfo',
+            type: 'GET',
+            success: function(data) {
+                console.log('Session info:', data);
+
+                // 세션 정보를 sessionStorage에 저장
+                sessionStorage.setItem('loggedInUser', JSON.stringify(data));
+                sessionStorage.setItem('mnick', data.mnick); // 여기서 mnick 값을 설정
+
+                // 헤더 업데이트
+                updateHeader();
+            },
+            error: function(xhr) {
+                console.log('Failed to get session info:', xhr.responseText);
+            }
+        });
+    }
 });
