@@ -29,4 +29,16 @@ public class GoogleResponse implements OAuth2Response {
    public String getProviderId() {
        return attributes.get("sub").toString();
    }
+
+    @Override
+    public String getBirthday() {
+
+        return "";
+    }
+
+    @Override
+    public String getPhone() {
+
+        return "";
+    }
 }
