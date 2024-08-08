@@ -26,7 +26,9 @@ public class CustomOAuth2User implements OAuth2User {
             "name", oAuth2Response.getName(),
             "email", oAuth2Response.getEmail(),
             "provider", oAuth2Response.getProvider(),
-            "providerId", oAuth2Response.getProviderId()
+            "providerId", oAuth2Response.getProviderId(),
+            "birthday", oAuth2Response.getBirthday(),
+            "phone", oAuth2Response.getPhone()
         );
     }  
   

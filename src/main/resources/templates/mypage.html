@@ -78,16 +78,16 @@
         <div class="container-md">
             <h1>내 정보</h1>
             <div class="profile-info">
-                <p><strong>이름:</strong> <span id="mname">이름</span></p>
-                <p><strong>닉네임:</strong> <span id="mnick">닉네임</span></p>
-                <p><strong>아이디:</strong> <span id="mid">아이디</span></p>
-                <p><strong>생년월일:</strong> <span id="mbirth">생년월일</span></p>
-                <p><strong>전화번호:</strong> <span id="mhp">전화번호</span></p>
-                <p><strong>성별:</strong> <span id="mgender">성별</span></p>
-                <p><strong>우편번호:</strong> <span id="mzonecode">우편번호</span></p>
-                <p><strong>도로명 주소:</strong> <span id="mroad">도로명 주소</span></p>
-                <p><strong>상세 주소:</strong> <span id="mroaddetail">상세 주소</span></p>
-                <p><strong>지번 주소:</strong> <span id="mjibun">지번 주소</span></p>
+                <p><strong>이름:</strong> <span id="mname">아직 설정되지 않은 정보입니다</span></p>
+                <p><strong>닉네임:</strong> <span id="mnick">아직 설정되지 않은 정보입니다</span></p>
+                <p><strong>아이디:</strong> <span id="mid">아직 설정되지 않은 정보입니다</span></p>
+                <p><strong>생년월일:</strong> <span id="mbirth">아직 설정되지 않은 정보입니다</span></p>
+                <p><strong>전화번호:</strong> <span id="mhp">아직 설정되지 않은 정보입니다</span></p>
+                <p><strong>성별:</strong> <span id="mgender">아직 설정되지 않은 정보입니다</span></p>
+                <p><strong>우편번호:</strong> <span id="mzonecode">아직 설정되지 않은 정보입니다</span></p>
+                <p><strong>도로명 주소:</strong> <span id="mroad">아직 설정되지 않은 정보입니다</span></p>
+                <p><strong>상세 주소:</strong> <span id="mroaddetail">아직 설정되지 않은 정보입니다</span></p>
+                <p><strong>지번 주소:</strong> <span id="mjibun">아직 설정되지 않은 정보입니다</span></p>
                 <div class="button-container">
                     <button onclick="editProfile()">비밀번호 변경</button>
                     <button type="button" class="btn btn-deleteAsk btn-danger" id="deleteButton">회원 탈퇴</button>
@@ -216,16 +216,16 @@
                     url: `/api/members/${username}`,
                     type: 'GET',
                     success: function(data) {
-                        $('#mname').text(data.mname);
-                        $('#mnick').text(data.mnick);
-                        $('#mid').text(data.mid);
-                        $('#mbirth').text(data.mbirth);
-                        $('#mhp').text(data.mhp);
-                        $('#mgender').text(data.mgender === "M" ? "남자" : "여자");
-                        $('#mzonecode').text(data.mzonecode);
-                        $('#mroad').text(data.mroad);
-                        $('#mroaddetail').text(data.mroaddetail);
-                        $('#mjibun').text(data.mjibun);
+                        $('#mname').text(validateInfo(data.mname));
+                        $('#mnick').text(validateInfo(data.mnick));
+                        $('#mid').text(validateInfo(data.mid));
+                        $('#mbirth').text(validateInfo(data.mbirth));
+                        $('#mhp').text(validateInfo(data.mhp));
+                        $('#mgender').text(validateGender(data.mgender));
+                        $('#mzonecode').text(validateInfo(data.mzonecode));
+                        $('#mroad').text(validateInfo(data.mroad));
+                        $('#mroaddetail').text(validateInfo(data.mroaddetail));
+                        $('#mjibun').text(validateInfo(data.mjibun));
                     },
                     error: function(xhr) {
                         Swal.fire({
@@ -290,6 +290,14 @@
                 }
             });
         });
+
+        function validateInfo(info) {
+            return (info && info !== '000000' && !info.startsWith('default') && info !== '1900-01-01') ? info : '아직 설정되지 않은 정보입니다';
+        }
+
+        function validateGender(gender) {
+            return (gender === "M") ? "남자" : (gender === "F") ? "여자" : '아직 설정되지 않은 정보입니다';
+        }
 
         function editProfile() {
             location.href = '/members/edit';
