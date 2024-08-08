@@ -1,0 +1,85 @@
+/* 기본 스타일 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 레이아웃 스타일 */
+.th-layout-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 화면 상단으로 위치 */
+    height: 100vh; /* 화면 높이에 맞게 설정 */
+    background-color: #f8f9fa;
+    padding-top: 120px; /* 약간의 상단 여백 추가 */
+}
+
+/* 컨테이너 스타일 */
+.container-md {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* 헤더 스타일 */
+.container-md h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+/* 입력 그룹 스타일 */
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 라벨 스타일 */
+.input-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* 입력 필드 스타일 */
+.input-group input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+/* 입력 필드 포커스 스타일 */
+.input-group input:focus {
+    border-color: #007bff;
+}
+
+/* 버튼 스타일 */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* 버튼 호버 및 액티브 스타일 */
+button:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    transform: scale(0.98);
+}
