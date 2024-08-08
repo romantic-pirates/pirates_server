@@ -10,8 +10,17 @@
         sessionStorage.setItem('loggedInUser', JSON.stringify(member));
         sessionStorage.setItem('mnick', member.mnick);
 
-        // 홈 페이지로 리다이렉트
-        window.location.href = '/';
+        // 세션에 사용자 정보 저장
+        fetch('/api/session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(member)
+        }).then(() => {
+            // 홈 페이지로 리다이렉트
+            window.location.href = '/';
+        });
         /*]]>*/
     </script>
 </body>

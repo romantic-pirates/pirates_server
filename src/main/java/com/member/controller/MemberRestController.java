@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,6 +38,9 @@ public class MemberRestController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
     public ResponseEntity<MemberDTO> registerMember(@ModelAttribute MemberDTO memberDTO) {
@@ -115,9 +119,42 @@ public class MemberRestController {
     }
 
     memberService.deleteMember(member.getMnum());
-    session.invalidate(); // 세션 무효화
-    return ResponseEntity.ok().body("Member deleted successfully.");
-}
+        session.invalidate(); // 세션 무효화
+        return ResponseEntity.ok().body("Member deleted successfully.");
+    }
 
-
+    @PutMapping("/change")
+    public ResponseEntity<?> updateMember(@RequestBody MemberDTO memberDTO, HttpSession session) {
+        try {
+            Member loggedInUser = (Member) session.getAttribute("loggedInUser");
+            if (loggedInUser == null) {
+                logger.error("No logged-in user found in session");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+            }
+            
+            Long mnum = loggedInUser.getMnum();
+            if (mnum == null) {
+                logger.error("Logged-in user's mnum is null");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User ID is missing");
+            }
+            
+            logger.info("Logged-in user: {}", loggedInUser);  // 로그 추가
+            
+            MemberDTO updatedMemberDTO = memberService.updateMember(mnum, memberDTO);
+            
+            // 세션 업데이트 전 로그
+            logger.info("Updating session with user: {}", updatedMemberDTO);
+            
+            session.setAttribute("loggedInUser", updatedMemberDTO.toEntity(passwordEncoder)); // 세션 업데이트
+            
+            // 세션 업데이트 후 로그
+            logger.info("Session updated with user: {}", session.getAttribute("loggedInUser"));
+            
+            return ResponseEntity.ok(updatedMemberDTO);
+        } catch (Exception e) {
+            logger.error("Error updating member: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+        }
+    }
+        
 }

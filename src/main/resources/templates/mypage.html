@@ -69,7 +69,7 @@
         </div>
         <!-- 프로필 패널 -->
         <div id="profile-panel"  class="profile-panel">
-          <button class="edit-btn" onclick="editProfile()">내정보 조회</button>
+          <button class="edit-btn">내정보 조회</button>
           <button class="logout-btn" id="logout-button">로그아웃</button>
         </div>
         <div class="header-dim"></div>
@@ -89,6 +89,7 @@
                 <p><strong>상세 주소:</strong> <span id="mroaddetail">아직 설정되지 않은 정보입니다</span></p>
                 <p><strong>지번 주소:</strong> <span id="mjibun">아직 설정되지 않은 정보입니다</span></p>
                 <div class="button-container">
+                    <button onclick="changeProfile()" class="btn btn-primary">내 정보 수정하기</button>
                     <button onclick="editProfile()">비밀번호 변경</button>
                     <button type="button" class="btn btn-deleteAsk btn-danger" id="deleteButton">회원 탈퇴</button>
                 </div>
@@ -292,7 +293,7 @@
         });
 
         function validateInfo(info) {
-            return (info && info !== '000000' && !info.startsWith('default') && info !== '1900-01-01') ? info : '아직 설정되지 않은 정보입니다';
+            return (info && info !== '000000' && !info.startsWith('default') && info !== '1900-01-01' && !info.startsWith('000')) ? info : '아직 설정되지 않은 정보입니다';
         }
 
         function validateGender(gender) {
@@ -301,6 +302,10 @@
 
         function editProfile() {
             location.href = '/members/edit';
+        }
+
+        function changeProfile(){
+            location.href = '/members/change';
         }
     </script>
 </body>

@@ -37,6 +37,7 @@ public class MemberDTO {
 
     public Member toEntity(PasswordEncoder passwordEncoder) {
         return Member.builder()
+            .mnum(this.mnum)
             .mname(this.mname)
             .mnick(this.mnick)
             .mid(this.mid)
