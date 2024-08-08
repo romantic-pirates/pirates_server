@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login Success</title>
+</head>
+<body>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var member = /*[[${member}]]*/ {};
+        sessionStorage.setItem('loggedInUser', JSON.stringify(member));
+        sessionStorage.setItem('mnick', member.mnick);
+
+        // 홈 페이지로 리다이렉트
+        window.location.href = '/';
+        /*]]>*/
+    </script>
+</body>
+</html>

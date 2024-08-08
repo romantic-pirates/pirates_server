@@ -1,0 +1,214 @@
+/* 기본 설정 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* 로그인 컨테이너 */
+.login-container {
+    width: 100%;
+    max-width: 360px; /* 최대 너비를 줄임 */
+    margin: 15px auto; /* 상하 마진을 줄임 */
+    padding: 10px; /* 패딩을 약간 늘림 */
+    background: #fff;
+    border-radius: 6px; /* 둥글기를 줄임 */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 그림자 크기를 줄임 */
+}
+
+/* 제목 */
+.login-container h2 {
+    margin: 0 0 10px; /* 제목 아래 마진만 유지 */
+    font-size: 22px; /* 제목 크기를 키움 */
+    color: #333;
+    text-align: center;
+}
+
+/* 폼 레이아웃 */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 레이블 */
+label {
+    font-size: 14px; /* 레이블 크기를 약간 키움 */
+    color: #555;
+    margin-bottom: 4px; /* 레이블과 입력 필드 사이의 간격을 최소화 */
+}
+
+/* 입력 필드 */
+input[type="text"],
+input[type="password"] {
+    font-size: 16px; /* 입력 필드 폰트 크기를 키움 */
+    padding: 8px; /* 패딩을 약간 늘림 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 4px; /* 입력 필드 사이의 간격을 최소화 */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 비밀번호 입력 필드와 아이디 저장 체크박스 사이의 간격을 줄이기 */
+input[type="password"] {
+    margin-top: 2px; /* 비밀번호 필드와 체크박스 사이의 간격을 최소화 */
+}
+
+/* 아이디 저장 체크박스 */
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: px; /* 마진을 줄여서 간격을 줄임 */
+}
+
+.remember-me input[type="checkbox"] {
+    margin-right: 4px; /* 체크박스와 텍스트 간격을 줄임 */
+}
+
+/* 비밀번호 찾기 버튼 */
+.find-password {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 6px; /* 마진을 줄여서 간격을 줄임 */
+}
+
+.find-password button {
+    font-size: 12px; /* 버튼 폰트 크기를 약간 키움 */
+    padding: 4px 8px; /* 패딩을 약간 늘림 */
+    border: none;
+    border-radius: 4px;
+    color: #007bff;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.find-password button:hover {
+    color: #0056b3;
+}
+
+/* 로그인 및 회원가입 버튼 스타일 */
+button[type="submit"],
+button[type="button"] {
+    font-size: 16px; /* 버튼 폰트 크기를 키움 */
+    padding: 8px; /* 패딩을 약간 늘림 */
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #007bff;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 6px; /* 마진을 줄여서 간격을 줄임 */
+    box-sizing: border-box;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+button[type="button"] {
+    background-color: #6c757d;
+}
+
+button[type="button"]:hover {
+    background-color: #5a6268;
+}
+
+/* 간편 로그인 스타일 */
+.social-login {
+    text-align: center;
+    margin-top: 10px; /* 상단 마진을 줄임 */
+    padding: 10px; /* 패딩을 약간 늘림 */
+    border-radius: 6px; /* 둥글기를 줄임 */
+    border: 1px solid #ddd; /* 테두리를 얇게 줄임 */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 그림자 크기를 줄임 */
+}
+
+.social-login h3 {
+    font-size: 16px; /* 제목 폰트 크기를 키움 */
+    margin: 8px 0; /* 마진을 줄여서 간격을 줄임 */
+    color: #333;
+}
+
+/* 간편 로그인 버튼 */
+.social-login button {
+    font-size: 14px; /* 버튼 폰트 크기를 키움 */
+    padding: 6px; /* 패딩을 약간 늘림 */
+    margin: 2px 0; /* 마진을 줄여서 간격을 줄임 */
+    border-radius: 20px; /* 버튼 모서리 둥글기를 줄임 */
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+}
+
+.social-login button:hover {
+    opacity: 0.9;
+    border-color: #ccc;
+}
+
+.social-login button:nth-child(2) {
+    background-color: #db4437; /* Google 버튼 색상 */
+    color: white;
+    border-color: #db4437;
+}
+
+/* Kakao 버튼 */
+.social-login button:nth-child(3) {
+    background-color: #fee500; /* Kakao 버튼 색상 */
+    color: black;
+    border-color: #fee500;
+}
+
+/* Naver 버튼 */
+.social-login button:nth-child(4) {
+    background-color: #03c75a; /* Naver 버튼 색상 */
+    color: white;
+    border-color: #03c75a;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    .login-container {
+        padding: 8px; /* 패딩을 줄임 */
+    }
+
+    .login-container h2 {
+        font-size: 20px; /* 제목 폰트 크기를 줄임 */
+    }
+
+    input[type="text"],
+    input[type="password"],
+    button[type="submit"],
+    button[type="button"] {
+        font-size: 14px; /* 폰트 크기를 줄임 */
+    }
+
+    .find-password button {
+        font-size: 10px; /* 버튼 폰트 크기를 줄임 */
+        padding: 2px 6px; /* 패딩을 줄임 */
+    }
+
+    .social-login h3 {
+        font-size: 14px; /* 제목 폰트 크기를 줄임 */
+    }
+
+    .social-login button {
+        font-size: 12px; /* 버튼 폰트 크기를 줄임 */
+    }
+}
+/* 비밀번호 찾기 버튼 스타일 */
+    .find-register-button {
+        font-size: 12px; /* 비밀번호 찾기 버튼과 동일한 폰트 크기 */
+        padding: 4px 8px; /* 동일한 패딩 */
+        border: none;
+        border-radius: 4px;
+        color: #007bff;
+        background-color: transparent;
+        cursor: pointer;
+}
+
+    .find-register-button:hover {
+        color: #0056b3; /* 비밀번호 찾기 버튼과 동일한 호버 색상 */
+}

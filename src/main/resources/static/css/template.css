@@ -393,8 +393,8 @@ body.body-scroll { overflow: hidden; }
 .btnset.btnset-ghost.btnset-icon::before { color: var(--body-color); } 
 .btnset.btnset-line.btnset-icon:hover::before { color: var(--white); } 
 .btnset.btnset-mono.btnset-icon:hover::before { color: var(--white); } 
-.btnset.btnset-icon.icon-left.icon-more::before { content: ''; background-image: url('../../resources/icons/ico_plus_white.svg'); } 
-.btnset.btnset-icon.icon-right.icon-more::after { content: ''; background-image: url('../../resources/icons/ico_plus_white.svg'); } 
+.btnset.btnset-icon.icon-left.icon-more::before { content: ''; background-image: url('../../resources/static/icons/ico_plus_white.svg'); } 
+.btnset.btnset-icon.icon-right.icon-more::after { content: ''; background-image: url('../../resources/static/icons/ico_plus_white.svg'); } 
 .btnset.btnset-icon.icon-left.icon-more:disabled::before,
 .btnset.btnset-icon.icon-left.icon-more.disabled::before { background-image: url('../../resources/icons/ico_plus_gray.svg'); } 
 .btnset.btnset-icon.icon-right.icon-more:disabled::after,
