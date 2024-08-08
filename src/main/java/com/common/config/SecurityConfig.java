@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.member.entity.Member;
 import com.member.repository.MemberRepository;
@@ -53,7 +55,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/icons/**", "/static/**", "/medias/**").permitAll()
                 .requestMatchers("/members/register", "/members/login", "/members/mypage", "/members/edit", "/members/find", "/api/find/password", "/auth/google", "/auth/naver", "/auth/loginSuccess").permitAll()
-                .requestMatchers("/", "/home", "/api/members/**","/api/auth/**").permitAll()
+                .requestMatchers("/", "/home", "/api/members/**","/api/auth/**","/members/change").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(formLogin -> formLogin
@@ -80,5 +82,19 @@ public class SecurityConfig {
             )
             .csrf().disable();
         return http.build();
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:8080") // 프론트엔드 URL로 변경
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
+            }
+        };
     }
 }

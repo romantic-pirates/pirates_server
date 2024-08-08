@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.member.dto.MemberDTO;
+import com.member.entity.Member;
 import com.member.service.MemberService;
 
 import jakarta.servlet.http.HttpSession;
@@ -58,5 +59,15 @@ public class MemberViewController {
         return "findPassword";
     }
     
-
+    @GetMapping("/change")
+    public String changePage(Model model, HttpSession session) {
+        Member loggedInUser = (Member) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/members/login";
+        }
+        MemberDTO memberDTO = MemberDTO.fromEntity(loggedInUser);
+        model.addAttribute("member", memberDTO);
+        return "change";
+    }
+    
 }

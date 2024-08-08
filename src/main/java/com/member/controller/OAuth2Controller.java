@@ -33,12 +33,15 @@ public class OAuth2Controller {
 
     @GetMapping("/loginSuccess")
     public String oauth2LoginSuccess(Model model) {
-    OAuth2User oAuth2User = (OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String email = oAuth2User.getAttribute("email");
-    Member member = oAuth2Service.findOrCreateMember(email, oAuth2User);
-
-    model.addAttribute("member", member);
-
-    return "loginSuccess";
-}
+        OAuth2User oAuth2User = (OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = oAuth2User.getAttribute("email");
+        Member member = oAuth2Service.findOrCreateMember(email, oAuth2User);
+    
+        // 세션에 사용자 정보 저장
+        request.getSession().setAttribute("loggedInUser", member);
+    
+        model.addAttribute("member", member);
+    
+        return "loginSuccess";
+    }
 }

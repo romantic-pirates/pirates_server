@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -68,5 +70,15 @@ public class Member {
     @Column(length = 1)
     private String deleteyn;
 
+    @PrePersist
+    protected void onCreate() {
+        insertdate = LocalDate.now();
+        updatedate = LocalDate.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedate = LocalDate.now();
+    }
 
 }

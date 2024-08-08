@@ -64,13 +64,19 @@ public class MemberService implements UserDetailsService {
         if (existingMember == null) {
             throw new UsernameNotFoundException("Member not found");
         }
-
-        Member updatedMember = memberDTO.toEntity(passwordEncoder).toBuilder()
-                .mnum(existingMember.getMnum())
-                .insertdate(existingMember.getInsertdate())
-                .build();
-        memberRepository.save(updatedMember);
-        return MemberDTO.fromEntity(updatedMember); 
+    
+        existingMember.setMname(memberDTO.getMname());
+        existingMember.setMnick(memberDTO.getMnick());
+        existingMember.setMbirth(memberDTO.getMbirth());
+        existingMember.setMhp(memberDTO.getMhp());
+        existingMember.setMgender(memberDTO.getMgender());
+        existingMember.setMzonecode(memberDTO.getMzonecode());
+        existingMember.setMroad(memberDTO.getMroad());
+        existingMember.setMroaddetail(memberDTO.getMroaddetail());
+        existingMember.setMjibun(memberDTO.getMjibun());
+        
+        memberRepository.save(existingMember);
+        return MemberDTO.fromEntity(existingMember);
     }
 
     public void deleteMember(Long mnum) {
