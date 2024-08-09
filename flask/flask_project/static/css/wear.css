@@ -1,0 +1,13 @@
+.main-category-btn, .category-btn, .subcategory-btn {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    text-align: center;
+}
+#category-container, #subcategory-container, #crawl-data {
+    margin-top: 20px;
+}
