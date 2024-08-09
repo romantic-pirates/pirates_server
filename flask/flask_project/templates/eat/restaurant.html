@@ -3,145 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/restaurant.css') }}">
     <title>음식점 추천</title>
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=564c3a19dd3a8e8bf077ecfe7447fd77&libraries=services"></script>
-    <style>
-        #map {
-            width: 100%;
-            height: 400px; /* 지도 높이 설정 */
-            margin-top: 20px;
-        }
-        #recommend-button, #like-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #iframe {
-            width: 100%;
-            height: 300px;
-            border: none;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <div id="map"></div>
-        <ul id="restaurant-list"></ul>
-        <iframe id="iframe" frameborder="0" allowfullscreen></iframe>
-        <button id="recommend-button" onclick="recommendAnotherRestaurant()">다른 음식점 추천</button>
-        <button id="like-button" onclick="likePlace()">음식점 추천이 마음에 들어요</button>
+    {% include 'header.html' %}
+    <div class="button-container">
+        <iframe id="iframe" frameborder="0" allowfullscreen onload="onIframeLoad()"></iframe>
+        <button id="recommend-button" class="menu-button" onclick="recommendAnotherRestaurant()">다른 음식점 추천</button>
+        <button id="like-button" class="menu-button" onclick="likePlace()">음식점 추천이 마음에 들어요</button>
     </div>
+        <div class="map_wrap">
+            <div id="map"></div>
+            <div id="menu_wrap">
+                <ul id="placesList"></ul>
+            </div>
+        </div>
 
     <script>
         let map;
         let infowindow;
-        let restaurantData = []; // 전역 변수로 음식점 데이터를 저장합니다
-        let currentIndex = 0; // 현재 추천 중인 음식점 인덱스
-        let currentPlaceUrl = ''; // 현재 음식점 URL
-
+        let restaurantData = [];
+        let lastPlaceUrl = ''; // 마지막으로 추천된 음식점의 URL을 저장합니다.
+        let markers = []; // 마커들을 저장할 배열
+        
+        // 이미지 URL
+        const markerImageUrls = {
+            default: '{{ url_for('static', filename='images/default_marker.png') }}',
+            recommended: '{{ url_for('static', filename='images/recommended_marker.png') }}'
+        };
+        
         const params = new URLSearchParams(window.location.search);
         const address = decodeURIComponent(params.get('address')) || '서울';
         const menu = decodeURIComponent(params.get('menu')) || '';
-
+        
         function initMap() {
             const mapContainer = document.getElementById('map');
             const mapOption = {
                 center: new kakao.maps.LatLng(37.566826, 126.9786567),
                 level: 5
             };
-
+        
             map = new kakao.maps.Map(mapContainer, mapOption);
             infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-
-            // 디버깅: 파라미터 확인
-            console.log('Search address:', address);
-            console.log('Search menu:', menu);
-
+        
             findNearbyRestaurants(address, menu);
         }
-
+        
         function findNearbyRestaurants(address, menu) {
             const ps = new kakao.maps.services.Places();
             const searchQuery = `${address} ${menu}`;
-            console.log('Search Query:', searchQuery); // 디버깅: 검색 쿼리 확인
-
+        
             ps.keywordSearch(searchQuery, placesSearchCB);
-
+        
             function placesSearchCB(data, status) {
                 if (status === kakao.maps.services.Status.OK) {
                     const bounds = new kakao.maps.LatLngBounds();
-                    restaurantData = []; // 데이터 초기화
+                    restaurantData = [];
                     const results = [];
-
-                    if (data.length > 0) {
-                        for (let i = 0; i < data.length; i++) {
-                            const place = data[i];
-                            restaurantData.push({
-                                place_name: place.place_name,
-                                road_address_name: place.road_address_name || place.address_name,
-                                place_url: place.place_url,
-                                x: place.x,
-                                y: place.y
-                            });
-                            results.push({
-                                place_name: place.place_name,
-                                road_address_name: place.road_address_name || place.address_name,
-                                place_url: place.place_url,
-                                x: place.x,
-                                y: place.y
-                            });
-                            displayMarker(place);
-                            bounds.extend(new kakao.maps.LatLng(place.y, place.x));
-                        }
-                        map.setBounds(bounds);
-                        updateRestaurantList(results);
-
-                        // 맨 아래 iframe에 지도 URL 설정
-                        if (results.length > 0) {
-                            const firstPlace = results[0];
-                            document.getElementById('iframe').src = firstPlace.place_url;
-                        }
+        
+                    data.forEach((place, index) => {
+                        restaurantData.push({
+                            place_name: place.place_name,
+                            road_address_name: place.road_address_name || place.address_name,
+                            place_url: place.place_url,
+                            x: place.x,
+                            y: place.y,
+                            markerIndex: index + 1
+                        });
+                        results.push({
+                            place_name: place.place_name,
+                            road_address_name: place.road_address_name || place.address_name,
+                            place_url: place.place_url,
+                            x: place.x,
+                            y: place.y,
+                            markerIndex: index + 1
+                        });
+                        // 모든 음식점의 마커를 기본 이미지로 표시
+                        displayMarker(place, false);
+                        bounds.extend(new kakao.maps.LatLng(place.y, place.x));
+                    });
+        
+                    map.setBounds(bounds);
+                    map.setLevel(5); // 지도의 확대/축소 레벨 설정
+                    updateRestaurantList(results);
+        
+                    if (results.length > 0) {
+                        const firstPlace = results[0];
+                        document.getElementById('iframe').src = firstPlace.place_url;
+                        lastPlaceUrl = firstPlace.place_url; // 초기 로딩 시 URL을 lastPlaceUrl로 설정
+                        document.getElementById('like-button').classList.remove('hidden');
+        
+                        // 첫 추천 음식점의 마커만 특별한 이미지로 업데이트
+                        updateInitialRecommendedMarker(firstPlace);
                     }
                 } else {
                     alert('장소 검색에 실패했습니다. 다시 시도해 주세요.');
                 }
             }
         }
-
-        function displayMarker(place) {
+        
+        function displayMarker(place, isRecommended = false) {
+            const markerImageSrc = isRecommended ? markerImageUrls.recommended : markerImageUrls.default;
+            const markerImage = new kakao.maps.MarkerImage(markerImageSrc, new kakao.maps.Size(36, 36));
+        
             const marker = new kakao.maps.Marker({
                 map: map,
-                position: new kakao.maps.LatLng(place.y, place.x)
+                position: new kakao.maps.LatLng(place.y, place.x),
+                image: markerImage
             });
-
+        
             kakao.maps.event.addListener(marker, 'click', function() {
                 infowindow.setContent(`<div style="padding:5px;">${place.place_name}<br><a href="${place.place_url}" target="_blank">상세 보기</a></div>`);
                 infowindow.open(map, marker);
             });
+        
+            // 마커를 배열에 추가
+            markers.push(marker);
         }
-
+        
         function updateRestaurantList(data) {
-            const list = document.getElementById('restaurant-list');
+            const list = document.getElementById('placesList');
             list.innerHTML = '';
-
-            data.forEach(place => {
+        
+            data.forEach((place) => {
                 const listItem = document.createElement('li');
+                listItem.className = 'item';
                 listItem.innerHTML = `
-                    <strong>${place.place_name}</strong><br>
-                    ${place.road_address_name}<br>
-                    <a href="${place.place_url}" target="_blank">상세 보기</a>
+                    <div class="markerbg marker_${place.markerIndex}"></div>
+                    <h5>${place.place_name}</h5>
+                    <div class="info">
+                        <span class="jibun">${place.road_address_name}</span>
+                        <span class="tel"><a href="tel:${place.phone || ''}">${place.phone || ''}</a></span>
+                    </div>
                 `;
+                listItem.addEventListener('click', () => {
+                    document.getElementById('iframe').src = place.place_url;
+                    lastPlaceUrl = place.place_url; // 클릭된 음식점을 lastPlaceUrl로 설정
+                });
                 list.appendChild(listItem);
             });
         }
-
+        
+        function updateInitialRecommendedMarker(recommendedPlace) {
+            // 모든 마커를 기본 이미지로 초기화
+            markers.forEach(marker => {
+                marker.setMap(null);
+            });
+            markers = []; // 마커 배열을 비웁니다.
+        
+            // 모든 음식점의 마커를 기본 이미지로 표시
+            restaurantData.forEach((place) => {
+                displayMarker(place, place.place_url === recommendedPlace.place_url); // 추천 음식점의 마커만 특별한 이미지로 표시
+            });
+        }
+        
         function recommendAnotherRestaurant() {
             if (restaurantData.length > 0) {
-                currentIndex = (currentIndex + 1) % restaurantData.length; // 인덱스 순환
-                const selectedPlace = restaurantData[currentIndex];
-                document.getElementById('iframe').src = selectedPlace.place_url; // URL 설정
-                currentPlaceUrl = selectedPlace.place_url;
+                // 현재 추천된 음식점을 제외한 음식점 목록을 만듭니다.
+                const availablePlaces = restaurantData.filter(place => place.place_url !== lastPlaceUrl);
+        
+                if (availablePlaces.length === 0) {
+                    alert('추천할 음식점이 없습니다.');
+                    return;
+                }
+        
+                // 랜덤 인덱스를 생성합니다.
+                const randomIndex = Math.floor(Math.random() * availablePlaces.length);
+                const selectedPlace = availablePlaces[randomIndex];
+        
+                // 선택된 음식점의 URL을 iframe에 설정합니다.
+                document.getElementById('iframe').src = selectedPlace.place_url;
+                lastPlaceUrl = selectedPlace.place_url; // 현재 추천된 음식점의 URL을 lastPlaceUrl로 업데이트
+        
+                // 모든 마커를 제거
+                markers.forEach(marker => marker.setMap(null));
+                markers = []; // 마커 배열을 비웁니다.
+        
+                // 새로운 추천 음식점의 마커를 기본 이미지로 표시
+                restaurantData.forEach((place) => {
+                    displayMarker(place, place.place_url === lastPlaceUrl); // 현재 추천된 음식점의 마커만 특별한 이미지로 표시
+                });
+        
+                // "음식점 추천이 마음에 들어요" 버튼을 다시 보이도록 합니다.
+                document.getElementById('like-button').classList.remove('hidden');
             } else {
                 alert('추천할 음식점이 없습니다.');
             }
@@ -149,8 +195,9 @@
         
         function likePlace() {
             const iframe = document.getElementById('iframe');
-            const place_url = iframe ? iframe.src : window.location.href; // iframe URL 또는 현재 페이지 URL 사용        
-            
+            const place_url = iframe ? iframe.src : window.location.href;
+            alert('좋아요~');
+        
             fetch('/likePlace', {
                 method: 'POST',
                 headers: {
@@ -163,7 +210,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('좋아요~');
+                    document.getElementById('like-button').classList.add('hidden'); // 버튼 숨기기
                 } else {
                     alert('좋아요를 처리하는 데 오류가 발생했습니다.');
                 }
@@ -174,7 +221,29 @@
             });
         }
         
+        function onIframeLoad() {
+            const iframe = document.getElementById('iframe');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage('hideHeader', '*');
+            }
+        }
+        
+        window.addEventListener('message', function(event) {
+            // 메시지 데이터가 'hideHeader'일 때
+            if (event.data === 'hideHeader') {
+                // 헤더를 숨기기 위한 코드
+                const header = document.querySelector('header'); // 예시로 헤더 요소 선택
+                if (header) {
+                    header.style.display = 'none'; // 헤더 숨기기
+                }
+            }
+        });
+        
         window.onload = initMap;
+        
+        
     </script>
+    
+    {% include 'footer.html' %}
 </body>
 </html>
