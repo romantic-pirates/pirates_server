@@ -1,105 +1,210 @@
+/* 기본 스타일 */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     background-color: #f0f0f0;
 }
 
-.App {
+/* 추천 결과 컨테이너 */
+#recommendation-container {
     display: flex;
-    flex-direction: row;
-    width: 80%;
-    height: 80vh;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-.form-container {
-    width: 30%;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
     padding: 20px;
-    box-sizing: border-box;
-    border-right: 1px solid #ddd;
-    overflow-y: auto;
 }
 
-.recommendation-container {
-    width: 70%;
-    padding: 20px;
-    box-sizing: border-box;
+/* 추천 항목 스타일 */
+.recommendation-item {
+    width: 200px;
+    position: relative;
+    transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
-.main-recommendation {
-    margin-bottom: 20px;
+.recommendation-item:hover {
+    transform: scale(1.05);
 }
 
-.main-recommendation img {
+.recommendation-item img {
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.secondary-recommendations {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.secondary-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    padding: 5px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.secondary-item img {
-    width: 60px;
-    height: auto;
-    border-radius: 3px;
-}
-
-.secondary-item h4 {
-    margin: 0;
-}
-
-.trailer {
+.recommendation-item .overlay {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 200px; /* Adjust height as needed */
+    right: 0;
     background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.recommendation-item:hover .overlay {
+    opacity: 1;
+}
+
+/* 모달 스타일 */
+#modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    overflow: scroll;
+}
+
+.modal-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: -10%;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
+    overflow: hidden; 
 }
 
-.trailer iframe {
+.modal-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    border: none;
+    background-size: cover;
+    background-position: center;
+   
 }
 
-.main-recommendation, .secondary-item {
+.overlay-content {
     position: relative;
-    display: inline-block;
-    margin: 10px;
+    width: 88%;
+    max-width: 800px;
+    max-height: 80vh; 
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    top:45%;
 }
 
-.secondary-item {
-    display: flex;
-    flex-direction: row;
+.overlay-content h2 {
+    margin-top: 0;
+    font-size: 28px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-.poster {
+.overlay-content p {
+    margin: 15px 0;
+    font-size: 16px;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
     cursor: pointer;
+    z-index: 1001;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+}
+
+/* 스크롤바 스타일 */
+.overlay-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.overlay-content::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+}
+
+.overlay-content::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.5);
+    border-radius: 5px;
+}
+
+.overlay-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.7);
+}
+
+/* 폼 스타일 */
+#searchForm {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#searchForm label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#searchForm select,
+#searchForm input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#searchForm button {
+    background-color: #0085CA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#searchForm button:hover {
+    background-color: #006ba1;
+}
+
+/* 트레일러 팝업 스타일 */
+.trailer-popup {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.trailer-popup iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
 }

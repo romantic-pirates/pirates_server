@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뭐 볼까</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_1.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        
+
+        .App {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            height: 80vh;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .button-wrapper {
+            position: relative;
+            margin: 0 10px;
+        }
+
+        .choice-button {
+            padding: 20px 40px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .choice-button:hover {
+            background-color: #0056b3;
+        }
+
+        .poster-container {
+            display: flex;
+            gap: 10px;
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease, bottom 0.5s ease;
+            pointer-events: none;
+        }
+
+        .poster-container img {
+            width: 80px;
+            height: 120px;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .button-wrapper:hover .poster-container {
+            opacity: 1;
+        }
+
+        .button-wrapper:hover .poster-container img {
+            transform: scale(1.05);
+        }
+
+        .tracking-in-expand {
+            -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+            animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+        }
+
+        /* Modal style */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 800px;
+            height: 80%;
+            overflow: auto;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="App">
+        <h1 class="tracking-in-expand">무엇을 보고 싶으세요?</h1>
+        <div class="button-container">
+            <div class="button-wrapper">
+                <button class="choice-button tracking-in-expand" onclick="openModal('movie')">영화</button>
+                <div class="poster-container" id="movie-posters">
+                    <img src="{{ url_for('static', filename='images/movie_images/리볼버.jfif') }}" alt="Poster 1">
+                    <img src="{{ url_for('static', filename='images/movie_images/하츄핑.jfif') }}" alt="Poster 2">
+                    <img src="{{ url_for('static', filename='images/movie_images/퍼펙트데이즈.jfif') }}" alt="Poster 3">
+                    <img src="{{ url_for('static', filename='images/movie_images/파일럿.jfif') }}" alt="Poster 4">
+                    <img src="{{ url_for('static', filename='images/movie_images/탈주.jfif') }}" alt="Poster 5">
+                    <img src="{{ url_for('static', filename='images/movie_images/인사이드아웃2.jfif') }}" alt="Poster 6">
+                    <img src="{{ url_for('static', filename='images/movie_images/슈퍼배드4.jfif') }}" alt="Poster 7">
+                    <img src="{{ url_for('static', filename='images/movie_images/명탐정코난.jfif') }}" alt="Poster 8">
+                    <img src="{{ url_for('static', filename='images/movie_images/도라에몽.jfif') }}" alt="Poster 9">
+                    <img src="{{ url_for('static', filename='images/movie_images/데드풀과 울버린.jfif') }}" alt="Poster 10">
+                </div>
+            </div>
+            <div class="button-wrapper">
+                <button class="choice-button tracking-in-expand" onclick="openModal('tv')">TV 프로그램</button>
+                <div class="poster-container" id="tv-posters">
+                    <img src="{{ url_for('static', filename='images/tv_images/공개연애.jfif') }}" alt="Poster 1">
+                    <img src="{{ url_for('static', filename='images/tv_images/히든아이.jfif') }}" alt="Poster 2">
+                    <img src="{{ url_for('static', filename='images/tv_images/더 인플루언서.jfif') }}" alt="Poster 3">
+                    <img src="{{ url_for('static', filename='images/tv_images/폭군.jfif') }}" alt="Poster 4">
+                    <img src="{{ url_for('static', filename='images/tv_images/더존.jfif') }}" alt="Poster 5">
+                    <img src="{{ url_for('static', filename='images/tv_images/정글밥.jfif') }}" alt="Poster 6">
+                    <img src="{{ url_for('static', filename='images/tv_images/스위트홈 시즌3.jfif') }}" alt="Poster 7">
+                    <img src="{{ url_for('static', filename='images/tv_images/유어 아너.jfif') }}" alt="Poster 8">
+                    <img src="{{ url_for('static', filename='images/tv_images/야구대표자.jfif') }}" alt="Poster 9">
+                    <img src="{{ url_for('static', filename='images/tv_images/엄마친구아들.jfif') }}" alt="Poster 10">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="mediaModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <iframe id="modalIframe" src="" width="100%" height="100%" style="border:none;"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function openModal(mediaType) {
+            const modal = document.getElementById("mediaModal");
+            const iframe = document.getElementById("modalIframe");
+
+            // Set iframe source URL for the modal
+            iframe.src = `/watch?mediaType=${mediaType}`;
+            
+            // Show the modal
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("mediaModal").style.display = "none";
+            document.getElementById("modalIframe").src = ""; // Clear iframe source on close
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("mediaModal")) {
+                closeModal();
+            }
+        }
+    </script>
+     {% include 'footer.html' %} 
+</body>
+</html>
