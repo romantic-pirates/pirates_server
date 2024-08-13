@@ -1,40 +1,45 @@
-2024-08-07T15:28:59.260+09:00  INFO 14116 --- [demo] [main] com.Application                          : Starting Application using Java 17.0.12 with PID 14116 (C:\00.KOSMO142\final project\romantic_pirates\build\classes\java\main started by kosmo in C:\00.KOSMO142\final project\romantic_pirates)
-2024-08-07T15:28:59.275+09:00  INFO 14116 --- [demo] [main] com.Application                          : No active profile set, falling back to 1 default profile: "default"
-2024-08-07T15:29:00.214+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-07T15:29:00.216+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-08-07T15:29:00.504+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 279 ms. Found 0 JPA repository interfaces.
-2024-08-07T15:29:00.527+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-07T15:29:00.529+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-07T15:29:00.659+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 119 ms. Found 0 Redis repository interfaces.
-2024-08-08T17:28:49.912+09:00  INFO 14080 --- [demo] [main] com.Application                          : Starting Application using Java 17.0.12 with PID 14080 (C:\00.KOSMO142\MainProject\pirates_server\build\classes\java\main started by kosmo in C:\00.KOSMO142\MainProject\pirates_server)
-2024-08-08T17:28:49.915+09:00  INFO 14080 --- [demo] [main] com.Application                          : No active profile set, falling back to 1 default profile: "default"
-2024-08-08T17:28:51.213+09:00  INFO 14080 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-08T17:28:51.216+09:00  INFO 14080 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-08-08T17:28:51.814+09:00  INFO 14080 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 588 ms. Found 1 JPA repository interface.
-2024-08-08T17:28:51.833+09:00  INFO 14080 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-08-08T17:28:51.835+09:00  INFO 14080 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-08-08T17:28:51.981+09:00  INFO 14080 --- [demo] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.member.repository.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-08-08T17:28:51.983+09:00  INFO 14080 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 136 ms. Found 0 Redis repository interfaces.
-2024-08-08T17:28:52.566+09:00  INFO 14080 --- [demo] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2024-08-08T17:28:52.580+09:00  INFO 14080 --- [demo] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-08T17:28:52.581+09:00  INFO 14080 --- [demo] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
-2024-08-08T17:28:52.656+09:00  INFO 14080 --- [demo] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-08T17:28:52.657+09:00  INFO 14080 --- [demo] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2684 ms
-2024-08-08T17:28:52.848+09:00  INFO 14080 --- [demo] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-08-08T17:28:52.903+09:00  INFO 14080 --- [demo] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-08-08T17:28:52.940+09:00  INFO 14080 --- [demo] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-08-08T17:28:53.257+09:00  INFO 14080 --- [demo] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-08-08T17:28:53.288+09:00  INFO 14080 --- [demo] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-08T17:28:53.418+09:00  INFO 14080 --- [demo] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@42a698bd
-2024-08-08T17:28:53.421+09:00  INFO 14080 --- [demo] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-08T17:28:53.454+09:00  WARN 14080 --- [demo] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-08-08T17:28:53.456+09:00  WARN 14080 --- [demo] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2024-08-08T17:28:54.108+09:00  INFO 14080 --- [demo] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-08-08T17:28:54.152+09:00  INFO 14080 --- [demo] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-08-08T17:28:54.542+09:00  WARN 14080 --- [demo] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-08T17:28:54.558+09:00  WARN 14080 --- [demo] [main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [memberService, userDetailsService]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
-2024-08-08T17:28:55.460+09:00  INFO 14080 --- [demo] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2024-08-08T17:28:55.470+09:00  INFO 14080 --- [demo] [main] com.Application                          : Started Application in 5.936 seconds (process running for 6.287)
-2024-08-08T17:29:05.634+09:00  INFO 14080 --- [demo] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-08T17:29:05.634+09:00  INFO 14080 --- [demo] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-08T17:29:05.636+09:00  INFO 14080 --- [demo] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-13T16:02:18.475+09:00  INFO 14628 --- [demo] [main] com.Application                          : Starting Application using Java 17.0.12 with PID 14628 (C:\00.KOSMO142\MainProject\pirates_server\build\classes\java\main started by kosmo in C:\00.KOSMO142\MainProject\pirates_server)
+2024-08-13T16:02:18.483+09:00  INFO 14628 --- [demo] [main] com.Application                          : No active profile set, falling back to 1 default profile: "default"
+2024-08-13T16:02:20.160+09:00  INFO 14628 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-13T16:02:20.163+09:00  INFO 14628 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-13T16:02:20.905+09:00  INFO 14628 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 729 ms. Found 1 JPA repository interface.
+2024-08-13T16:02:20.935+09:00  INFO 14628 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-13T16:02:20.939+09:00  INFO 14628 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-13T16:02:21.135+09:00  INFO 14628 --- [demo] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.member.repository.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-08-13T16:02:21.136+09:00  INFO 14628 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 179 ms. Found 0 Redis repository interfaces.
+2024-08-13T16:02:22.010+09:00  INFO 14628 --- [demo] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-08-13T16:02:22.024+09:00  INFO 14628 --- [demo] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-13T16:02:22.025+09:00  INFO 14628 --- [demo] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-13T16:02:22.114+09:00  INFO 14628 --- [demo] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-13T16:02:22.115+09:00  INFO 14628 --- [demo] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3575 ms
+2024-08-13T16:02:22.377+09:00  INFO 14628 --- [demo] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-13T16:02:22.455+09:00  INFO 14628 --- [demo] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-13T16:02:22.507+09:00  INFO 14628 --- [demo] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-08-13T16:02:23.057+09:00  INFO 14628 --- [demo] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-13T16:02:23.103+09:00  INFO 14628 --- [demo] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-13T16:02:23.296+09:00  INFO 14628 --- [demo] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7b50e70a
+2024-08-13T16:02:23.298+09:00  INFO 14628 --- [demo] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-13T16:02:23.357+09:00  WARN 14628 --- [demo] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-08-13T16:02:23.359+09:00  WARN 14628 --- [demo] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-08-13T16:02:24.369+09:00  INFO 14628 --- [demo] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-13T16:02:24.420+09:00  INFO 14628 --- [demo] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-13T16:02:25.199+09:00  WARN 14628 --- [demo] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-13T16:02:25.235+09:00  WARN 14628 --- [demo] [main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [memberService, userDetailsService]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2024-08-13T16:02:26.575+09:00  INFO 14628 --- [demo] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-08-13T16:02:26.589+09:00  INFO 14628 --- [demo] [main] com.Application                          : Started Application in 8.556 seconds (process running for 8.971)
+2024-08-13T16:02:37.595+09:00  INFO 14628 --- [demo] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-13T16:02:37.596+09:00  INFO 14628 --- [demo] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-13T16:02:37.597+09:00  INFO 14628 --- [demo] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-13T16:08:09.444+09:00  INFO 14628 --- [demo] [http-nio-8080-exec-8] c.m.controller.MemberRestController      : Login attempt for username: gks7654@naver.com
+2024-08-13T16:08:09.650+09:00  WARN 14628 --- [demo] [http-nio-8080-exec-8] c.m.controller.MemberRestController      : Login failed for username: gks7654@naver.com
+2024-08-13T16:08:35.911+09:00  INFO 14628 --- [demo] [http-nio-8080-exec-1] c.m.controller.MemberRestController      : Login attempt for username: gks7654@naver.com
+2024-08-13T16:08:35.979+09:00  WARN 14628 --- [demo] [http-nio-8080-exec-1] c.m.controller.MemberRestController      : Login failed for username: gks7654@naver.com
+2024-08-13T16:08:39.198+09:00  INFO 14628 --- [demo] [http-nio-8080-exec-3] c.m.controller.MemberRestController      : Login attempt for username: gks7654@naver.com
+2024-08-13T16:08:39.264+09:00  WARN 14628 --- [demo] [http-nio-8080-exec-3] c.m.controller.MemberRestController      : Login failed for username: gks7654@naver.com
+2024-08-13T16:09:00.984+09:00  INFO 14628 --- [demo] [http-nio-8080-exec-3] c.m.controller.MemberRestController      : Login attempt for username: gks7654@naver.com
+2024-08-13T16:09:01.051+09:00  WARN 14628 --- [demo] [http-nio-8080-exec-3] c.m.controller.MemberRestController      : Login failed for username: gks7654@naver.com
+2024-08-13T16:11:17.815+09:00  INFO 14628 --- [demo] [http-nio-8080-exec-3] c.m.controller.MemberRestController      : Login attempt for username: gks7654@gmail.com
+2024-08-13T16:11:17.882+09:00  INFO 14628 --- [demo] [http-nio-8080-exec-3] c.m.controller.MemberRestController      : Login successful for username: gks7654@gmail.com
+2024-08-13T16:33:43.583+09:00  INFO 14628 --- [demo] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-13T16:33:43.586+09:00  INFO 14628 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-13T16:33:43.588+09:00  INFO 14628 --- [demo] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -10,30 +10,32 @@
 
 </head>
 <body>
-    <div class="loading">Loading&#8230;</div>
+    {% include 'header.html' %}
     <div class="main-container" style="display: none;">
-        {% include 'header.html' %}
-        <div class="container">
-            <div class="menu-container">
-                    <div class="menu-info">
-                        <h1 class="menu-title">오늘의 추천 메뉴</h1>
-                        
-                        <!-- 메뉴 이미지 액자 컨테이너 -->
-                        <div class="menu-image-container">
-                            <img class="menu-image" id="menu-image" src="{{ url }}" alt="{{ menu }}">
-                        </div>
-                        <div class="menu-item" id="menu-item">{{ menu if menu else '메뉴가 없습니다.' }}</div>
-                    </div>
-                    <div class="menu-buttons">
-                        <button class="menu-button" onclick="getAnotherMenu()">다른 메뉴 추천받기</button>
-                        <button class="menu-button" id="locate-current-position-button" onclick="locateCurrentPosition()">주변 음식점을 추천 해드릴까요?</button>
-                        <button class="menu-button hidden" id="find-restaurants-button" onclick="findNearbyRestaurants()">주변 음식점 추천받기</button>
-                    </div>
+    <div class="container">
+        
+        <div class="menu-container">
+            <div class="menu-info">
+                <h1 class="menu-title">오늘의 추천 메뉴</h1>
+                
+                <!-- 메뉴 이미지 액자 컨테이너 -->
+                <div class="menu-image-container">
+                    <img class="menu-image" id="menu-image" src="{{ url }}" alt="{{ menu }}">
                 </div>
-                <br/>
-                <div id="map"></div>
+                <div class="menu-item" id="menu-item">
+                    <span class="menu-text">{{ menu if menu else '메뉴가 없습니다.' }}</span> 어떠세요?
+                </div>
+            </div>
+            <div class="menu-buttons">
+                <button class="menu-button" onclick="getAnotherMenu()">다른 메뉴 추천받기</button>
+                <button class="menu-button" id="locate-current-position-button" onclick="locateCurrentPosition()">주변 음식점을 추천 해드릴까요?</button>
+                <button class="menu-button hidden" id="find-restaurants-button" onclick="findNearbyRestaurants()">주변 음식점 추천받기</button>
             </div>
         </div>
+        <br/>
+        <div id="map"></div>
+    </div>
+    </div>
 
     <script>
         const category = "{{ category }}";
@@ -60,7 +62,8 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.menu) {
-                        document.getElementById('menu-item').textContent = data.menu;
+                        document.getElementById('menu-item').innerHTML =
+                        `<span class="bold-menu-text">${data.menu}</span> 어떠세요?`;
                         document.getElementById('menu-image').src = data.url;
                         currentMenu = data.menu;
                     } else {
@@ -184,7 +187,6 @@
         
         // 페이지가 로드되면 로딩 애니메이션을 숨기고 메뉴를 표시합니다.
         window.onload = function() {
-            document.querySelector('.loading').style.display = 'none'; // 로딩 애니메이션 숨기기
             document.querySelector('.main-container').style.display = 'block'; // 콘텐츠 표시
             initMap(); // 지도를 초기화
         };
