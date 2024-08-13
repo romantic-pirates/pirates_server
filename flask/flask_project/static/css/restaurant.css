@@ -9,11 +9,19 @@ body {
 /* 지도와 리스트가 포함된 래퍼 */
 .map_wrap {
     position: relative;
-    width: 80%; /* 가로 길이를 80%로 설정 */
+    width: 80%;
     height: 500px;
     display: flex;
-    margin: 0 auto; /* 중앙 정렬 */
+    margin: 0 auto;
+    transition: opacity 0.3s; /* 부드러운 전환 효과 추가 */
 }
+
+/* 숨길 때 opacity를 0으로 설정 */
+.map_wrap.hidden {
+    opacity: 0;
+    pointer-events: none; /* 클릭 이벤트 차단 */
+}
+
 
 /* iframe 스타일 */
 #iframe {

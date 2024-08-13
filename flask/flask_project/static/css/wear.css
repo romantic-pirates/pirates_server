@@ -1,13 +1,93 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-container {
+    flex: 1;
+    width: 100%;
+    margin: 0 auto;
+    padding: 100px 20px 20px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px; /* 헤더의 높이에 맞춰 여백 조정 */
+}
+
+/* 로딩 화면이 나타날 때 배경색 변경 */
+.main-container.loading {
+    background-color: #f0f0f0; /* 원하는 색상으로 변경 */
+}
+
+.main-container h2 {
+    margin: 0; /* 제목의 상단 여백 제거 */
+    text-align: center;
+    width: 100%;
+    margin-bottom: 60px; /* 제목과 버튼 간의 간격 조절 */
+}
+
 .main-category-btn, .category-btn, .subcategory-btn {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f0f0f0;
+    width: 250px;
+    padding: 15px 0;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #ffffff;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin: 10px; /* 버튼 간 간격 조정 */
+    display: inline-block;
     text-align: center;
 }
-#category-container, #subcategory-container, #crawl-data {
-    margin-top: 20px;
+
+.main-category-btn:hover, .category-btn:hover, .subcategory-btn:hover, .back-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+#gender-selection, #category-container, #subcategory-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* 버튼 간의 간격 조정 */
+    justify-content: center;
+}
+
+/* 버튼들 가운데 정렬 */
+.back-btn-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px; /* 버튼과의 간격 조정 */
+}
+.back-btn {
+    width: 250px;
+    padding: 15px 0;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f0f0f0; /* 연한 회색 */
+    color: #333333; /* 어두운 회색 */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin: 10px;
+    display: inline-block;
+    text-align: center;
+    margin-left: 30px;
+}
+
+.back-btn:hover {
+    background-color: #d0d0d0; /* 호버 시 연한 회색 */
+    transform: scale(1.05);
+}
+
+.hidden {
+    display: none;
 }
