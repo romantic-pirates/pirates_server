@@ -49,13 +49,13 @@ body {
 }
 
 .menu-title {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 3rem;
+    margin-bottom: 20px;
 }
 
 .menu-item {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 2rem;
+    margin-bottom: 30px;
 }
 
 .menu-text {
@@ -87,7 +87,7 @@ body {
 }
 
 .menu-button {
-    width: 250px;
+    width: 200px;
     padding: 15px 0;
     font-size: 18px;
     border: none;
