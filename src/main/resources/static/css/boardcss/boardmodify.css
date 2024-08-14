@@ -1,0 +1,91 @@
+/* 전체 페이지 컨테이너 */
+.page-wrapper {
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 레이아웃 설정 */
+    min-height: 100vh; /* 전체 화면 높이 */
+    box-sizing: border-box; /* 여백과 테두리를 포함한 전체 너비 설정 */
+    padding-top: 80px; /* 상단 여백 추가 */
+}
+
+/* 페이지 콘텐츠 영역 */
+.content {
+    flex: 1; /* 남은 공간을 차지하도록 설정 */
+}
+
+/* 게시글 작성 폼 컨테이너 */
+.post-form {
+    width: 90%; /* 전체 너비의 90%로 설정 */
+    max-width: 600px; /* 최대 너비를 600px로 설정 */
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    padding: 20px; /* 내부 여백 20px */
+    background-color: #ffffff; /* 배경색 흰색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+/* 폼 그룹 */
+.form-group {
+    margin-bottom: 20px; /* 하단 여백 20px */
+}
+
+/* 라벨 스타일 */
+.form-group label {
+    display: block; /* 블록 요소로 설정 */
+    font-size: 24px; /* 글자 크기 24px로 변경 */
+    font-weight: bold; /* 글자 굵게 */
+    margin-bottom: 5px; /* 하단 여백 5px */
+}
+
+/* 제목 입력 필드 스타일 */
+input[name="title"] {
+    font-size: 15px; /* 글자 크기 설정 */
+    padding: 15px; /* 내부 여백 조정 */
+    height: 50px; /* 높이 조정 */
+    width: 100%; /* 너비 100%로 설정 */
+    border: 1px solid #ddd; /* 테두리 설정 */
+    border-radius: 4px; /* 모서리 둥글게 */
+}
+
+/* 내용 입력 필드 스타일 */
+textarea[name="content"] {
+    font-size: 15px; /* 글자 크기 설정 */
+    padding: 15px; /* 내부 여백 조정 */
+    height: 150px; /* 높이 조정 */
+    width: 100%; /* 너비 100%로 설정 */
+    border: 1px solid #ddd; /* 테두리 설정 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    resize: vertical; /* 세로 방향으로 크기 조정 가능 */
+}
+
+/* 파일 입력 필드 스타일 */
+input[type="file"] {
+    margin-bottom: 15px; /* 하단 여백 15px */
+}
+
+/* 제출 버튼 스타일 */
+button[type="submit"] {
+    background-color: #007bff; /* 배경색 파란색 */
+    color: #ffffff; /* 텍스트 색상 흰색 */
+    border: none; /* 테두리 없음 */
+    padding: 10px 20px; /* 내부 여백 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    font-size: 16px; /* 글자 크기 16px */
+    cursor: pointer; /* 클릭 시 커서 변경 */
+    transition: background-color 0.3s; /* 배경색 변경 애니메이션 */
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3; /* 호버 시 배경색 변경 */
+}
+
+/* 제출 버튼을 오른쪽으로 정렬 */
+.submit-container {
+    text-align: right; /* 텍스트를 오른쪽으로 정렬 */
+}
+
+/* 푸터 컨테이너 */
+.footer {
+    position: fixed; /* 고정 위치 */
+    bottom: 0; /* 페이지 하단에 위치 */
+    
+}
