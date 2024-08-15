@@ -7,7 +7,7 @@ from datetime import datetime
 import random
 import requests
 
-app = Flask(__name__, template_folder='templates')  # 템플릿 폴더 명시적으로 설정
+app = Flask(__name__, template_folder='templates')
 CORS(app)
 
 client = MongoClient('mongodb://192.168.0.66:27017/')
@@ -132,7 +132,7 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
     # Add trailers to each result
     for result in results:
         movie_id = result.get('fields', {}).get('movie_id')
-        if movie_id:
+        if (movie_id):
             result['trailers'] = trailers.get(movie_id, [])
 
     # Sort the results based on media_type
@@ -146,7 +146,7 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
 
     # Select the top result and the next four random results
     top_result = results[0] if results else None
-    random_results = random.sample(results[1:], min(4, len(results) - 1)) if len(results) > 1 else []
+    random_results = random.sample(results[1:], min(7, len(results) - 1)) if len(results) > 1 else []
 
     # Combine the top result with the random results
     final_results = [top_result] + random_results if top_result else random_results
@@ -157,6 +157,10 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
             result['trailers'] = []  
 
     return [serialize_document(result) for result in final_results]
+
+@app.route('/watchhome')
+def home():
+    return render_template('watch/watchhome.html')
 
 @app.route('/test')
 def test():
@@ -208,7 +212,7 @@ def recommend():
     if sort_by == 'random':
         if len(recommendations) > 1:
             top_result = recommendations[0]
-            random_results = random.sample(recommendations[1:], min(4, len(recommendations) - 1))
+            random_results = random.sample(recommendations[1:], min(7, len(recommendations) - 1))
             random.shuffle(random_results)
             final_results = [top_result] + random_results
         else:

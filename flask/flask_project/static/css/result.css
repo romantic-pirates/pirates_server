@@ -1,0 +1,106 @@
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-container {
+    flex: 1;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px; /* 컨테이너의 최대 너비 설정 */
+}
+
+.product {
+    display: flex;
+    flex-direction: column; /* 세로 정렬로 변경 */
+    align-items: center; /* 가로 중앙 정렬 */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd; /* 테두리 추가 (선택 사항) */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 (선택 사항) */
+    box-sizing: border-box;
+}
+
+.product-content {
+    display: flex;
+    align-items: center; /* 자식 요소를 세로 중앙에 정렬 */
+    width: 100%;
+}
+
+.product img {
+    flex: 0 0 200px; /* 이미지 너비 설정 */
+    height: auto;
+    margin-right: 20px; /* 이미지와 텍스트 간의 간격 설정 */
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column; /* 텍스트 요소를 수직으로 나열 */
+    flex: 1; /* 나머지 공간을 차지하도록 설정 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+.product-details h2, .product-details h3, .product-details p, .product-details a {
+    margin: 5px 0; /* 요소 간의 간격 설정 */
+}
+
+.product-details a {
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: #007bff; /* 링크 색상 설정 */
+}
+
+.product-details a:hover {
+    text-decoration: underline; /* 링크에 마우스 오버 시 밑줄 추가 */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* 버튼과 상단 콘텐츠 간의 간격 설정 */
+}
+
+.refresh-btn, .like-btn {
+    background-color: #007bff; /* 버튼 배경색 설정 */
+    color: #ffffff; /* 버튼 텍스트 색상 설정 */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin: 0 10px; /* 버튼 간의 간격 설정 */
+}
+
+.refresh-btn:hover, .like-btn:hover {
+    background-color: #0056b3; /* 버튼에 마우스 오버 시 배경색 변경 */
+}
+
+.hidden {
+    display: none;
+}

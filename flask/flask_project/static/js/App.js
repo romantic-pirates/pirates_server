@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorContainer = document.getElementById('error');
     const trailerPopup = document.getElementById('trailerPopup');
     const trailerIframe = document.getElementById('trailerVideo');
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modal-body');
+    const closeModalButton = document.getElementById('closeModal');
+    const closeTrailerButton = document.getElementById('closeTrailer');
 
     const state = {
         mediaType: '',
@@ -14,9 +18,23 @@ document.addEventListener('DOMContentLoaded', () => {
         maxRuntime: '',
         network: '',
         releaseYear: '',
-        status: '', 
+        status: '',
         recommendation: [],
-        sortBy: 'rating' // Default sorting
+        sortBy: 'rating', // 기본 정렬
+    };
+
+    // URL 매개변수 가져오기 함수
+    const getQueryParams = () => {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            mediaType: params.get('mediaType') || '',
+        };
+    };
+
+    // URL 매개변수를 기반으로 상태 설정
+    const setStateFromQueryParams = () => {
+        const queryParams = getQueryParams();
+        state.mediaType = queryParams.mediaType;
     };
 
     const populateFormFields = () => {
@@ -37,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <label>
                     영화/TV:
                     <select id="mediaType">
-                        <option value="">Select</option>
+                        <option value="">선택</option>
                         <option value="movie">영화</option>
                         <option value="tv">TV</option>
                     </select>
@@ -47,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <label>
                         방송사:
                         <select id="network">
-                            <option value="">Select</option>
+                            <option value="">선택</option>
                             <option value="tvN">tvN</option>
                             <option value="jtbc">JTBC</option>
                             <option value="kbs1">KBS1</option>
@@ -58,21 +76,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     </label>
                     <br/>
                     <label>
-                        완결/방영중:
+                        상태:
                         <select id="status">
-                            <option value="">Select</option>
+                            <option value="">선택</option>
                             <option value="Ended">완결</option>
                             <option value="Returning Series">방영중</option>
                         </select>
                     </label>
                     <br/>
                 </div>
-                <label>
-                    장르 (comma separated):
-                    <input id="genres" type="text" placeholder="장르명">
-                </label>
-                <br/>
-                <div id="movieOptions">
+                <div id="movieOptions" style="display: none;">
                     <label>
                         감독:
                         <input id="director" type="text" placeholder="감독명">
@@ -89,10 +102,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     </label>
                     <br/>
                     <label>
-                        개봉년도:
-                        <input id="releaseYear" type="number" placeholder="개봉년도">
+                        개봉 연도:
+                        <input id="releaseYear" type="number" placeholder="개봉 연도">
                     </label>
                 </div>
+                <br/>
+                <label>
+                    장르 (쉼표로 구분):
+                    <input id="genres" type="text" placeholder="장르명">
+                </label>
                 <br/>
                 <label>
                     출연진:
@@ -105,30 +123,26 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         formContainer.innerHTML = html;
 
-        // Populate form fields with current state values
+        // 현재 상태 값으로 폼 필드 채우기
         populateFormFields();
+        toggleFormOptions();
 
         document.getElementById('mediaType').addEventListener('change', (e) => {
-            const mediaType = e.target.value;
-            state.mediaType = mediaType;
-            document.getElementById('tvOptions').style.display = mediaType === 'tv' ? 'block' : 'none';
-            document.getElementById('movieOptions').style.display = mediaType === 'movie' ? 'block' : 'none';
-        });
-
-        document.getElementById('status').addEventListener('change', (e) => {
-            state.status = e.target.value;
+            state.mediaType = e.target.value;
+            toggleFormOptions();
         });
 
         document.getElementById('submitButton').addEventListener('click', handleSubmit);
         document.getElementById('resetButton').addEventListener('click', handleReset);
-        document.getElementById('sortRating').addEventListener('click', () => {
-            state.sortBy = 'rating';
-            handleSubmit();
-        });
-        document.getElementById('sortRandom').addEventListener('click', () => {
-            state.sortBy = 'random';
-            handleSubmit();
-        });
+    };
+
+    const toggleFormOptions = () => {
+        const mediaType = state.mediaType;
+        const tvOptions = document.getElementById('tvOptions');
+        const movieOptions = document.getElementById('movieOptions');
+        
+        tvOptions.style.display = mediaType === 'tv' ? 'block' : 'none';
+        movieOptions.style.display = mediaType === 'movie' ? 'block' : 'none';
     };
 
     const handleSubmit = async () => {
@@ -150,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (state.mediaType === 'movie' && state.minRuntime) queryParams.append('min_runtime', state.minRuntime);
         if (state.mediaType === 'movie' && state.maxRuntime) queryParams.append('max_runtime', state.maxRuntime);
         if (state.mediaType === 'movie' && state.releaseYear) queryParams.append('release_year', state.releaseYear);
-        if (state.network) queryParams.append('network', state.network);
+        if (state.mediaType === 'tv' && state.network) queryParams.append('network', state.network);
         if (state.mediaType === 'tv' && state.status) queryParams.append('status', state.status);
         queryParams.append('sort_by', state.sortBy);
 
@@ -163,12 +177,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 state.recommendation = data;
                 renderRecommendations();
+                
+                // 추천 결과 렌더링 후 페이지 상단으로 스크롤
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // 부드러운 스크롤
+                });
             } else {
-                errorContainer.innerText = data.message || 'An error occurred.';
+                errorContainer.innerText = data.message || '오류가 발생했습니다.';
             }
         } catch (error) {
             console.error(error);
-            errorContainer.innerText = 'Failed to fetch recommendations.';
+            errorContainer.innerText = '추천 목록을 가져오는 데 실패했습니다.';
         }
     };
 
@@ -181,9 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
         state.maxRuntime = '';
         state.network = '';
         state.releaseYear = '';
-        state.status = ''; // Status 초기화
+        state.status = '';
         state.recommendation = [];
-        state.sortBy = 'rating'; // Reset sort by to default
+        state.sortBy = 'rating'; // 정렬을 기본값으로 재설정
         renderForm();
         recommendationContainer.innerHTML = '';
         errorContainer.innerText = '';
@@ -193,70 +213,106 @@ document.addEventListener('DOMContentLoaded', () => {
         recommendationContainer.innerHTML = '';
     
         if (state.recommendation.length === 0) {
-            recommendationContainer.innerHTML = '<p>No recommendations available.</p>';
+            recommendationContainer.innerHTML = '<p>추천 항목이 없습니다.</p>';
             return;
         }
-    
-        if (state.sortBy === 'random') {
-            // Shuffle recommendations for random display
-            state.recommendation = shuffleArray(state.recommendation);
-        }
-    
+
         state.recommendation.forEach((rec, index) => {
             const title = rec.fields?.title || rec.fields?.name || rec.name;
             const posterPath = rec.fields?.poster_path || rec.poster_path;
             const posterUrl = posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : '';
             const releaseDate = rec.fields?.release_date || rec.fields?.first_air_date || rec.first_air_date;
-            const status = rec.fields?.status || rec.status || 'N/A'; // 상태 표시
-    
-            if (index === 0) {
-                // Main recommendation
-                const overview = rec.fields?.overview || rec.overview || 'N/A';
-                const genres = rec.fields?.genres?.join(', ') || rec.genres?.join(', ') || 'N/A';
-                const directorOrNetwork = rec.fields?.directors?.join(', ') || (rec.networks?.join(', ') || 'N/A');
-                const cast = rec.fields?.cast?.map(c => c.name).join(', ') || (rec.cast?.map(c => c.name).join(', ') || 'N/A');
-                const popularity = rec.fields?.popularity || rec.popularity || 'N/A';
-                const averageVote = rec.fields?.vote_avg || rec.vote_avg || 'N/A';
-    
-                recommendationContainer.innerHTML += `
-                    <div class="main-recommendation">
-                        <h2>Recommended ${state.mediaType === 'movie' ? 'Movie' : 'TV Show'}:</h2>
-                        <img src="${posterUrl}" alt="${title}" class="poster" data-trailers='${JSON.stringify(rec.trailers || [])}' />
+            const trailers = rec.trailers || []; // 트레일러가 추천 항목에 포함된 경우
+
+            recommendationContainer.innerHTML += `
+                <div class="recommendation-item" data-index="${index}">
+                    <img src="${posterUrl}" alt="${title}" class="poster" />
+                    <div class="overlay">
                         <h3>${title}</h3>
-                        <p><strong>개봉일:</strong> ${releaseDate || 'N/A'}</p>
-                        <p><strong>줄거리:</strong> ${overview}</p>
-                        <p><strong>장르:</strong> ${genres}</p>
-                        <p><strong>${state.mediaType === 'movie' ? '감독' : '방송사'}:</strong> ${directorOrNetwork}</p>
-                        <p><strong>출연진:</strong> ${cast}</p>
-                        <p><strong>인기도:</strong> ${popularity}</p>
-                        <p><strong>평점:</strong> ${averageVote}</p>
-                        ${state.mediaType === 'tv' ? `<p><strong>Status:</strong> ${status}</p>` : ''}
+                        <p>${releaseDate || 'N/A'}</p>
                     </div>
-                `;
-            } else {
-                // Secondary recommendations
-                recommendationContainer.innerHTML += `
-                    <div class="secondary-item">
-                        <img src="${posterUrl}" alt="${title}" class="poster"  data-trailers='${JSON.stringify(rec.trailers || [])}' />
-                        <h3>${title}</h3>
-                        <p><strong>Release Date:</strong> ${releaseDate || 'N/A'}</p>
-                        ${state.mediaType === 'tv' ? `<p><strong>Status:</strong> ${status}</p>` : ''}
-                    </div>
-                `;
-            }
+                </div>
+            `;
         });
-    
-        // Add event listeners for trailer click
+
+        // 포스터 클릭 시 이벤트 리스너 추가
         document.querySelectorAll('.poster').forEach(poster => {
             poster.addEventListener('click', (event) => {
-                const trailers = JSON.parse(event.target.getAttribute('data-trailers'));
-                if (trailers.length > 0) {
-                    showTrailer(trailers[0]);
-                }
+                const index = event.target.closest('.recommendation-item').dataset.index;
+                const rec = state.recommendation[index];
+                showDetailModal(rec);
             });
         });
     };
+
+    const showDetailModal = (rec) => {
+        const title = rec.fields?.title || rec.fields?.name || rec.name;
+        const posterPath = rec.fields?.poster_path || rec.poster_path;
+        const posterUrl = posterPath ? `https://image.tmdb.org/t/p/original${posterPath}` : '';
+        const overview = rec.fields?.overview || rec.overview || 'N/A';
+        const releaseDate = rec.fields?.release_date || rec.fields?.first_air_date || rec.first_air_date;
+        const genres = rec.fields?.genres?.join(', ') || rec.genres?.join(', ') || 'N/A';
+        const directorOrNetwork = rec.fields?.directors?.join(', ') || (rec.networks?.join(', ') || 'N/A');
+        const cast = rec.fields?.cast?.map(c => c.name).join(', ') || (rec.cast?.map(c => c.name).join(', ') || 'N/A');
+        const popularity = rec.fields?.popularity || rec.popularity || 'N/A';
+        const averageVote = rec.fields?.vote_avg || rec.vote_avg || 'N/A';
+        const trailers = rec.trailers || []; // 트레일러가 추천 항목에 포함된 경우
     
+        modalBody.innerHTML = `
+            <div class="modal-image" style="background-image: url('${posterUrl}');">
+                <div class="overlay-content" style="max-height: 400px; overflow-y: auto;">
+                    <h2>${title}</h2>
+                    <div class="info-container">
+                        <p><strong>개봉일:</strong> ${releaseDate || 'N/A'}</p>
+                        ${trailers.length > 0 ? `<button id="playTrailer" data-trailer="${trailers[0]}" class="trailer-button">트레일러 재생</button>` : ''}
+                    </div>
+                    <p><strong>개요:</strong> ${overview}</p>
+                    <p><strong>장르:</strong> ${genres}</p>
+                    <p><strong>${state.mediaType === 'movie' ? '감독' : '방송사'}:</strong> ${directorOrNetwork}</p>
+                    <p><strong>출연진:</strong> ${cast}</p>
+                    <p><strong>인기도:</strong> ${popularity}</p>
+                    <p><strong>평균 평점:</strong> ${averageVote}</p>
+                </div>
+            </div>
+        `;
+        modal.style.display = 'block';
+    
+        // 트레일러 버튼 클릭 시 이벤트 리스너 추가
+        const playTrailerButton = document.getElementById('playTrailer');
+        if (playTrailerButton) {
+            playTrailerButton.addEventListener('click', () => {
+                const trailerKey = playTrailerButton.getAttribute('data-trailer');
+                showTrailer(trailerKey);
+            });
+        }
+    };
+    
+    // CSS 추가
+    const style = document.createElement('style');
+    style.textContent = `
+        .info-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    
+        .trailer-button {
+            background-color: #ff0000;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+    
+        .trailer-button:hover {
+            background-color: #cc0000;
+        }
+    `;
+    document.head.appendChild(style);
     
 
     const showTrailer = (videoKey) => {
@@ -264,13 +320,16 @@ document.addEventListener('DOMContentLoaded', () => {
         trailerPopup.style.display = 'block';
     };
 
-    const closeTrailerButton = document.getElementById('closeTrailer');
     closeTrailerButton.addEventListener('click', () => {
-        trailerIframe.src = ''; // Stop the video playback
+        trailerIframe.src = ''; // 비디오 재생 중지
         trailerPopup.style.display = 'none';
     });
 
-    // Function to shuffle an array
+    closeModalButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // 배열을 무작위로 섞는 함수
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -279,5 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return array;
     }
 
+    // 상태 초기화 및 폼 렌더링
+    setStateFromQueryParams();
     renderForm();
 });

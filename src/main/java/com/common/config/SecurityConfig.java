@@ -39,7 +39,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
                 .authorizeHttpRequests(authorize -> authorize
+                                 .requestMatchers("/files/**").permitAll()
+                                .requestMatchers("/board/**").permitAll()       
                                 .requestMatchers("/css/**", "/js/**", "/images/**", "/icons/**", "/static/**", "/medias/**").permitAll()
                                 .requestMatchers("/members/register", "/members/login", "/members/mypage", "/members/edit", "/members/find", "/api/find/password", "/auth/google", "/auth/naver", "/auth/loginSuccess").permitAll()
                                 .requestMatchers("/", "/home", "/api/members/**", "/api/auth/**", "/members/change","/api/members/me").permitAll()
@@ -73,6 +76,7 @@ public class SecurityConfig {
                                 })
                 )
                 .csrf(csrf -> csrf.disable()); // 가능하면 CSRF 보호를 활성화하는 것이 좋음
+
         return http.build();
     }
 }

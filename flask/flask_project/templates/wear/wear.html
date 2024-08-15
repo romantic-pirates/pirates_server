@@ -6,71 +6,157 @@
     <title>Wear Categories</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/wear.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}">
 </head>
 <body>
-    <h1>카테고리 선택</h1>
-    <div>
-        <button class="main-category-btn" data-prefix="남성">남성</button>
-        <button class="main-category-btn" data-prefix="여성">여성</button>
+    {% include 'header.html' %}
+    
+    <div class="main-container">
+        <div id="gender-selection">
+            <h2>성별을 선택해주세요.</h2>
+            <div>
+                <button class="main-category-btn" data-prefix="남성">남성</button>
+                <button class="main-category-btn" data-prefix="여성">여성</button>
+            </div>
+        </div>
+        <div id="category-container" class="hidden">
+            <!-- 카테고리와 뒤로가기 버튼이 추가될 영역 -->
+        </div>
+        <div id="subcategory-container" class="hidden">
+            <!-- 서브카테고리와 뒤로가기 버튼이 추가될 영역 -->
+        </div>
+        <div id="crawl-data" class="hidden">
+            <!-- 크롤링 데이터가 추가될 영역 -->
+        </div>
     </div>
-    <div id="category-container">
-        <!-- Categories will be loaded here -->
-    </div>
-    <div id="subcategory-container">
-        <!-- Subcategories will be loaded here -->
-    </div>
-    <div id="crawl-data">
-        <!-- Crawled data will be loaded here -->
+
+    <!-- 로딩 화면 추가 -->
+    <div id="loading-screen" class="hidden-loading">
+        <div class="loader">
+            <h1>잠시만 기다려 주세요.</h1>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
     <script>
         $(document).ready(function() {
-            // 카테고리 버튼 클릭 시
+            var state = {
+                currentStep: 'gender', // 'gender', 'category', 'subcategory'
+                selectedCategory: null,
+                selectedSubcategory: null
+            };
+            
+            // 페이지가 로드될 때 로딩 화면을 숨김
+            $('#loading-screen').removeClass('show');
+            $('.main-container').removeClass('loading'); // 페이지 로드 시 기본 상태 유지
+        
+            // 성별 버튼 클릭 시
             $(document).on('click', '.main-category-btn', function() {
                 var prefix = $(this).data('prefix');
-
+                $('#gender-selection').hide();
+        
                 $.ajax({
                     url: '/categories/' + encodeURIComponent(prefix),
                     method: 'GET',
                     success: function(data) {
                         var $container = $('#category-container');
-                        $container.empty(); // Clear existing buttons
-                        $('#subcategory-container').empty(); // Clear subcategory container
-                        $('#crawl-data').empty(); // Clear crawl data container
+                        $container.empty();
+                        $('#subcategory-container').empty();
+                        $('#crawl-data').empty();
+        
+                        $container.append('<h2>어떤 제품을 찾고 계신가요?</h2><br><br><br>');
+        
                         data.forEach(function(category) {
                             $container.append('<button class="category-btn" data-category="' + category + '">' + category + '</button>');
                         });
+                        $container.append('<div class="back-btn-container"><button id="back-to-gender-selection" class="back-btn">Back</button></div>');
+        
+                        state.currentStep = 'category';
+                        state.selectedCategory = null;
+                        state.selectedSubcategory = null;
+        
+                        $('#gender-selection').hide();
+                        $('#category-container').show();
+                        $('#subcategory-container').hide();
+                        $('#crawl-data').hide();
                     }
                 });
             });
-
-            // 서브카테고리 버튼 클릭 시
+        
+            // 카테고리 버튼 클릭 시
             $(document).on('click', '.category-btn', function() {
-                var category = $(this).data('category');
-
+                state.selectedCategory = $(this).data('category');
+                $('#category-container').hide();
+                $('#subcategory-container').show();
+        
                 $.ajax({
-                    url: '/subcategories/' + encodeURIComponent(category),
+                    url: '/subcategories/' + encodeURIComponent(state.selectedCategory),
                     method: 'GET',
                     success: function(data) {
                         var $container = $('#subcategory-container');
-                        $container.empty(); // Clear existing buttons
-                        $('#crawl-data').empty(); // Clear crawl data container
+                        $container.empty();
+                        $('#crawl-data').empty();
+        
+                        $container.append('<h2>원하는 제품의 세부 종류를 선택해 주세요.</h2><br><br><br>');
+        
                         data.forEach(function(subcategory) {
-                            $container.append('<button class="subcategory-btn" data-category="' + category + '">' + subcategory + '</button>');
+                            $container.append('<button class="subcategory-btn" data-category="' + state.selectedCategory + '">' + subcategory + '</button>');
                         });
+                        $container.append('<div class="back-btn-container"><button id="back-to-category" class="back-btn">Back</button></div>');
+        
+                        state.currentStep = 'subcategory';
+                        state.selectedSubcategory = null;
+        
+                        $('#category-container').hide();
+                        $('#subcategory-container').show();
+                        $('#crawl-data').hide();
                     }
                 });
             });
-
-            // 서브카테고리 버튼 클릭 시 크롤링 데이터 요청 및 결과 페이지로 이동
+        
+            // 서브카테고리 버튼 클릭 시
             $(document).on('click', '.subcategory-btn', function() {
                 var category = $(this).data('category');
                 var subcategory = $(this).text();
-
-                // 크롤링 결과 페이지로 이동
-                window.location.href = '/recommend/' + encodeURIComponent(category) + '/' + encodeURIComponent(subcategory);
+        
+                $('.main-container').addClass('loading'); // 로딩 화면을 표시할 때 배경색 변경
+                $('#loading-screen').addClass('show'); // 로딩 화면 표시
+        
+                setTimeout(function() {
+                    window.location.href = '/recommend/' + encodeURIComponent(category) + '/' + encodeURIComponent(subcategory);
+                }, 500); // 애니메이션 시간이 끝나도록 적절한 지연 시간 설정
+        
+                // 페이지가 이동하면 배경색 변경을 초기화
+                $(window).on('beforeunload', function() {
+                    $('.main-container').removeClass('loading');
+                });
+            });
+        
+            // 뒤로가기 버튼 클릭 시
+            $(document).on('click', '#back-to-gender-selection', function() {
+                if (state.currentStep === 'category') {
+                    $('#gender-selection').show();
+                    $('#category-container').hide();
+                    $('#subcategory-container').hide();
+                    $('#crawl-data').hide();
+                    state.currentStep = 'gender';
+                }
+            });
+        
+            $(document).on('click', '#back-to-category', function() {
+                if (state.currentStep === 'subcategory') {
+                    $('#category-container').show();
+                    $('#subcategory-container').hide();
+                    $('#crawl-data').hide();
+                    state.currentStep = 'category';
+                }
             });
         });
+        
+        
     </script>
+    {% include 'footer.html' %}
 </body>
 </html>

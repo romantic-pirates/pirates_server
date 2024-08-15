@@ -12,8 +12,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
+from flask_cors import CORS
 
 app = Flask(__name__, template_folder='flask_project/templates/', static_folder='flask_project/static')
+
 CORS(app, supports_credentials=True, resources={
     r"/*": {
         "origins": ["http://localhost:8080", "http://127.0.0.1:8080"],
@@ -24,6 +26,7 @@ CORS(app, supports_credentials=True, resources={
 })
 
 app.config['SECRET_KEY'] = 'EasyPick'
+
 
 
 # MySQL 연결 설정
@@ -74,43 +77,54 @@ def eat():
 
 # 랜덤으로 메뉴 추천
 @app.route('/get_random_menu', methods=['GET'])
-def get_random_menu():  
-   # request로 부터 category
-   category = request.args.get('category')
-   filtered_menus = df_menu[df_menu['분류'] == category]
+def get_random_menu():
+    # request로 부터 category
+    category = request.args.get('category')
+    filtered_menus = df_menu[df_menu['분류'] == category]
     
-   if (filtered_menus.empty):
-       message = "더 이상 추천 가능한 메뉴가 없습니다."
-       return render_template('eat/eat.html', message=message)
+    if filtered_menus.empty:
+        # 필터링된 메뉴가 비어 있을 경우
+        message = "더 이상 추천 가능한 메뉴가 없습니다."
+        return render_template('eat/eat.html', message=message)
 
-   random = filtered_menus.sample(1).iloc[0]
-   random_menu = random['메뉴']
-   random_img_url = url_for('static', filename=f'images/food_images/{random_menu}.jpg')
-   
-   return jsonify({'menu': random_menu, 'url': random_img_url})
+    # 필터링된 메뉴가 있을 경우 다른 로직을 처리합니다.
+    # 여기에 추천 메뉴를 처리하는 로직을 추가합니다.
+    # return render_template('recommend.html', menus=filtered_menus)
+    random = filtered_menus.sample(1).iloc[0]
+    random_menu = random['메뉴']
+    #random_img_url = url_for('static', filename=f'images/{random_menu}.jpg')
+    random_img_url = url_for('static', filename=f'images/food_images/{random_menu}.jpg')
+
+    return jsonify({'menu': random_menu, 'url': random_img_url})
+
 
 # 기존 추천 메뉴 제외하고 다시 추천
 @app.route('/get_another_menu', methods=['GET'])
 def get_another_menu():
-   category = request.args.get('category')
-   current_menu = request.args.get('current_menu')
-   filtered_menus = df_menu[(df_menu['분류'] == category) & (df_menu['메뉴'] != current_menu)]
+nu': random_menu, 'url': random_img_url})
 
-   if (filtered_menus.empty):
-       return jsonify({'error': '더 이상 추천 가능한 메뉴가 없습니다.'}), 404
+    category = request.args.get('category')
+    # 현재 메뉴 current_menu에 저장
+    current_menu = request.args.get('current_menu')
+    # current_menu 제외하고 새로운 메뉴 생성
+    filtered_menus = df_menu[(df_menu['분류'] == category) & (df_menu['메뉴'] != current_menu)]
 
-   random = filtered_menus.sample(1).iloc[0]
-   random_menu = random['메뉴']
-   random_img_url = url_for('static', filename=f'images/food_images/{random_menu}.jpg')
-   
-   return jsonify({'menu': random_menu, 'url': random_img_url})
+    if filtered_menus.empty:
+        return jsonify({'error': '더 이상 추천 가능한 메뉴가 없습니다.'}), 404
+
+    random = filtered_menus.sample(1).iloc[0]
+    random_menu = random['메뉴']
+    #random_img_url = url_for('static', filename=f'images/{random_menu}.jpg')
+    random_img_url = url_for('static', filename=f'images/food_images/{random_menu}.jpg')
+
+    return jsonify({'menu': random_menu, 'url': random_img_url})
 
 @app.route('/menus')
 def menus():
-   menu = request.args.get('menu')
-   category = request.args.get('category')
-   url = request.args.get('url')
-   return render_template('eat/menus.html', menu=menu, category=category, url=url)
+    menu = request.args.get('menu')
+    category = request.args.get('category')
+    url = request.args.get('url')
+    return render_template('eat/menus.html', menu=menu, category=category, url=url)
 
 @app.route('/restaurant')
 def restaurant():
@@ -235,10 +249,12 @@ def get_crawl_data(category, subcategory):
         lines = element.text.split('\n')
         
         brand = lines[0]
-        product_name = lines[1]  
-        price = lines[2]  
-        image_url = element.find_element(By.CSS_SELECTOR, 'div > a > div > img').getAttribute('src')
-        buy_url = element.find_element(By.CSS_SELECTOR, 'div > a').getAttribute('href')
+
+        product_name = lines[1]
+        price = lines[2]
+        image_url = element.find_element(By.CSS_SELECTOR, 'div > a > div > img').get_attribute('src')
+        buy_url = element.find_element(By.CSS_SELECTOR, 'div > a').get_attribute('href')
+
         
         data = {
             "brand": brand,
@@ -279,7 +295,10 @@ def recommend(category, subcategory):
     data_list = [data]
     
     return render_template('wear/result.html', data=data_list)
- 
+
+
+# 금액 형식
+
 def extract_price(price_str):
     match = re.search(r'\d+(?:,\d+)*', price_str)
     if match:
@@ -289,9 +308,9 @@ def extract_price(price_str):
 @app.route('/like', methods=['POST'])
 def like_product():
     data = request.json
-    brand  = data.get('brand')
-    product_name  = data.get('product_name')
-    price_str  = data.get('price')
+    brand = data.get('brand')
+    product_name = data.get('product_name')
+    price_str = data.get('price')
     image_url = data.get('image_url')
     buy_url = data.get('buy_url')
     
@@ -304,7 +323,10 @@ def like_product():
         mysql_connection = mysql.connector.connect(**mysql_config)
         mysql_cursor = mysql_connection.cursor()
         
-        mysql_query = "SELECT likes FROM wear WHERE product_name  = %s"
+
+        # 상품이 이미 존재하는지 확인
+        mysql_query = "SELECT likes FROM wear WHERE product_name = %s"
+
         mysql_cursor.execute(mysql_query, (product_name,))
         result = mysql_cursor.fetchone()
 
@@ -322,7 +344,6 @@ def like_product():
             """ 
             mysql_cursor.execute(mysql_query, (brand, product_name, price, image_url, buy_url))
             mysql_connection.commit()
-            likes = 1
             return jsonify({"success": True, "likes": 1})
     
     except mysql.connector.Error as err:
