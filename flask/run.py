@@ -4,9 +4,8 @@ import random
 import logging
 import mysql.connector
 import re
-
-from flask import Flask, request, url_for, jsonify, render_template
-from flask_project.routes import main_bp
+from flask_cors import CORS 
+from flask import Flask, abort, request, session, url_for, jsonify, render_template
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,8 +15,19 @@ from bs4 import BeautifulSoup
 from flask_cors import CORS
 
 app = Flask(__name__, template_folder='flask_project/templates/', static_folder='flask_project/static')
-CORS(app)
-app.register_blueprint(main_bp)
+
+CORS(app, supports_credentials=True, resources={
+    r"/*": {
+        "origins": ["http://localhost:8080", "http://127.0.0.1:8080"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Authorization", "Content-Type", "X-Mnick", "X-Requested-With"],
+        "supports_credentials": True
+    }
+})
+
+app.config['SECRET_KEY'] = 'EasyPick'
+
+
 
 # MySQL 연결 설정
 mysql_config = {
@@ -25,7 +35,7 @@ mysql_config = {
     'password': 'admin1234',
     'host': 'localhost',  # 또는 '127.0.0.1'
     'port': 3306,
-    'database': 'pirates',
+    'database': 'easypick',
 }
 
 mysql_connection = mysql.connector.connect(**mysql_config)
@@ -35,11 +45,35 @@ mysql_cursor = mysql_connection.cursor()
 df_menu = pd.read_csv('./flask_project/static/data/food_menus.csv', encoding='utf-8')
 df_wear = pd.read_csv('./flask_project/static/data/wear_categories.csv', encoding='utf-8')
 
+@app.before_request
+def before_request():
+    # 정적 파일 요청은 처리하지 않음
+    if request.path.startswith('/static/'):
+        return None
+
+    if request.method == 'OPTIONS':
+        return '', 200
+
+    jsessionid = request.cookies.get('JSESSIONID')
+    mnick = request.args.get('mnick')  # 쿼리 파라미터로 mnick을 전달받음
+
+    print(f"Received JSESSIONID: {jsessionid}")
+    print(f"Received mnick: {mnick}")
+
+    # mnick을 세션에 저장하여 다른 핸들러에서 사용 가능하게 설정
+    session['mnick'] = mnick
+
+    
 # eat
-# 메뉴 카테고리 선택
-@app.route('/eat')
+@app.route('/eat', methods=['GET'])
 def eat():
-    return render_template('eat/eat.html')
+    mnick = request.args.get('mnick')
+    if mnick:
+        print(f"Rendering template with mnick: {mnick}")
+        return render_template('eat/eat.html', mnick=mnick)
+    else:
+        abort(401, description="Unauthorized: mnick not found")
+
 
 # 랜덤으로 메뉴 추천
 @app.route('/get_random_menu', methods=['GET'])
@@ -63,9 +97,12 @@ def get_random_menu():
 
     return jsonify({'menu': random_menu, 'url': random_img_url})
 
+
 # 기존 추천 메뉴 제외하고 다시 추천
 @app.route('/get_another_menu', methods=['GET'])
 def get_another_menu():
+nu': random_menu, 'url': random_img_url})
+
     category = request.args.get('category')
     # 현재 메뉴 current_menu에 저장
     current_menu = request.args.get('current_menu')
@@ -107,7 +144,6 @@ def likePlace():
     mysql_cursor = None
 
     try:
-        # 크롤링 요청 및 정보 추출
         response = requests.get(place_url)
         response.raise_for_status()
         
@@ -116,32 +152,21 @@ def likePlace():
         
         place_name = meta_tags.get('og:title', 'N/A')
         place_address = meta_tags.get('og:description', 'N/A')
-        place_url = meta_tags.get('og:url', place_url)  # 사용자가 제공한 URL을 기본값으로 설정
+        place_url = meta_tags.get('og:url', place_url)
         
-        # MySQL 연결 및 커서 생성
-        mysql_connection = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='admin1234',
-            database='pirates'
-        )
-        
+        mysql_connection = mysql.connector.connect(**mysql_config)
         mysql_cursor = mysql_connection.cursor()
         
-        # db와 비교
         mysql_query = "SELECT * FROM eat WHERE place_url = %s"
         mysql_cursor.execute(mysql_query, (place_url,))
         result = mysql_cursor.fetchone()
         
         if result:
-            # 레코드가 존재하면 좋아요 수 증가
             mysql_query = "UPDATE eat SET likes = likes + 1 WHERE place_url = %s"
             mysql_cursor.execute(mysql_query, (place_url,))
             mysql_connection.commit()
-            likes = result[4] + 1  # Assuming 'likes' is the 5th column
-            
+            likes = result[4] + 1
         else:
-            # 레코드가 존재하지 않으면 새로 추가
             mysql_query = """
             INSERT INTO eat (place_name, place_address, place_url, likes)
             VALUES (%s, %s, %s, 1)
@@ -166,7 +191,6 @@ def likePlace():
         if mysql_connection:
             mysql_connection.close()
 
-
 # wear
 @app.route('/wear')
 def wear():
@@ -186,7 +210,6 @@ def get_subcategories(category):
     return sorted_subcategories['Subcategory'].tolist()
 
 def get_crawl_data(category, subcategory):
-    # 카테고리와 서브카테고리에 해당하는 URL 추출
     row = df_wear[(df_wear['Category'] == category) & (df_wear['Subcategory'] == subcategory)]
     
     if row.empty:
@@ -196,31 +219,25 @@ def get_crawl_data(category, subcategory):
     url = row.iloc[0]['URL']
     xpath = row.iloc[0]['XPath']
     
-    # 웹 드라이버 설정
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # 브라우저 창을 열지 않음
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument('--log-level=3')
 
-    # 드라이버 생성
     driver = webdriver.Chrome(options=chrome_options)
     
     try:
         driver.get(url)
         WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-        # XPath를 사용하여 요소가 클릭 가능할 때까지 대기
         category_element = WebDriverWait(driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, xpath)))
         
-        # 클릭
         category_element.click()
 
-        # 크롤링된 데이터 추출 (예: 텍스트 추출)
         i = random.randint(1, 100)
         print(f"Selecting item: {i}")
     
-        # CSS 선택자에서 {i}를 포맷하여 사용
         try:
             element = WebDriverWait(driver, 30).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, f'#__next > div.css-1k28ov0.ezz7e2c0 > div.css-1rr4qq7.ezz7e2c2 > ul > li:nth-child({i})'))
@@ -229,23 +246,23 @@ def get_crawl_data(category, subcategory):
             print(f"Error finding element with CSS selector: {e}")
             return []
         
-        # 텍스트 및 이미지 URL 추출
         lines = element.text.split('\n')
         
         brand = lines[0]
+
         product_name = lines[1]
         price = lines[2]
         image_url = element.find_element(By.CSS_SELECTOR, 'div > a > div > img').get_attribute('src')
         buy_url = element.find_element(By.CSS_SELECTOR, 'div > a').get_attribute('href')
+
         
-        # 결과를 딕셔너리 형태로 저장
         data = {
             "brand": brand,
             "product_name": product_name,
             "price": price,
             "image_url": image_url,
             "buy_url": buy_url,
-            "likes": 0  # 초기 좋아요 수
+            "likes": 0
         }
         print(f"Fetched item {i}: {brand}, {product_name}, {price}, {image_url}, {buy_url}")
         print(f"Crawled Data: {data}")
@@ -257,7 +274,7 @@ def get_crawl_data(category, subcategory):
         return []
     
     finally:
-        driver.quit()  # 웹 드라이버 종료
+        driver.quit()
 
 @app.route('/categories/<prefix>')
 def categories(prefix):
@@ -275,14 +292,14 @@ def recommend(category, subcategory):
     if not data:
         return render_template('wear/result.html', data=None)
     
-    # 단일 데이터 딕셔너리의 리스트로 변환
     data_list = [data]
     
     return render_template('wear/result.html', data=data_list)
 
+
 # 금액 형식
+
 def extract_price(price_str):
-    # 정규식을 사용하여 숫자와 ','를 추출
     match = re.search(r'\d+(?:,\d+)*', price_str)
     if match:
         return match.group(0)
@@ -303,17 +320,17 @@ def like_product():
         return jsonify({"success": False, "message": "Invalid input"}), 400
     
     try:
-        # MySQL 연결 설정
         mysql_connection = mysql.connector.connect(**mysql_config)
         mysql_cursor = mysql_connection.cursor()
         
+
         # 상품이 이미 존재하는지 확인
         mysql_query = "SELECT likes FROM wear WHERE product_name = %s"
+
         mysql_cursor.execute(mysql_query, (product_name,))
         result = mysql_cursor.fetchone()
 
         if result:
-            # 상품이 존재하면 좋아요 수 증가
             likes = result[0] + 1
             mysql_query = "UPDATE wear SET likes = %s WHERE product_name = %s"
             mysql_cursor.execute(mysql_query, (likes, product_name))
@@ -333,7 +350,6 @@ def like_product():
         print(f"Error: {err}")
         return jsonify({"success": False, "message": "Database error"}), 500
     finally:
-        # 커서와 연결 종료
         mysql_cursor.close()
         mysql_connection.close()
 

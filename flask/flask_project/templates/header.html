@@ -24,7 +24,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
   <script>
     function editProfile() {
-      location.href = '/members/mypage';
+      location.href = 'http://localhost:8080/members/mypage';
     }
 
     function toggleProfilePanel() {
@@ -38,7 +38,7 @@
     <div class="header-inner">
       <div class="header-container container-lg">
         <h1 class="header-title">
-          <a href="/">
+          <a href="http://localhost:8080/">
             <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="로고" style="width: 200px; height: 150px; margin-top: -55px;">
           </a>
         </h1>
