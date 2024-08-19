@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/flag-pirate.svg" alt="선택장애 해결사 로고" width="150px" height="150px">
 
   # 낭만해적단 파이널 프로젝트: 선택장애 해결사 🏴‍☠️
 
@@ -57,7 +56,7 @@
 ## 기술 스택 💻
 
 <div align="center">
-  <img src="https://kroki.io/plantuml/svg/eNp1kU1OwzAQhXd9ijdK07oHgEXEAhViyWFaD9SSJX_FigTq3bHdRGo3MCt7vnmfZsYb0ynpICCNg1GDQWGlwDTR5DSNT6nwGhtPpyc6xfXU-iApR0oZ9-8ZUPwAdBR-DmUHKh-VgIGEqzyR8IxddLjcjmAnLZpK18DCVo0DLtRVSQ_DJFIZxnmuQvtx_XUfHyIjvt2_33RgvO_W2Qb1QiY3gXlH9lUJqbycR0p1p6zz2nDgm4LhUlOCO_Tew-B_Lf7ZJGGOj3KiDC1-8kq6tkY7M7jDyxv9sY0QrHHiMPlsG6ejRPMkL8OTxPPZi8Q7EivtK6y0q2TnV19YydCyEslLWbL7BnQ0srg=" alt="기술 스택 아키텍처" width="600px">
+
 </div>
 
 - **프론트엔드**: HTML, JavaScript, CSS
