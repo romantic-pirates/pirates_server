@@ -108,6 +108,18 @@
 4. 브랜치에 푸시합니다 (`git push origin feature/AmazingFeature`).
 5. Pull Request를 생성합니다.
 
+## 형상관리 방법
+![https://user-images.githubusercontent.com/59078557/211580433-6fd943c3-405e-4bb8-b95e-f522fe631278.png](https://user-images.githubusercontent.com/59078557/211580433-6fd943c3-405e-4bb8-b95e-f522fe631278.png)
+
+### 작업방식
+1. 메인 저장소를 fork 해온다.
+2. fork 한 Repository를 clone 한다.
+3. git remote add upstream <메인 저장소 주소>를 통해 upstream 설정을 한다.
+4. git fetch를 통해 최신 코드를 받아온다
+5. upstream/develop 브랜치에서 feature 브랜치를 생성한다.
+6. 작업 완료된 fearure 브랜치를 origin 브랜치로 push 한다.
+7. 해당 브랜치를 upstream으로 PR을 올린다.
+8. 코드 리뷰 진행 후 Merge를 진행한다.
 ---
 
 ## 팀원 👥
