@@ -128,11 +128,11 @@
   <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/users.svg" alt="팀원 소개" width="500px">
 </div>
 
-- **박재근** (팀장): 백엔드 개발 (Spring Boot)
+- **박제근** (팀장): 백엔드 개발 (Spring Boot)
 - **김선일**: 프론트엔드 개발 (HTML, JS, CSS)
 - **한상현**: 백엔드 개발 (Flask)
 - **김형진**: 백엔드 개발 (Flask)
-- **김동규**: 형상 관리
+- **김동규**: 형상 관리 (git)
 
 ---
 
