@@ -32,10 +32,10 @@
 ## 프로젝트 소개 🚀
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/dice.svg" alt="선택장애 해결사 소개" width="600px">
+
 </div>
 
-'선택장애 해결사'는 일상 생활에서 자주 마주치는 '뭐 입지?', '뭐 먹지?', '뭐 볼까?' 와 같은 고민들을 해결해주는 웹 애플리케이션입니다. Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들에게 빠르고 재미있는 방식으로 선택을 도와줍니다.
+'선택장애를 위한 이 사이트'는 일상 생활에서 자주 마주치는 '뭐 입지?', '뭐 먹지?', '뭐 볼까?' 와 같은 고민들을 해결해주는 웹 애플리케이션입니다. Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들에게 빠르고 재미있는 방식으로 선택을 도와줍니다.
 
 ---
 
