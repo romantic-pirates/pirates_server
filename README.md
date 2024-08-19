@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://via.placeholder.com/150x150.png?text=선택장애+해결사+로고" alt="선택장애 해결사 로고" width="150px" height="150px">
+  <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/flag-pirate.svg" alt="선택장애 해결사 로고" width="150px" height="150px">
 
   # 낭만해적단 파이널 프로젝트: 선택장애 해결사 🏴‍☠️
 
@@ -33,7 +33,7 @@
 ## 프로젝트 소개 🚀
 
 <div align="center">
-  <img src="https://via.placeholder.com/600x300.png?text=선택장애+해결사+소개+이미지" alt="선택장애 해결사 소개" width="600px">
+  <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/dice.svg" alt="선택장애 해결사 소개" width="600px">
 </div>
 
 '선택장애 해결사'는 일상 생활에서 자주 마주치는 '뭐 입지?', '뭐 먹지?', '뭐 볼까?' 와 같은 고민들을 해결해주는 웹 애플리케이션입니다. Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들에게 빠르고 재미있는 방식으로 선택을 도와줍니다.
@@ -43,9 +43,9 @@
 ## 주요 기능 🌟
 
 <div align="center">
-  <img src="https://via.placeholder.com/200x200.png?text=옷+추천" alt="옷 추천" width="200px">
-  <img src="https://via.placeholder.com/200x200.png?text=음식+추천" alt="음식 추천" width="200px">
-  <img src="https://via.placeholder.com/200x200.png?text=콘텐츠+추천" alt="콘텐츠 추천" width="200px">
+  <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/shirt.svg" alt="옷 추천" width="200px">
+  <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/utensils.svg" alt="음식 추천" width="200px">
+  <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/film.svg" alt="콘텐츠 추천" width="200px">
 </div>
 
 1. **옷 추천** 👚: 날씨, 상황 등을 고려한 옷차림 추천
@@ -57,7 +57,7 @@
 ## 기술 스택 💻
 
 <div align="center">
-  <img src="https://via.placeholder.com/600x300.png?text=기술+스택+아키텍처+다이어그램" alt="기술 스택 아키텍처" width="600px">
+  <img src="https://kroki.io/plantuml/svg/eNp1kU1OwzAQhXd9ijdK07oHgEXEAhViyWFaD9SSJX_FigTq3bHdRGo3MCt7vnmfZsYb0ynpICCNg1GDQWGlwDTR5DSNT6nwGhtPpyc6xfXU-iApR0oZ9-8ZUPwAdBR-DmUHKh-VgIGEqzyR8IxddLjcjmAnLZpK18DCVo0DLtRVSQ_DJFIZxnmuQvtx_XUfHyIjvt2_33RgvO_W2Qb1QiY3gXlH9lUJqbycR0p1p6zz2nDgm4LhUlOCO_Tew-B_Lf7ZJGGOj3KiDC1-8kq6tkY7M7jDyxv9sY0QrHHiMPlsG6ejRPMkL8OTxPPZi8Q7EivtK6y0q2TnV19YydCyEslLWbL7BnQ0srg=" alt="기술 스택 아키텍처" width="600px">
 </div>
 
 - **프론트엔드**: HTML, JavaScript, CSS
@@ -114,7 +114,7 @@
 ## 팀원 👥
 
 <div align="center">
-  <img src="https://via.placeholder.com/500x300.png?text=팀원+소개" alt="팀원 소개" width="500px">
+  <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/users.svg" alt="팀원 소개" width="500px">
 </div>
 
 - **박재근** (팀장): 백엔드 개발 (Spring Boot)
