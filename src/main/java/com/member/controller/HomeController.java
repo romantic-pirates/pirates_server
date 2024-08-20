@@ -19,4 +19,9 @@ public class HomeController {
     public String home(HttpSession session, Model model) {
         return "home";
     }
+
+    @GetMapping("/logout")
+    public String logoutPage() {
+        return "logout";
+    }
 }
