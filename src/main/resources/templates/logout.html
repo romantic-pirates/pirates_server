@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged Out</title>
+    <script>
+        // 로그아웃 후 세션 스토리지 비우기
+        sessionStorage.clear();
+        console.log("로그아웃");
+        // 로그아웃 후 홈 페이지로 리디렉션
+        window.location.href = "/";
+    </script>
+</head>
+<body>
+    <p>You have been logged out. Redirecting...</p>
+</body>
+</html>

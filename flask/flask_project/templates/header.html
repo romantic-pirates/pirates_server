@@ -23,13 +23,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
   <script>
+    var mnick = "{{ mnick }}";
+    
     function editProfile() {
       location.href = 'http://localhost:8080/members/mypage';
-    }
-
-    function toggleProfilePanel() {
-      const profilePanel = document.getElementById('profile-panel');
-      profilePanel.style.display = profilePanel.style.display === 'block' ? 'none' : 'block';
     }
   </script>
 </head>
@@ -65,7 +62,7 @@
               </a>
             </li>
             <li class="header-gnbitem item-active">
-              <a class="header-gnblink" href="javascript:void(0)">
+              <a class="header-gnblink" href="http://localhost:8080/board/list">
                 <span>고객센터</span>
               </a>
             </li>

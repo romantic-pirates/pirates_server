@@ -83,7 +83,7 @@ $(document).ready(function() {
             if (result.isConfirmed) {
                 $.ajax({
                     url: '/members/logout',
-                    type: 'GET',
+                    type: 'POST',
                     success: function() {
                         // 로그아웃 성공 시 세션 스토리지 비우기
                         sessionStorage.removeItem('loggedInUser');

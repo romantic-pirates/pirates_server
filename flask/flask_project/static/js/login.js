@@ -1,11 +1,30 @@
 $(document).ready(function() {
     // 전역 변수로 전달된 mnick 값을 사용
-    if (mnick && mnick !== "") {
-        sessionStorage.setItem('mnick', mnick);
+    let storedMnick = sessionStorage.getItem('mnick');
+    
+    // storedMnick 값이 없으면 서버에서 가져옴
+    if (!storedMnick) {
+        storedMnick = mnick; // Flask에서 전달된 mnick 값을 사용
+        if (storedMnick) {
+            $.ajax({
+                url: '/update_session', // 서버에서 이 경로를 처리하도록 설정해야 합니다.
+                type: 'POST',
+                data: JSON.stringify({ mnick: storedMnick }),
+                contentType: 'application/json',
+                success: function(response) {
+                    console.log('Session updated successfully');
+                    sessionStorage.setItem('mnick', storedMnick);
+                    updateHeader(); // 세션이 업데이트된 후 헤더 업데이트
+                },
+                error: function(xhr) {
+                    console.log('Failed to update session:', xhr.responseText);
+                }
+            });
+        }
+    } else {
+        // 헤더 업데이트
+        updateHeader();
     }
-
-    // 헤더 업데이트
-    updateHeader();
 
     // 로그아웃 처리
     $('#logout-link').on('click', function(event) {
@@ -25,19 +44,9 @@ $(document).ready(function() {
             cancelButtonText: '취소'
         }).then((result) => {
             if (result.isConfirmed) {
-                $.ajax({
-                    url: '/logout',  // Flask의 로그아웃 라우트로 전송
-                    type: 'POST',
-                    success: function() {
-                        // 로그아웃 성공 시 세션 스토리지 비우기
-                        sessionStorage.removeItem('loggedInUser');
-                        sessionStorage.removeItem('mnick');
-                        location.href = 'http://localhost:8080/'; // 홈 페이지로 리다이렉트
-                    },
-                    error: function(xhr) {
-                        console.log('Logout failed:', xhr.responseText);
-                    }
-                });
+                sessionStorage.removeItem('loggedInUser');
+                sessionStorage.removeItem('mnick');
+                window.location.href = 'http://localhost:8080/members/logout';
             }
         });
     });
@@ -56,6 +65,7 @@ $(document).ready(function() {
     }
 
     function toggleProfilePanel() {
+        console.log("toggleProfilePanel called");
         var panel = document.getElementById('profile-panel');
         if (panel.style.display === 'none' || panel.style.display === '') {
             panel.style.display = 'block';

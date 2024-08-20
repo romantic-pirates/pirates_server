@@ -55,25 +55,42 @@ def before_request():
         return '', 200
 
     jsessionid = request.cookies.get('JSESSIONID')
-    mnick = request.args.get('mnick')  # 쿼리 파라미터로 mnick을 전달받음
+    mnick = request.args.get('mnick')
+
+    # mnick이 None인 경우, 세션스토리지에서 값을 가져오도록 시도
+    if not mnick:
+        mnick = request.form.get('mnick')
 
     print(f"Received JSESSIONID: {jsessionid}")
     print(f"Received mnick: {mnick}")
 
-    # mnick을 세션에 저장하여 다른 핸들러에서 사용 가능하게 설정
-    session['mnick'] = mnick
+    if mnick:
+        session['mnick'] = mnick
+    elif 'mnick' not in session:
+        abort(401, description="Unauthorized: mnick not found")
 
     
 # eat
 @app.route('/eat', methods=['GET'])
 def eat():
-    mnick = request.args.get('mnick')
+    mnick = session.get('mnick')
     if mnick:
         print(f"Rendering template with mnick: {mnick}")
         return render_template('eat/eat.html', mnick=mnick)
     else:
         abort(401, description="Unauthorized: mnick not found")
 
+
+@app.route('/update_session', methods=['POST'])
+def update_session():
+    data = request.json
+    mnick = data.get('mnick')
+
+    if mnick:
+        session['mnick'] = mnick
+        return jsonify({'success': True}), 200
+    else:
+        return jsonify({'error': 'mnick not provided'}), 400
 
 # 랜덤으로 메뉴 추천
 @app.route('/get_random_menu', methods=['GET'])
@@ -97,24 +114,20 @@ def get_random_menu():
 
     return jsonify({'menu': random_menu, 'url': random_img_url})
 
-
 # 기존 추천 메뉴 제외하고 다시 추천
 @app.route('/get_another_menu', methods=['GET'])
 def get_another_menu():
-nu': random_menu, 'url': random_img_url})
-
     category = request.args.get('category')
-    # 현재 메뉴 current_menu에 저장
     current_menu = request.args.get('current_menu')
-    # current_menu 제외하고 새로운 메뉴 생성
+
+    # current_menu 제외하고 새로운 메뉴 필터링
     filtered_menus = df_menu[(df_menu['분류'] == category) & (df_menu['메뉴'] != current_menu)]
 
     if filtered_menus.empty:
         return jsonify({'error': '더 이상 추천 가능한 메뉴가 없습니다.'}), 404
 
-    random = filtered_menus.sample(1).iloc[0]
-    random_menu = random['메뉴']
-    #random_img_url = url_for('static', filename=f'images/{random_menu}.jpg')
+    random_choice = filtered_menus.sample(1).iloc[0]
+    random_menu = random_choice['메뉴']
     random_img_url = url_for('static', filename=f'images/food_images/{random_menu}.jpg')
 
     return jsonify({'menu': random_menu, 'url': random_img_url})
@@ -192,9 +205,14 @@ def likePlace():
             mysql_connection.close()
 
 # wear
-@app.route('/wear')
+@app.route('/wear', methods=['GET'])
 def wear():
-    return render_template('wear/wear.html')
+    mnick = session.get('mnick')
+    if mnick:
+        print(f"Rendering template with mnick: {mnick}")
+        return render_template('wear/wear.html', mnick=mnick)
+    else:
+        abort(401, description="Unauthorized: mnick not found")
 
 # 카테고리와 서브카테고리 데이터 가공
 def get_main_categories():
