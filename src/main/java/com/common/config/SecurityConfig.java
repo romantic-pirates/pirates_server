@@ -45,13 +45,15 @@ public class SecurityConfig {
                                 .requestMatchers("/board/**").permitAll()       
                                 .requestMatchers("/css/**", "/js/**", "/images/**", "/icons/**", "/static/**", "/medias/**").permitAll()
                                 .requestMatchers("/members/register", "/members/login", "/members/mypage", "/members/edit", "/members/find", "/api/find/password", "/auth/google", "/auth/naver", "/auth/loginSuccess").permitAll()
-                                .requestMatchers("/", "/home", "/api/members/**", "/api/auth/**", "/members/change","/api/members/me").permitAll()
+                                .requestMatchers("/","/logout", "/home", "/api/members/**", "/api/auth/**", "/members/change","/api/members/me").permitAll()
                                 .requestMatchers("/members/eat", "/members/watch", "/members/wear").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
                                 .logoutUrl("/members/logout")
-                                .logoutSuccessUrl("/")
+                                .logoutSuccessUrl("/logout")
+                                .invalidateHttpSession(true) // 세션 무효화
+                                .deleteCookies("JSESSIONID") // JSESSIONID 쿠키 삭제
                                 .permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -75,7 +77,7 @@ public class SecurityConfig {
                                     return config;
                                 })
                 )
-                .csrf(csrf -> csrf.disable()); // 가능하면 CSRF 보호를 활성화하는 것이 좋음
+                .csrf(csrf -> csrf.disable());
 
         return http.build();
     }

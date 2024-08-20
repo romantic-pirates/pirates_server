@@ -1,7 +1,6 @@
 package com.member.service;
 
 import java.io.File;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
