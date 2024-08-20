@@ -126,7 +126,7 @@
                 <form th:action="@{/board/list}" method="get" class="search-form">
                     <input type="text" name="searchKeyword" placeholder="검색어 입력" class="search-input" th:value="${param.searchKeyword}">
                     <button type="submit" class="search-button">검색</button>
-                    <a th:href="@{/board/write}" class="btn-write">글쓰기</a>
+                    <a th:href="@{/board/write}" class="protected-feature btn-write">글쓰기</a>
                 </form>
             </div>
         </div>
