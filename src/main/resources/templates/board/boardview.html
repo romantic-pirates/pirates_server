@@ -24,6 +24,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+    <script src="/static/js/boardview.js"></script>
 </head>
 
 <!-- [S]basic-N1 -->
@@ -43,22 +44,22 @@
           </div>
           <ul class="header-gnblist">
             <li class="header-gnbitem">
-              <a class="header-gnblink" href="http://127.0.0.1:5000/eat">
+              <a class="header-gnblink" href="/members/eat">
                 <span>뭐먹지</span>
               </a>
             </li>
             <li class="header-gnbitem">
-              <a class="header-gnblink" href="javascript:void(0)">
+              <a class="header-gnblink" href="/members/wear">
                 <span>뭐입지</span>
               </a>
             </li>
             <li class="header-gnbitem">
-              <a class="header-gnblink" href="http://127.0.0.1:5000/watch">
+              <a class="header-gnblink" href="/members/watch">
                 <span>뭐볼까</span>
               </a>
             </li>
             <li class="header-gnbitem item-active">
-              <a class="header-gnblink" href="javascript:void(0)">
+              <a class="header-gnblink" href="/board/list">
                 <span>공지사항</span>
               </a>
             </li>
@@ -89,8 +90,9 @@
         <p th:text="${board.content}"> 내용이 들어갈 부분입니다. </p>
         <img th:src="@{${board.filepath}}" alt="파일 이미지" class="post-image">
         <div class="buttons">
-            <a th:href="@{/board/delete(id=${board.id})}" class="btn-delete">글삭제</a>
-            <a th:href="@{/board/modify/{id}(id=${board.id})}" class="btn-modify">글수정</a>
+          <button id="btnDelete" class="btn-delete" th:data-board-id="${board.id}">글삭제</button>
+          <button id="btnModify" class="btn-modify" th:data-board-id="${board.id}">글수정</button>
+          
             <button onclick="window.history.back()" class="btn-back">돌아가기</button>
         </div>
     </div>
@@ -170,5 +172,10 @@
   <script th:src="@{/js/script.js}"></script>
   <script th:src="@{/js/login.js}"></script>
 
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    const boardId = /*[[${board.id}]]*/ '';
+    /*]]>*/
+</script>
 
 </html>

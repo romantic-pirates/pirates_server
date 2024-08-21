@@ -43,22 +43,22 @@
           </div>
           <ul class="header-gnblist">
             <li class="header-gnbitem">
-              <a class="header-gnblink" href="http://127.0.0.1:5000/eat">
+              <a class="header-gnblink" href="/members/eat">
                 <span>뭐먹지</span>
               </a>
             </li>
             <li class="header-gnbitem">
-              <a class="header-gnblink" href="javascript:void(0)">
+              <a class="header-gnblink" href="/members/wear">
                 <span>뭐입지</span>
               </a>
             </li>
             <li class="header-gnbitem">
-              <a class="header-gnblink" href="http://127.0.0.1:5000/watch">
+              <a class="header-gnblink" href="/members/watch">
                 <span>뭐볼까</span>
               </a>
             </li>
             <li class="header-gnbitem item-active">
-              <a class="header-gnblink" href="javascript:void(0)">
+              <a class="header-gnblink" href="/board/list">
                 <span>공지사항</span>
               </a>
             </li>
@@ -182,16 +182,18 @@
           <script th:src="@{/js/script.js}"></script>
           <script th:src="@{/js/login.js}"></script>
 
-        <div th:if="${message}">
-            <script th:inline="javascript">
-                /*<![CDATA[*/
-                var message = /*[[${message}]]*/ '';
-                if (message) {
-                    alert(message);
-                }
-                /*]]>*/
-            </script>
-        </div>        
+          <script th:inline="javascript">
+            /*<![CDATA[*/
+            var message = /*[[${message}]]*/ '';
+            if (message) {
+                Swal.fire({
+                    title: message,    // 서버에서 전달된 메시지
+                    icon: 'info',      // 메시지 타입: 'info', 'success', 'error', 'warning', 'question'
+                    confirmButtonText: '확인'
+                });
+            }
+            /*]]>*/
+        </script>       
     </div>
 </body>
 
