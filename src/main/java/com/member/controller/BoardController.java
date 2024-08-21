@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,30 +16,33 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.member.entity.Board;
+import com.member.entity.Member;
+import com.member.repository.MemberRepository;
 import com.member.service.BoardService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
 @Controller
+@RequestMapping("/board")
 public class BoardController {
 
     @Autowired
     private BoardService boardService;
 
-    @GetMapping("/board/write")
-    public String boardwriteForm() {
-
-        return "board/boardwrite";
+    @GetMapping("/write")
+    public String boardwriteForm(Board board, Model model) {
+        
+        return "/board/boardwrite";
     }
     
-   
-    @PostMapping("/board/writepro")
-        public String boardWritePro(Board board, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws Exception {
+    @PostMapping("/writepro")
+    public String boardWritePro(Board board, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws Exception {
 
         if (board.getTitle() == null || board.getTitle().trim().isEmpty() ||
             board.getContent() == null || board.getContent().trim().isEmpty()) {
@@ -51,7 +56,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    @GetMapping("/board/list")
+    @GetMapping("/list")
     public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                                          @RequestParam(value = "searchKeyword", required = false) 
                                          String searchKeyword) {
@@ -76,7 +81,7 @@ public class BoardController {
         return "board/boardlist";
     }
     
-    @GetMapping("/board/view")
+    @GetMapping("/view")
     public String boardView(Model model, @RequestParam(name = "id") Integer id, 
                                          @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
                                          HttpServletRequest request, 
@@ -95,7 +100,7 @@ public class BoardController {
         return "board/boardview";
     }
     
-    @GetMapping("/board/delete")
+    @GetMapping("/delete")
     public String boardDelete(@RequestParam(name = "id") Integer id) {
         
         boardService.boardDelete(id);
@@ -103,7 +108,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    @GetMapping("/board/modify/{id}")
+    @GetMapping("/modify/{id}")
     public String boardModify(@PathVariable("id") Integer id, Model model) {
 
         model.addAttribute("board", boardService.boardView(id));
@@ -111,7 +116,7 @@ public class BoardController {
         return "board/boardmodify";
     }
     
-    @PostMapping("/board/update/{id}")
+    @PostMapping("/update/{id}")
     public String boardUpdate(@PathVariable("id") Integer id, Board board, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws Exception {
 
         Board boardTemp = boardService.boardView(id);

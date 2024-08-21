@@ -24,6 +24,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
+    <script src="/static/js/board.js"></script>
 </head>
 
 <!-- [S]basic-N1 -->
@@ -43,22 +45,22 @@
           </div>
           <ul class="header-gnblist">
             <li class="header-gnbitem">
-              <a class="header-gnblink" href="http://127.0.0.1:5000/eat">
+              <a class="header-gnblink" href="/members/eat">
                 <span>뭐먹지</span>
               </a>
             </li>
             <li class="header-gnbitem">
-              <a class="header-gnblink" href="javascript:void(0)">
+              <a class="header-gnblink" href="/members/wear">
                 <span>뭐입지</span>
               </a>
             </li>
             <li class="header-gnbitem">
-              <a class="header-gnblink" href="http://127.0.0.1:5000/watch">
+              <a class="header-gnblink" href="/members/watch">
                 <span>뭐볼까</span>
               </a>
             </li>
             <li class="header-gnbitem item-active">
-              <a class="header-gnblink" href="javascript:void(0)">
+              <a class="header-gnblink" href="/board/list">
                 <span>공지사항</span>
               </a>
             </li>
@@ -126,8 +128,8 @@
                 <form th:action="@{/board/list}" method="get" class="search-form">
                     <input type="text" name="searchKeyword" placeholder="검색어 입력" class="search-input" th:value="${param.searchKeyword}">
                     <button type="submit" class="search-button">검색</button>
-                    <a th:href="@{/board/write}" class="protected-feature btn-write">글쓰기</a>
                 </form>
+                <button id="writeButton" class="btn-write">글쓰기</button>
             </div>
         </div>
         
@@ -206,11 +208,15 @@
       <script th:src="@{/js/login.js}"></script>
 
 
-    <script th:inline="javascript">
+      <script th:inline="javascript">
         /*<![CDATA[*/
         var message = /*[[${message}]]*/ '';
         if (message) {
-            alert(message);
+            Swal.fire({
+                title: message,    // 서버에서 전달된 메시지
+                icon: 'success',      // 메시지 타입: 'info', 'success', 'error', 'warning', 'question'
+                confirmButtonText: '확인'
+            });
         }
         /*]]>*/
     </script>
