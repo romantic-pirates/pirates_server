@@ -6,17 +6,10 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.member.entity.Board;
-import com.member.entity.Member;
 import com.member.repository.BoardRepository;
-import com.member.repository.MemberRepository;
-
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,11 +20,11 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
- // 글작성 처리
+    // 글작성 처리
     public void write(Board board, MultipartFile file) throws Exception {
 
         // 파일 업로드 처리
-        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+        String projectPath = System.getProperty("user.dir") + "\\pirates_server\\src\\main\\resources\\static\\files";
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + file.getOriginalFilename();
         File saveFile = new File(projectPath, fileName);

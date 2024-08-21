@@ -4,14 +4,11 @@ import random
 import logging
 import mysql.connector
 import re
-
-
 from bs4 import BeautifulSoup
 from bson import ObjectId
 from datetime import datetime
-from flask import Flask, request, url_for, jsonify, render_template
+from flask import Flask, abort, request, session, url_for, jsonify, render_template
 from flask_cors import CORS
-from flask_project.routes import main_bp
 from pymongo import MongoClient
 
 from selenium import webdriver
@@ -525,18 +522,19 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
 
     return [serialize_document(result) for result in final_results]
 
-@app.route('/watchhome')
+@app.route('/watchhome', methods=['GET'])
 def home():
-    return render_template('watch/watchhome.html')
+    mnick = session.get('mnick')
+    if mnick:
+        print(f"Rendering template with mnick: {mnick}")
+        return render_template('watch/watchhome.html', mnick=mnick)
+    else:
+        abort(401, description="Unauthorized: mnick not found")
+
 
 @app.route('/test')
 def test():
     return render_template('watch/test.html')
-
-# @app.route('/watch')
-# def index():
-#     """Serve the watch.html file."""
-#     return render_template('watch/watch.html')
 
 @app.route('/recommend', methods=['GET'])
 def recommend():
