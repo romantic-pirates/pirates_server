@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const populateFormFields = () => {
         document.getElementById('mediaType').value = state.mediaType;
-        document.getElementById('genres').value = state.genres.join(', ');
         document.getElementById('director').value = state.director;
         document.getElementById('actor').value = state.actor;
         document.getElementById('minRuntime').value = state.minRuntime;
@@ -47,94 +46,157 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('network').value = state.network;
         document.getElementById('releaseYear').value = state.releaseYear;
         document.getElementById('status').value = state.status;
+        updateGenreCheckboxes();
+    };
+
+    const updateGenreCheckboxes = () => {
+        const genreCheckboxes = document.querySelectorAll('input[name="genres"]');
+        genreCheckboxes.forEach(checkbox => {
+            checkbox.checked = state.genres.includes(checkbox.value);
+        });
     };
 
     const renderForm = () => {
         const html = `
             <form id="searchForm">
-                <label>
-                    영화/TV:
-                    <select id="mediaType">
-                        <option value="">선택</option>
-                        <option value="movie">영화</option>
-                        <option value="tv">TV</option>
-                    </select>
-                </label>
-                <br/>
-                <div id="tvOptions" style="display: none;">
-                    <label>
-                        방송사:
-                        <select id="network">
-                            <option value="">선택</option>
-                            <option value="tvN">tvN</option>
-                            <option value="jtbc">JTBC</option>
-                            <option value="kbs1">KBS1</option>
-                            <option value="kbs2">KBS2</option>
-                            <option value="mbc">MBC</option>
-                            <option value="sbs">SBS</option>
-                        </select>
-                    </label>
-                    <br/>
-                    <label>
-                        상태:
-                        <select id="status">
-                            <option value="">선택</option>
-                            <option value="Ended">완결</option>
-                            <option value="Returning Series">방영중</option>
-                        </select>
-                    </label>
-                    <br/>
-                </div>
-                <div id="movieOptions" style="display: none;">
-                    <label>
-                        감독:
-                        <input id="director" type="text" placeholder="감독명">
-                    </label>
-                    <br/>
-                    <label>
-                        최소 런타임:
-                        <input id="minRuntime" type="number" placeholder="최소 런타임">
-                    </label>
-                    <br/>
-                    <label>
-                        최대 런타임:
-                        <input id="maxRuntime" type="number" placeholder="최대 런타임">
-                    </label>
-                    <br/>
-                    <label>
-                        개봉 연도:
-                        <input id="releaseYear" type="number" placeholder="개봉 연도">
-                    </label>
-                </div>
-                <br/>
-                <label>
-                    장르 (쉼표로 구분):
-                    <input id="genres" type="text" placeholder="장르명">
-                </label>
-                <br/>
-                <label>
-                    출연진:
-                    <input id="actor" type="text" placeholder="출연진명">
-                </label>
-                <br/>
-                <button type="button" id="submitButton">추천</button>
-                <button type="button" id="resetButton">리셋</button>
-            </form>
+    <label>
+        영화/TV:
+        <select id="mediaType">
+            <option value="">선택</option>
+            <option value="movie">영화</option>
+            <option value="tv">TV</option>
+        </select>
+    </label>
+    <br/>
+    <div id="tvOptions" style="display: none;">
+        <label>
+            방송사:
+            <select id="network">
+                <option value="">선택</option>
+                <option value="tvN">tvN</option>
+                <option value="jtbc">JTBC</option>
+                <option value="kbs1">KBS1</option>
+                <option value="kbs2">KBS2</option>
+                <option value="mbc">MBC</option>
+                <option value="sbs">SBS</option>
+            </select>
+        </label>
+        <br/>
+        <label>
+            완결/방영:
+            <select id="status">
+                <option value="">선택</option>
+                <option value="Ended">완결</option>
+                <option value="Returning Series">방영중</option>
+            </select>
+        </label>
+        <br/>
+    </div>
+    <div id="movieOptions" style="display: none;">
+        <label>
+            감독:
+            <input id="director" type="text" placeholder="감독명">
+        </label>
+        <br/>
+        <label>
+            최소 런타임:
+            <input id="minRuntime" type="number" placeholder="최소 런타임">
+        </label>
+        <br/>
+        <label>
+            최대 런타임:
+            <input id="maxRuntime" type="number" placeholder="최대 런타임">
+        </label>
+        <br/>
+        <label>
+            개봉 연도:
+            <input id="releaseYear" type="number" min="2000" max="2027" value="2024" placeholder="개봉 연도">
+        </label>
+    </div>
+    <br/>
+    <div id="tvGenres" style="display: none;">
+        <label>장르:</label>
+        <div class="genre-container">
+            <label><input type="checkbox" name="genres" value="Action & Adventure"> 액션/모험</label>
+            <label><input type="checkbox" name="genres" value="Kids"> 아동</label>
+            <label><input type="checkbox" name="genres" value="News"> 뉴스</label>
+            <label><input type="checkbox" name="genres" value="Reality"> 리얼리티</label>
+            <label><input type="checkbox" name="genres" value="Sci-Fi & Fantasy"> SF/판타지</label>
+            <label><input type="checkbox" name="genres" value="Soap"> 연속극</label>
+            <label><input type="checkbox" name="genres" value="Talk"> 토크쇼</label>
+            <label><input type="checkbox" name="genres" value="War & Politics"> 전쟁/정치</label>
+            <label><input type="checkbox" name="genres" value="가족"> 가족</label>
+            <label><input type="checkbox" name="genres" value="다큐멘터리"> 다큐멘터리</label>
+            <label><input type="checkbox" name="genres" value="드라마"> 드라마</label>
+            <label><input type="checkbox" name="genres" value="로맨스"> 로맨스</label>
+            <label><input type="checkbox" name="genres" value="미스터리"> 미스터리</label>
+            <label><input type="checkbox" name="genres" value="범죄"> 범죄</label>
+            <label><input type="checkbox" name="genres" value="애니메이션"> 애니메이션</label>
+            <label><input type="checkbox" name="genres" value="역사"> 역사</label>
+            <label><input type="checkbox" name="genres" value="코미디"> 코미디</label>
+        </div>
+    </div>
+    <div id="movieGenres" style="display: none;">
+        <label>장르:</label>
+        <div class="genre-container">
+           <label><input type="checkbox" name="genres" value="SF"> SF</label>
+            <label><input type="checkbox" name="genres" value="TV 영화"> TV 영화</label>
+            <label><input type="checkbox" name="genres" value="가족"> 가족</label>
+            <label><input type="checkbox" name="genres" value="공포"> 공포</label>
+            <label><input type="checkbox" name="genres" value="다큐멘터리"> 다큐멘터리</label>
+            <label><input type="checkbox" name="genres" value="드라마"> 드라마</label>
+            <label><input type="checkbox" name="genres" value="로맨스"> 로맨스</label>
+            <label><input type="checkbox" name="genres" value="모험"> 모험</label>
+            <label><input type="checkbox" name="genres" value="미스터리"> 미스터리</label>
+            <label><input type="checkbox" name="genres" value="범죄"> 범죄</label>
+            <label><input type="checkbox" name="genres" value="서부"> 서부</label>
+            <label><input type="checkbox" name="genres" value="스릴러"> 스릴러</label>
+            <label><input type="checkbox" name="genres" value="애니메이션"> 애니메이션</label>
+            <label><input type="checkbox" name="genres" value="액션"> 액션</label>
+            <label><input type="checkbox" name="genres" value="역사"> 역사</label>
+            <label><input type="checkbox" name="genres" value="음악"> 음악</label>
+            <label><input type="checkbox" name="genres" value="전쟁"> 전쟁</label>
+            <label><input type="checkbox" name="genres" value="코미디"> 코미디</label>
+            <label><input type="checkbox" name="genres" value="판타지"> 판타지</label>
+        </div>
+    </div>
+    <br/>
+    <label>
+        출연진:
+        <input id="actor" type="text" placeholder="출연진명">
+    </label>
+    <br/>
+    <button type="button" id="submitButton">추천</button>
+    <button type="button" id="resetButton">리셋</button>
+</form>
+
         `;
         formContainer.innerHTML = html;
-
+    
         // 현재 상태 값으로 폼 필드 채우기
         populateFormFields();
         toggleFormOptions();
-
+    
         document.getElementById('mediaType').addEventListener('change', (e) => {
             state.mediaType = e.target.value;
             toggleFormOptions();
         });
-
+    
         document.getElementById('submitButton').addEventListener('click', handleSubmit);
         document.getElementById('resetButton').addEventListener('click', handleReset);
+    
+        // 장르 체크박스 이벤트 리스너 추가
+        document.querySelectorAll('input[name="genres"]').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    state.genres.push(e.target.value);
+                } else {
+                    state.genres = state.genres.filter(genre => genre !== e.target.value);
+                }
+            });
+        });
     };
+    
 
     const toggleFormOptions = () => {
         const mediaType = state.mediaType;
@@ -143,10 +205,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         tvOptions.style.display = mediaType === 'tv' ? 'block' : 'none';
         movieOptions.style.display = mediaType === 'movie' ? 'block' : 'none';
+
+        document.getElementById('tvGenres').style.display = mediaType === 'tv' ? 'block' : 'none';
+        document.getElementById('movieGenres').style.display = mediaType === 'movie' ? 'block' : 'none';
     };
 
     const handleSubmit = async () => {
-        state.genres = document.getElementById('genres').value.split(',').map(genre => genre.trim()).filter(genre => genre);
         state.mediaType = document.getElementById('mediaType').value;
         state.network = document.getElementById('network').value;
         state.director = document.getElementById('director').value;
@@ -311,6 +375,25 @@ document.addEventListener('DOMContentLoaded', () => {
         .trailer-button:hover {
             background-color: #cc0000;
         }
+        .genre-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+}
+
+.genre-container label {
+    display: flex; /* label과 input을 수평 정렬 */
+    align-items: center; /* input과 텍스트를 수직 가운데 정렬 */
+}
+
+.genre-container input[type="checkbox"] {
+        margin-right: -160px;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 40px;
+}
+
+
     `;
     document.head.appendChild(style);
     
@@ -320,9 +403,18 @@ document.addEventListener('DOMContentLoaded', () => {
         trailerPopup.style.display = 'block';
     };
 
-    closeTrailerButton.addEventListener('click', () => {
+    const closeTrailer = () => {
         trailerIframe.src = ''; // 비디오 재생 중지
         trailerPopup.style.display = 'none';
+    };
+
+    closeTrailerButton.addEventListener('click', closeTrailer);
+
+    // 트레일러 팝업 외부를 클릭하면 팝업을 닫는 이벤트 리스너 추가
+    window.addEventListener('click', (event) => {
+        if (event.target === trailerPopup) {
+            closeTrailer();
+        }
     });
 
     closeModalButton.addEventListener('click', () => {

@@ -1,12 +1,15 @@
 package com.member.controller;
 
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +29,7 @@ import com.member.dto.MemberDTO;
 import com.member.entity.Member;
 import com.member.service.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -40,6 +44,9 @@ public class MemberRestController {
     private MemberService memberService;
 
     @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
@@ -49,7 +56,7 @@ public class MemberRestController {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<MemberDTO> getMemberByUsername(@PathVariable String username) {
+    public ResponseEntity<MemberDTO> getMemberByUsername(@PathVariable("username") String username) {
         UserDetails userDetails = memberService.loadUserByUsername(username);
         if (userDetails == null) {
             throw new UsernameNotFoundException("User not found");
@@ -73,16 +80,43 @@ public class MemberRestController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<?> loginMember(@RequestBody MemberDTO loginRequest, HttpSession session) {
+    public ResponseEntity<?> loginMember(@RequestBody MemberDTO loginRequest, HttpServletRequest request) {
         logger.info("Login attempt for username: {}", loginRequest.getMid());
-        Member member = memberService.findByUsernameAndPassword(loginRequest.getMid(), loginRequest.getMpw());
-        if (member != null) {
+    
+        try {
+            UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(loginRequest.getMid(), loginRequest.getMpw());
+    
+            Authentication authentication = authenticationManager.authenticate(authenticationToken);
+    
+            // 로그인한 사용자의 권한을 추가로 확인하고 설정
+            logger.info("Authentication successful, authorities: {}", authentication.getAuthorities());
+    
+            // SecurityContext 설정
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+    
+            // 현재 세션 가져오기 및 무효화
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
+    
+            // 새 세션 생성
+            session = request.getSession(true);
+    
+            // SecurityContext 다시 세션에 설정
+            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+    
+            // 사용자 정보 세션에 저장
+            Member member = memberService.findByUsername(loginRequest.getMid());
             session.setAttribute("loggedInUser", member);
             session.setAttribute("mnick", member.getMnick());
-            MemberDTO memberDTO = MemberDTO.fromEntity(member);
+    
             logger.info("Login successful for username: {}", loginRequest.getMid());
-            return ResponseEntity.ok(memberDTO); // 로그인 성공 시 DTO로 반환
-        } else {
+            logger.info("Authentication after setting SecurityContext: {}", SecurityContextHolder.getContext().getAuthentication());
+    
+            return ResponseEntity.ok(MemberDTO.fromEntity(member));
+        } catch (Exception e) {
             logger.warn("Login failed for username: {}", loginRequest.getMid());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
         }

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="title" content="웹사이트">
+    <meta name="description" content="웹사이트입니다.">
+    <meta name="keywords" content="키워드,키워드,키워드">
+    <meta property="og:title" content="웹사이트">
+    <meta property="og:description" content="웹사이트입니다">
+    <meta property="og:image" content="https://웹사이트/images/opengraph.png">
+    <meta property="og:url" content="https://웹사이트">
+    <title>게시글 리스트 페이지</title>
+
+    <link rel="stylesheet" href="/css/boardcss/board.css"> <!-- 외부 CSS 파일 링크 -->
+    <link rel="stylesheet" th:href="@{/css/setting.css}">
+    <link rel="stylesheet" th:href="@{/css/plugin.css}">
+    <link rel="stylesheet" th:href="@{/css/template.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+</head>
+
+<!-- [S]basic-N1 -->
+<header class="basic-N1" data-bid="kNlY6uYvo7" id="">
+    <div class="header-inner">
+      <div class="header-container container-lg">
+        <h1 class="header-title">
+          <a href="/">
+            <img th:src="@{/images/Logo.png}" alt="" style="width: 200px; height: 150px; margin-top: -55px;">
+          </a>
+        </h1>
+        <div class="header-center">
+          <div class="header-title header-mobile-top">
+            <a href="javascript:void(0)">
+              <img th:src="@{/images/Logo.png}" alt="로고">
+            </a>
+          </div>
+          <ul class="header-gnblist">
+            <li class="header-gnbitem">
+              <a class="header-gnblink" href="http://127.0.0.1:5000/eat">
+                <span>뭐먹지</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" href="javascript:void(0)">
+                <span>뭐입지</span>
+              </a>
+            </li>
+            <li class="header-gnbitem">
+              <a class="header-gnblink" href="http://127.0.0.1:5000/watch">
+                <span>뭐볼까</span>
+              </a>
+            </li>
+            <li class="header-gnbitem item-active">
+              <a class="header-gnblink" href="javascript:void(0)">
+                <span>공지사항</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="header-right">
+          <a class="header-gnblink" id="login-link" href="/members/login" style="display: none;">
+            <span id="login_user_greeting">로그인/회원가입</span>
+          </a>
+          <a class="header-gnblink" id="logout-link" href="javascript:void(0)" onclick="toggleProfilePanel()" style="display: none;">
+            <span id="logout_user_greeting">환영합니다, 사용자님</span>
+          </a>
+        </div>   
+        </div>
+      </div>
+    </div>
+    <!-- 프로필 패널 -->
+    <div id="profile-panel"  class="profile-panel">
+      <button class="edit-btn" onclick="editProfile()">내정보 조회</button>
+      <button class="logout-btn" id="logout-button">로그아웃</button>
+    </div>
+    <div class="header-dim"></div>
+  </header>
+
+<body>
+    <div class="page-wrapper">
+        <div class="notice">
+            <p>공지 사항</p>
+        </div>
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="layout">
+                <!-- 알림 메시지 -->
+                <div class="alert" th:if="${message}" th:text="${message}"></div>
+
+                <!-- 게시글 리스트 테이블 -->
+                <table class="board-table">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>조회수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="board : ${list}">
+                            <td th:text="${board.id}"></td>
+                            <td>
+                                <a th:href="@{/board/view(id=${board.id})}" th:text="${board.title}"></a>
+                            </td>
+                            <td th:text="${board.viewCount}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- 페이지 네비게이션 -->
+                <div class="pagination">
+                    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                        <a th:if="${page != nowPage}" th:href="@{/board/list(page=${page - 1}, searchKeyword=${param.searchKeyword})}" class="page-link" th:text="${page}"></a>
+                        <span th:if="${page == nowPage}" class="current-page" th:text="${page}"></span>
+                    </th:block>
+                </div>
+                    
+                <!-- 검색 폼 -->
+                <form th:action="@{/board/list}" method="get" class="search-form">
+                    <input type="text" name="searchKeyword" placeholder="검색어 입력" class="search-input" th:value="${param.searchKeyword}">
+                    <button type="submit" class="search-button">검색</button>
+                    <a th:href="@{/board/write}" class="protected-feature btn-write">글쓰기</a>
+                </form>
+            </div>
+        </div>
+        
+    <footer class="basic-N4" data-bid="vPlY6uYwl2" id="">
+        <div class="footer-inner">
+          <div class="footer-container container-lg">
+            <div class="footer-top">
+              <h1 class="footer-logo">
+              </h1>
+              <ul class="footer-menulist">
+                <li class="footer-menuitem">
+                  <a href="javascript:void(0)">
+                    <span>이용약관</span>
+                  </a>
+                </li>
+                <li class="footer-menuitem">
+                  <a href="javascript:void(0)">
+                    <span>개인정보처리방침</span>
+                  </a>
+                </li>
+                <li class="footer-menuitem">
+                  <a href="javascript:void(0)">
+                    <span>KOSMO</span>
+                  </a>
+                </li>
+                <li class="footer-menuitem">
+                  <a href="javascript:void(0)">
+                    <span>HAHA</span>
+                  </a>
+                </li>
+              </ul>
+              <ul class="footer-snslist">
+                <li class="footer-snsitem">
+                  <a class="footer-snslink" href="javascript:void(0)">
+                    <img th:src="@{../static/icons/ico_instagram_lightgrey.svg}" alt="인스타그램">
+                  </a>
+                </li>
+                <li class="footer-snsitem">
+                  <a class="footer-snslink" href="javascript:void(0)">
+                    <img th:src="@{../static/icons/ico_youtube_lightgrey.svg}" alt="유튜브">
+                  </a>
+                </li>
+                <li class="footer-snsitem">
+                  <a class="footer-snslink" href="javascript:void(0)">
+                    <img th:src="@{../static/icons/ico_facebook_lightgrey.svg}" alt="페이스북">
+                  </a>
+                </li>
+                <li class="footer-snsitem">
+                  <a class="footer-snslink" href="javascript:void(0)">
+                    <img th:src="@{../static/icons/ico_kakao_lightgrey.svg}" alt="카카오톡">
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="footer-bottom">
+              <div class="footer-txt">
+                <p> 서울시 금천구 가산동 한라원엔원 307호 </p>
+                <p>
+                  <span>T. 070-8872-8874</span>
+                  <span>E. help@openfield.co.kr</span>
+                </p>
+              </div>
+              <div class="footer-txt">
+                <p>2022 BY TEMPLATEHOUSE. ALL RIGHTS RESEVED</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- [E]basic-N4 -->
+      <script th:src="@{/js/setting.js}"></script>
+      <script th:src="@{/js/plugin.js}"></script>
+      <script th:src="@{/js/template.js}"></script>
+      <script th:src="@{/js/common.js}"></script>
+      <script th:src="@{/js/script.js}"></script>
+      <script th:src="@{/js/login.js}"></script>
+
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var message = /*[[${message}]]*/ '';
+        if (message) {
+            alert(message);
+        }
+        /*]]>*/
+    </script>
+</body>
+</html>

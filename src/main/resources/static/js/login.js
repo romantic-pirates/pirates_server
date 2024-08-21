@@ -22,6 +22,9 @@ $(document).ready(function() {
             url: '/api/members/login',
             type: 'POST',
             contentType: 'application/json',
+            xhrFields: {
+                withCredentials: true
+            },
             data: JSON.stringify({
                 mid: username,
                 mpw: password
@@ -38,7 +41,7 @@ $(document).ready(function() {
                 } else {
                     deleteCookie('savedUsername');
                 }
-                
+
                 Swal.fire({
                     title: '로그인에 성공했습니다!', // Alert 제목
                     icon: 'success', // Alert 타입
@@ -48,9 +51,14 @@ $(document).ready(function() {
                 });
             },
             error: function(xhr) {
-                // 로그인 실패 시 오류 메시지 표시
+                if (xhr.status === 0) {
+                    loginError.text('서버와의 연결에 문제가 있습니다. CORS 설정을 확인하세요.');
+                } else if (xhr.status === 401) {
+                    loginError.text('아이디 또는 비밀번호가 잘못되었습니다.');
+                } else {
+                    loginError.text('로그인에 실패했습니다.');
+                }
                 loginError.css('display', 'block');
-                loginError.text('아이디 또는 비밀번호가 잘못되었습니다.');
                 console.log('Login failed:', xhr.responseText);
             }
         });
@@ -75,7 +83,7 @@ $(document).ready(function() {
             if (result.isConfirmed) {
                 $.ajax({
                     url: '/members/logout',
-                    type: 'GET',
+                    type: 'POST',
                     success: function() {
                         // 로그아웃 성공 시 세션 스토리지 비우기
                         sessionStorage.removeItem('loggedInUser');
@@ -173,23 +181,53 @@ $(document).ready(function() {
         });
     }
 
-    function getSessionInfo() {
-        $.ajax({
-            url: '/api/auth/sessionInfo',
-            type: 'GET',
-            success: function(data) {
-                console.log('Session info:', data);
-
-                // 세션 정보를 sessionStorage에 저장
-                sessionStorage.setItem('loggedInUser', JSON.stringify(data));
-                sessionStorage.setItem('mnick', data.mnick); // 여기서 mnick 값을 설정
-
-                // 헤더 업데이트
-                updateHeader();
-            },
-            error: function(xhr) {
-                console.log('Failed to get session info:', xhr.responseText);
-            }
-        });
+    function isLoggedIn() {
+        const sessionData = sessionStorage.getItem('loggedInUser');
+        return sessionData !== null;
     }
+
+    $('.protected-feature').on('click', function(event) {
+        event.preventDefault();
+    
+        if (!isLoggedIn()) {
+            Swal.fire({
+                title: '로그인 이후 사용 가능한 기능입니다.',
+                icon: 'warning',
+                confirmButtonText: '로그인하기'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/members/login'; // 로그인 페이지로 이동
+                }
+            });
+        } else {
+            // 로그인되어 있으면 원래의 링크로 이동
+            location.href = $(this).attr('href');
+        }
+    });
+    
+
+
+// AJAX 에러를 처리하는 함수
+function handleAjaxError(xhr) {
+    let errorMessage = '에러가 발생했습니다.';
+
+    if (xhr.status === 0) {
+        errorMessage = '서버와의 연결에 문제가 있습니다. CORS 설정을 확인하세요.';
+    } else if (xhr.status === 401) {
+        errorMessage = '접근 권한이 없습니다. 로그인 후 다시 시도하세요.';
+    } else if (xhr.status === 403) {
+        errorMessage = '이 작업을 수행할 권한이 없습니다.';
+    } else if (xhr.status === 404) {
+        errorMessage = '요청한 리소스를 찾을 수 없습니다.';
+    }
+
+    Swal.fire({
+        title: '오류',
+        text: errorMessage,
+        icon: 'error',
+    });
+
+    console.log('AJAX request failed with status:', xhr.status);
+    console.log('Response text:', xhr.responseText);
+}
 });

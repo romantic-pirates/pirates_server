@@ -67,9 +67,6 @@ public class Member {
     private LocalDate insertdate;
     private LocalDate updatedate;
 
-    @Column(length = 1)
-    private String deleteyn;
-
     @PrePersist
     protected void onCreate() {
         insertdate = LocalDate.now();

@@ -1,6 +1,5 @@
 package com.member.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,11 +19,8 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class MemberService implements UserDetailsService {
 
-    @Autowired
-    private MemberRepository memberRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public void saveMember(MemberDTO memberDTO) {
         // 비밀번호 암호화
