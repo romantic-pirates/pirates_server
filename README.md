@@ -56,8 +56,9 @@
 ## 기술 스택 💻
 
 <div align="center">
-
+  
 </div>
+
 
 - **프론트엔드**: HTML, JavaScript, CSS
 - **백엔드**: 
@@ -67,6 +68,14 @@
 - **AI/ML**: TensorFlow 또는 PyTorch (추천 시스템용)
 
 ---
+| OS | Windows10 |
+|---------------|-------------------------------------|
+| Language  | ![Java Spring](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) |
+| IDE | ![VSCode](https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white) ![Spring Boot](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white) |
+| 프론트엔드    | ![HTML](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![CSS](https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white)|
+| 백엔드        | Flask (Python) |
+|               | Spring Boot (Java)|
+| 데이터베이스  | MySQL, MongoDB                 |
 
 ## 설치 및 실행 방법 🛠️
 
