@@ -54,28 +54,19 @@
 ---
 
 ## 기술 스택 💻
-
-<div align="center">
-  
-</div>
-
-
-- **프론트엔드**: HTML, JavaScript, CSS
-- **백엔드**: 
-  - Flask (Python): 빠른 프로토타이핑 및 AI 모델 통합
-  - Spring Boot (Java): 견고한 서버 구조 및 데이터베이스 연동
-- **데이터베이스**: MySQL, MongoDB
-- **AI/ML**: TensorFlow 또는 PyTorch (추천 시스템용)
-
----
 | OS | Windows10 |
 |---------------|-------------------------------------|
-| Language  | ![Java Spring](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) |
-| IDE | ![VSCode](https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white) ![Spring Boot](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white) |
-| 프론트엔드    | ![HTML](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![CSS](https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white)|
-| 백엔드        | Flask (Python) |
-|               | Spring Boot (Java)|
-| 데이터베이스  | MySQL, MongoDB                 |
+| Language  | ![Java](https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white) ![Java Spring](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![Python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)|
+| IDE | ![VSCode](https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white) ![Spring Tools 4](https://img.shields.io/badge/sts4-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+| FrameWork | ![Spring Boot](https://img.shields.io/badge/spring_boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![Flask](https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white) |
+| Bulid Tool | ![Gradle](https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white) |
+| Database | ![MySQL](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white) ![MongoDB](https://img.shields.io/badge/mongodb-47A248?style=for-the-badge&logo=mongodb&logoColor=white) |
+| Front-end | ![HTML5](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![jQuery](https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white) |
+| Library | ![Spring Security](https://img.shields.io/badge/spring_security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white) ![Thymeleaf](https://img.shields.io/badge/thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white) ![Redis](https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white) |
+| API | ![Kakao Maps API](https://img.shields.io/badge/kakao_maps_API-FFCD00?style=for-the-badge&logo=kakao&logoColor=white) ![Daum Postcode API](https://img.shields.io/badge/daum_postcode_API-003D3F?style=for-the-badge&logo=daum&logoColor=white) ![Naver Login API](https://img.shields.io/badge/naver_login_API-03C75A?style=for-the-badge&logo=naver&logoColor=white) ![Google Login API](https://img.shields.io/badge/google_login_API-4285F4?style=for-the-badge&logo=google&logoColor=white) ![TMDB API](https://img.shields.io/badge/tmdb_API-03A9F4?style=for-the-badge&logo=tmdb&logoColor=white) |
+| Server | ![Apache Tomcat](https://img.shields.io/badge/apache_tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black) |
+| Version Control | ![GitHub](https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white) |
+---
 
 ## 설치 및 실행 방법 🛠️
 
