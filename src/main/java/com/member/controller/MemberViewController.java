@@ -1,5 +1,8 @@
 package com.member.controller;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import com.member.dto.MemberDTO;
 import com.member.entity.Member;
 import com.member.service.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -38,10 +42,9 @@ public class MemberViewController {
         return "login";
     }   
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
+        return "redirect:/members/logout";
     }
 
     @GetMapping("/mypage")
@@ -70,4 +73,57 @@ public class MemberViewController {
         return "change";
     }
     
+@GetMapping("/eat")
+public String redirectToFlask(HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    String mnick = (String) session.getAttribute("mnick");
+
+    if (mnick == null) {
+        System.out.println("mnick is null in session");
+    } else {
+        try {
+            mnick = URLEncoder.encode(mnick, StandardCharsets.UTF_8.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    return "redirect:http://localhost:5000/eat?mnick=" + mnick;
+}
+
+    @GetMapping("/watch")
+    public String redirectWatch(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String mnick = (String) session.getAttribute("mnick");
+
+        if (mnick == null) {
+            System.out.println("mnick is null in session");
+        } else {
+            try {
+                mnick = URLEncoder.encode(mnick, StandardCharsets.UTF_8.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return "redirect:http://localhost:5000/watchhome?mnick=" + mnick;
+    }
+
+    @GetMapping("/wear")
+    public String redirectWear(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String mnick = (String) session.getAttribute("mnick");
+
+        if (mnick == null) {
+            System.out.println("mnick is null in session");
+        } else {
+            try {
+                mnick = URLEncoder.encode(mnick, StandardCharsets.UTF_8.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return "redirect:http://localhost:5000/wear?mnick=" + mnick;
+    }
 }

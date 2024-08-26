@@ -33,7 +33,6 @@ public class MemberDTO {
     private String mjibun;
     private LocalDate insertdate;
     private LocalDate updatedate;
-    private String deleteyn;
 
     public Member toEntity(PasswordEncoder passwordEncoder) {
         return Member.builder()
@@ -52,7 +51,6 @@ public class MemberDTO {
             .mjibun(this.mjibun)
             .insertdate(this.insertdate)
             .updatedate(this.updatedate)
-            .deleteyn(this.deleteyn)
             .build();
     }
 
@@ -73,7 +71,6 @@ public class MemberDTO {
             .mjibun(member.getMjibun())
             .insertdate(member.getInsertdate())
             .updatedate(member.getUpdatedate())
-            .deleteyn(member.getDeleteyn())
             .build();
     }
 }

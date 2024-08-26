@@ -4,7 +4,6 @@ import random
 import logging
 import mysql.connector
 import re
-
 from bs4 import BeautifulSoup
 from bson import ObjectId
 from datetime import datetime
@@ -204,9 +203,7 @@ def likePlace():
             mysql_cursor.close()
         if mysql_connection:
             mysql_connection.close()
-            
 
-# wear
 @app.route('/wear', methods=['GET'])
 def wear():
     mnick = session.get('mnick')
@@ -450,7 +447,7 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
         if collection is None:
             logging.debug(f"No collection found for network={network}")
             return []
-
+        # TV Show 쿼리
         if network:
             query['networks'] = {'$in': [network]}
         if genres:
@@ -469,7 +466,6 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
             query['fields.genres'] = {'$in': genres}
         if director:
             query['fields.directors'] = {'$in': [director]}
-        
         actor_query = {
             '$or': [
                 {'fields.cast': {'$in': [actor]}},
@@ -503,7 +499,7 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
 
     if not results:
         return []
-
+      
     # Sort the results based on media_type
     if media_type == 'movie':
         results.sort(key=lambda x: (
@@ -512,7 +508,6 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
         ))
     elif media_type == 'tv':
         results.sort(key=lambda x: -x.get('popularity', 0))
-
     # Select the top result and the next random results
     top_result = results[0] if results else None
     random_results = random.sample(results[1:], min(7, len(results) - 1)) if len(results) > 1 else []
@@ -521,13 +516,20 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
 
     return [serialize_document(result) for result in final_results]
 
-@app.route('/watchhome')
+@app.route('/watchhome', methods=['GET'])
 def home():
-    return render_template('watch/watchhome.html')
+    mnick = session.get('mnick')
+    if mnick:
+        print(f"Rendering template with mnick: {mnick}")
+        return render_template('watch/watchhome.html', mnick=mnick)
+    else:
+        abort(401, description="Unauthorized: mnick not found")
+
 
 @app.route('/test')
 def test():
     return render_template('watch/test.html')
+
 
 @app.route('/watch')
 def index():
@@ -563,12 +565,14 @@ def recommend():
 
     recommendations = get_recommendations(media_type, genres, director, actor, min_runtime, max_runtime, network, release_year, status)
 
+
     if not recommendations:
         logging.debug("No recommendation found.")
         return jsonify({"message": "No recommendations found based on the provided criteria."}), 404
 
     logging.debug(f"Initial recommendation list: {recommendations}")
 
+    # Sort or randomize the results based on the sort_by parameter
     if sort_by == 'random':
         if len(recommendations) > 1:
             top_result = recommendations[0]
@@ -588,6 +592,7 @@ def recommend():
             movie_id = result.get('fields', {}).get('movie_id')
             if movie_id:
                 result['trailers'] = trailers.get(movie_id, [])
+
 
     logging.debug(f"Final recommendation response: {final_results}")
 
