@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             방송사:
             <select id="network">
                 <option value="">선택</option>
-                <option value="tvN">tvN</option>
+                <option value="TVN">TVN</option>
                 <option value="jtbc">JTBC</option>
                 <option value="kbs1">KBS1</option>
                 <option value="kbs2">KBS2</option>
@@ -273,8 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             } else {
                 Swal.fire({
-                    title: '조건에 맞는 데이터가 없음',
-                    text: data.message || '오류가 발생했습니다.',
+                    title: '조건에 맞는 결과가 없습니다!',
                     icon: 'error',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: '확인'

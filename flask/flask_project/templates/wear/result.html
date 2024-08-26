@@ -6,6 +6,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 <body>
     {% include 'header.html' %}
@@ -86,19 +88,34 @@
                             $likesCount.text('좋아요 수: ' + (currentCount + 1));
                             // 좋아요 버튼 클릭 후, 버튼 숨기기
                             $product.find('.like-btn').hide();
-                            alert('이용해 주셔서 감사합니다 :)')
+                    
+                            // SweetAlert로 메시지 표시
+                            Swal.fire({
+                                icon: 'success',
+                                title: '이용해 주셔서 감사합니다 :)'
+                            });
                         } else {
-                            alert('오류가 발생했습니다.');
+                            // 오류 발생 시 SweetAlert로 오류 메시지 표시
+                            Swal.fire({
+                                icon: 'error',
+                                title: '오류 발생',
+                                text: '오류가 발생했습니다.'
+                            });
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Error:', textStatus, errorThrown);
-                        alert('서버와의 통신에 실패했습니다.');
-                    }
-                });
+                    console.error('Error:', textStatus, errorThrown);
+                    
+                    // SweetAlert로 오류 메시지 표시
+                    Swal.fire({
+                        icon: 'error',
+                        title: '통신 오류',
+                        text: '서버와의 통신에 실패했습니다.'
+                    });
+                }
             });
         });
-        
+    });
         
     </script>
     {% include 'footer.html' %}

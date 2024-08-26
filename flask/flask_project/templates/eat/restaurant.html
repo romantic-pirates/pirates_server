@@ -32,8 +32,8 @@
         let markers = [];
 
         const markerImageUrls = {
-            default: '{{ url_for('static', filename='images/default_marker.png') }}',
-            recommended: '{{ url_for('static', filename='images/recommended_marker.png') }}'
+            default: '{{ url_for("static", filename="images/default_marker.png") }}',
+            recommended: '{{ url_for("static", filename="images/recommended_marker.png") }}'
         };
 
         const params = new URLSearchParams(window.location.search);
@@ -186,8 +186,13 @@
         function likePlace() {
             const iframe = document.getElementById('iframe');
             const place_url = iframe ? iframe.src : window.location.href;
-            alert('이용해주셔서 감사합니다 :)');
-
+            
+            // SweetAlert로 메시지 표시
+            Swal.fire({
+                icon: 'success',
+                title: '이용해주셔서 감사합니다! :)',
+            });
+        
             fetch('/likePlace', {
                 method: 'POST',
                 headers: {
@@ -202,14 +207,26 @@
                 if (data.success) {
                     document.getElementById('like-button').classList.add('hidden');
                 } else {
-                    alert('좋아요를 처리하는 데 오류가 발생했습니다.');
+                    // 오류 발생 시 SweetAlert로 오류 메시지 표시
+                    Swal.fire({
+                        icon: 'error',
+                        title: '오류 발생',
+                        text: '좋아요를 처리하는 데 오류가 발생했습니다.'
+                    });
                 }
             })
             .catch(error => {
                 console.error('Error liking place:', error);
-                alert('좋아요를 처리하는 데 오류가 발생했습니다.');
+                
+                // 오류 발생 시 SweetAlert로 오류 메시지 표시
+                Swal.fire({
+                    icon: 'error',
+                    title: '오류 발생',
+                    text: '좋아요를 처리하는 데 오류가 발생했습니다.'
+                });
             });
         }
+        
 
         function toggleMapWrap() {
             const mapWrap = document.getElementById('mapWrap');
