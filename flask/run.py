@@ -398,7 +398,7 @@ collections = {
     },
     'tv': {
         'MBC': db['tvshow_mbcs'],
-        'tvN': db['tvshow_tvns'],
+        'TVN': db['tvshow_tvns'],
         'JTBC': db['tvshow_jtbcs'],
         'KBS1': db['tvshow_kbs1'],
         'KBS2': db['tvshow_kbs2'],
@@ -565,10 +565,9 @@ def recommend():
 
     recommendations = get_recommendations(media_type, genres, director, actor, min_runtime, max_runtime, network, release_year, status)
 
-
     if not recommendations:
         logging.debug("No recommendation found.")
-        return jsonify({"message": "No recommendations found based on the provided criteria."}), 404
+        return jsonify({"message": "조건에 맞는 결과가 없습니다!"}), 404
 
     logging.debug(f"Initial recommendation list: {recommendations}")
 
