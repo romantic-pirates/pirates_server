@@ -211,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const handleSubmit = async () => {
+        // 폼 데이터 가져오기
         state.mediaType = document.getElementById('mediaType').value;
         state.network = document.getElementById('network').value;
         state.director = document.getElementById('director').value;
@@ -219,7 +220,30 @@ document.addEventListener('DOMContentLoaded', () => {
         state.maxRuntime = document.getElementById('maxRuntime').value;
         state.releaseYear = document.getElementById('releaseYear').value;
         state.status = document.getElementById('status').value;
-
+    
+        // 유효성 검사
+        if (state.mediaType === 'movie' && state.genres.length === 0) {
+            Swal.fire({
+                title: '장르 선택 오류',
+                text: '영화를 선택하셨다면, 적어도 하나의 장르를 선택해야 합니다.',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '확인'
+            });
+            return;
+        }
+        if (state.mediaType === 'tv' && !state.network) {
+            Swal.fire({
+                title: '방송사 선택 오류',
+                text: 'TV를 선택하셨다면, 방송사를 선택해야 합니다.',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '확인'
+            });
+            return;
+        }
+    
+        // 쿼리 매개변수 설정
         const queryParams = new URLSearchParams();
         if (state.mediaType) queryParams.append('media_type', state.mediaType);
         if (state.genres.length > 0) state.genres.forEach(genre => queryParams.append('genres', genre));
@@ -231,13 +255,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (state.mediaType === 'tv' && state.network) queryParams.append('network', state.network);
         if (state.mediaType === 'tv' && state.status) queryParams.append('status', state.status);
         queryParams.append('sort_by', state.sortBy);
-
+    
         console.log(`Query params: ${queryParams.toString()}`);
-
+    
         try {
             const response = await fetch(`http://localhost:5000/recommend?${queryParams.toString()}`);
             const data = await response.json();
-
+    
             if (response.ok) {
                 state.recommendation = data;
                 renderRecommendations();
@@ -248,14 +272,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     behavior: 'smooth' // 부드러운 스크롤
                 });
             } else {
-                errorContainer.innerText = data.message || '오류가 발생했습니다.';
+                Swal.fire({
+                    title: '조건에 맞는 데이터가 없음',
+                    text: data.message || '오류가 발생했습니다.',
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '확인'
+                });
             }
         } catch (error) {
             console.error(error);
-            errorContainer.innerText = '추천 목록을 가져오는 데 실패했습니다.';
+            Swal.fire({
+            title: '네트워크 오류',
+            text: '추천 목록을 가져오는 데 실패했습니다.',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '확인'
+        });
         }
     };
-
+    
+    
     const handleReset = () => {
         state.mediaType = '';
         state.genres = [];
