@@ -10,7 +10,6 @@ from datetime import datetime
 from flask import Flask, abort, request, session, url_for, jsonify, render_template
 from flask_cors import CORS
 from pymongo import MongoClient
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -29,8 +28,6 @@ CORS(app, supports_credentials=True, resources={
 })
 
 app.config['SECRET_KEY'] = 'EasyPick'
-
-
 
 # MySQL 연결 설정
 mysql_config = {
@@ -378,7 +375,27 @@ client = MongoClient('mongodb://192.168.0.66:27017/')
 db = client['tmdb_database']
 
 collections = {
-    'movie': db['movies'],
+    'movie': {
+        'SF': db['genre_SF'],
+        'TV 영화': db['genre_TV 영화'],
+        '가족': db['genre_가족'],
+        '공포': db['genre_공포'],
+        '다큐멘터리': db['genre_다큐멘터리'],
+        '드라마': db['genre_드라마'],
+        '로맨스': db['genre_로맨스'],
+        '모험': db['genre_모험'],
+        '미스터리': db['genre_미스터리'],
+        '범죄': db['genre_범죄'],
+        '서부': db['genre_서부'],
+        '스릴러': db['genre_스릴러'],
+        '애니메이션': db['genre_애니메이션'],
+        '액션': db['genre_액션'],
+        '역사': db['genre_역사'],
+        '음악': db['genre_음악'],
+        '전쟁': db['genre_전쟁'],
+        '코미디': db['genre_코미디'],
+        '판타지': db['genre_판타지'],
+    },
     'tv': {
         'MBC': db['tvshow_mbcs'],
         'tvN': db['tvshow_tvns'],
@@ -430,33 +447,29 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
         if collection is None:
             logging.debug(f"No collection found for network={network}")
             return []
-
         # TV Show 쿼리
         if network:
             query['networks'] = {'$in': [network]}
         if genres:
             query['genres'] = {'$in': genres}
         if actor:
-            query['cast'] = {'$in': [actor]}  # For TV shows, use `cast` directly
+            query['cast'] = {'$in': [actor]}  
         if status:
             query['status'] = status
-    else:
-        collection = collections.get(media_type)
-        if collection is None:
-            logging.debug(f"No collection found for media_type={media_type}")
-            return []
+    elif media_type == 'movie':
+        if genres and genres[0] in collections['movie']:
+            collection = collections['movie'].get(genres[0])
+        else:
+            collection = db['movies']
 
-        # Movie 쿼리
         if genres:
             query['fields.genres'] = {'$in': genres}
         if director:
             query['fields.directors'] = {'$in': [director]}
-        
-        # Handle actor query for both Korean movies and other movies
         actor_query = {
             '$or': [
-                {'fields.cast': {'$in': [actor]}},  # For Korean movies
-                {'fields.cast.name': {'$in': [actor]}}  # For other movies
+                {'fields.cast': {'$in': [actor]}},
+                {'fields.cast.name': {'$in': [actor]}}
             ]
         }
         if actor:
@@ -486,19 +499,7 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
 
     if not results:
         return []
-
-    # Extract movie IDs for TMDb API requests
-    movie_ids = [result.get('fields', {}).get('movie_id') for result in results if media_type == 'movie']
-    
-    # Fetch trailers for each movie ID
-    trailers = fetch_trailers_for_movies(movie_ids)
-
-    # Add trailers to each result
-    for result in results:
-        movie_id = result.get('fields', {}).get('movie_id')
-        if (movie_id):
-            result['trailers'] = trailers.get(movie_id, [])
-
+      
     # Sort the results based on media_type
     if media_type == 'movie':
         results.sort(key=lambda x: (
@@ -507,18 +508,11 @@ def get_recommendations(media_type=None, genres=None, director=None, actor=None,
         ))
     elif media_type == 'tv':
         results.sort(key=lambda x: -x.get('popularity', 0))
-
-    # Select the top result and the next four random results
+    # Select the top result and the next random results
     top_result = results[0] if results else None
     random_results = random.sample(results[1:], min(7, len(results) - 1)) if len(results) > 1 else []
 
-    # Combine the top result with the random results
     final_results = [top_result] + random_results if top_result else random_results
-
-    # Add trailers to the results
-    for result in final_results:
-        if 'trailers' not in result:
-            result['trailers'] = []
 
     return [serialize_document(result) for result in final_results]
 
@@ -536,6 +530,12 @@ def home():
 def test():
     return render_template('watch/test.html')
 
+
+@app.route('/watch')
+def index():
+    """Serve the watch.html file."""
+    return render_template('watch/watch.html')
+
 @app.route('/recommend', methods=['GET'])
 def recommend():
     """Handle recommendation requests."""
@@ -547,12 +547,11 @@ def recommend():
     max_runtime = request.args.get('max_runtime', type=int)
     network = request.args.get('network')
     release_year_str = request.args.get('release_year')
-    status = request.args.get('status')  # 상태 필터 추가
-    sort_by = request.args.get('sort_by', 'rating')  # 'rating' or 'random'
+    status = request.args.get('status')
+    sort_by = request.args.get('sort_by', 'rating')
 
-    release_year = None  # release_year 초기화
+    release_year = None
 
-    # release_year 값을 정수로 변환하고 유효성 검사
     try:
         if release_year_str:
             release_year = int(release_year_str)
@@ -564,8 +563,8 @@ def recommend():
 
     logging.debug(f"Received request with media_type={media_type}, genres={genres}, director={director}, actor={actor}, min_runtime={min_runtime}, max_runtime={max_runtime}, network={network}, release_year={release_year}, sort_by={sort_by}")
 
-    # 추천 로직 호출
-    recommendations = get_recommendations(media_type, genres, director, actor, min_runtime, max_runtime, network, release_year)
+    recommendations = get_recommendations(media_type, genres, director, actor, min_runtime, max_runtime, network, release_year, status)
+
 
     if not recommendations:
         logging.debug("No recommendation found.")
@@ -583,8 +582,17 @@ def recommend():
         else:
             final_results = recommendations
     else:
-        # Default to rating-based sorting
         final_results = recommendations
+
+    # Fetch trailers only for the final set of recommendations
+    movie_ids = [result.get('fields', {}).get('movie_id') for result in final_results if media_type == 'movie']
+    if movie_ids:
+        trailers = fetch_trailers_for_movies(movie_ids)
+        for result in final_results:
+            movie_id = result.get('fields', {}).get('movie_id')
+            if movie_id:
+                result['trailers'] = trailers.get(movie_id, [])
+
 
     logging.debug(f"Final recommendation response: {final_results}")
 
