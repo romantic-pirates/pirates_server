@@ -123,7 +123,7 @@ public class MemberRestController {
     }
     
     @GetMapping("/check_username")
-    public ResponseEntity<Boolean> checkUsernameExists(@RequestParam String username) {
+    public ResponseEntity<Boolean> checkUsernameExists(@RequestParam("username") String username) {
         boolean exists = memberService.usernameExists(username);
         return ResponseEntity.ok(exists);
     }

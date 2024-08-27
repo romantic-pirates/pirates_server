@@ -232,6 +232,7 @@
     <script th:src="@{/js/script.js}"></script>
     <script>
         $(document).ready(function() {
+            const username = $('#mid').val();
             let isUsernameChecked = false;
             let isPasswordChecked = false;
 
@@ -251,11 +252,21 @@
             $('#check-username-btn').on('click', function() {
                 const username = $('#mid').val();
                 if (!username) {
-                    alert('아이디를 입력해주세요.');
+                  Swal.fire({
+                        title: '아이디를 입력해 주세요',
+                        icon: 'warning',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
                     return;
                 }
                 if (!validateEmail(username)) {
-                    alert('올바른 이메일 형식을 입력해주세요.');
+                  Swal.fire({
+                        title: '올바른 이메일 형식을 입력해 주세요',
+                        icon: 'warning',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
                     return;
                 }
                 $.ajax({
@@ -263,15 +274,30 @@
                     type: 'GET',
                     success: function(data) {
                         if (data) {
-                            alert('아이디가 이미 사용 중입니다.');
+                          Swal.fire({
+                        title: '아이디가 이미 사용중입니다',
+                        icon: 'warning',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
                             isUsernameChecked = false;
                         } else {
-                            alert('사용 가능한 아이디입니다.');
+                        Swal.fire({
+                        title: '사용 가능한 아이디 입니다',
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
                             isUsernameChecked = true;
                         }
                     },
                     error: function(xhr) {
-                        alert('아이디 중복 확인 중 오류가 발생했습니다.');
+                      Swal.fire({
+                        title: '아이디 중복 확인 중 오류가 발생했습니다',
+                        icon: 'warning',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
                         isUsernameChecked = false;
                     }
                 });

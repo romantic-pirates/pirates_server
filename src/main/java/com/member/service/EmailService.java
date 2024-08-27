@@ -18,6 +18,7 @@ public class EmailService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
+            helper.setFrom("wprms97@gmail.com", "EasyPick"); // 여기서 "Your Name"이 발신자 이름입니다.
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(content, true);
