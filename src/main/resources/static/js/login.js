@@ -204,30 +204,4 @@ $(document).ready(function() {
             location.href = $(this).attr('href');
         }
     });
-    
-
-
-// AJAX 에러를 처리하는 함수
-function handleAjaxError(xhr) {
-    let errorMessage = '에러가 발생했습니다.';
-
-    if (xhr.status === 0) {
-        errorMessage = '서버와의 연결에 문제가 있습니다. CORS 설정을 확인하세요.';
-    } else if (xhr.status === 401) {
-        errorMessage = '접근 권한이 없습니다. 로그인 후 다시 시도하세요.';
-    } else if (xhr.status === 403) {
-        errorMessage = '이 작업을 수행할 권한이 없습니다.';
-    } else if (xhr.status === 404) {
-        errorMessage = '요청한 리소스를 찾을 수 없습니다.';
-    }
-
-    Swal.fire({
-        title: '오류',
-        text: errorMessage,
-        icon: 'error',
-    });
-
-    console.log('AJAX request failed with status:', xhr.status);
-    console.log('Response text:', xhr.responseText);
-}
 });
