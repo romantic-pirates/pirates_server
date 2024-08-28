@@ -1,0 +1,8 @@
+2024-08-07T15:28:59.260+09:00  INFO 14116 --- [demo] [main] com.Application                          : Starting Application using Java 17.0.12 with PID 14116 (C:\00.KOSMO142\final project\romantic_pirates\build\classes\java\main started by kosmo in C:\00.KOSMO142\final project\romantic_pirates)
+2024-08-07T15:28:59.275+09:00  INFO 14116 --- [demo] [main] com.Application                          : No active profile set, falling back to 1 default profile: "default"
+2024-08-07T15:29:00.214+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-07T15:29:00.216+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-07T15:29:00.504+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 279 ms. Found 0 JPA repository interfaces.
+2024-08-07T15:29:00.527+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-07T15:29:00.529+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-07T15:29:00.659+09:00  INFO 14116 --- [demo] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 119 ms. Found 0 Redis repository interfaces.

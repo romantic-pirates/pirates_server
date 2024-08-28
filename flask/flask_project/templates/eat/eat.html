@@ -1,14 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-    <title>What to Eat</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/eat.css') }}">
+    <title>메뉴 카테고리</title>
 </head>
 <body>
-    <h1>What to Eat</h1>
-    <ul>
-    {% for choice in choices %}
-        <li>{{ choice }}</li>
-    {% endfor %}
-    </ul>
+    {% include 'header.html' %}
+    <div class="main-container">
+        <div class="food-preference-section">
+            <h2>어느 나라 음식이 끌리시나요?</h2><br><br><br>
+        </div>
+        <div class="button-container">
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/food_images/비빔밥.jpg') }}" alt="한식 이미지" class="menu-image">
+                <button class="menu-button" onclick="handleClick('한식')">한식</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/food_images/짜장면.jpg') }}" alt="중식 이미지" class="menu-image">
+                <button class="menu-button" onclick="handleClick('중식')">중식</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/food_images/스테이크.jpg') }}" alt="양식 이미지" class="menu-image">
+                <button class="menu-button" onclick="handleClick('양식')">양식</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/food_images/초밥.jpg') }}" alt="일식 이미지" class="menu-image">
+                <button class="menu-button" onclick="handleClick('일식')">일식</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/food_images/쌀국수.jpg') }}" alt="아시안음식 이미지" class="menu-image">
+                <button class="menu-button" onclick="handleClick('아시안음식')">아시안음식</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function handleClick(category) {
+            console.log(`${category} 버튼 클릭됨`);
+
+            fetch(`/get_random_menu?category=${encodeURIComponent(category)}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.menu) {
+                    window.location.href = `/menus?menu=${encodeURIComponent(data.menu)}&category=${encodeURIComponent(category)}&url=${encodeURIComponent(data.url)}`;
+                } else {
+                    alert('메뉴를 가져오는 데 오류가 발생했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching menu:', error);
+                alert('메뉴를 가져오는 데 오류가 발생했습니다.');
+            });
+        }
+    </script>
+    {% include 'footer.html' %}
 </body>
 </html>
