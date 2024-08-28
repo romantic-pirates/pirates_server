@@ -47,6 +47,7 @@
   <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/film.svg" alt="콘텐츠 추천" width="200px">
 </div>
 
+
 1. **옷 추천** 👚: 29CM 쇼핑몰의 실시간 데이터를 기반으로 인기 상품을 추천
 2. **음식 추천** 🍽️: 취향과 위치를 고려하여 메뉴와 주변 맛집을 추천
 3. **콘텐츠 추천** 🎬📚: 사용자의 선호도를 분석하여 영화, TV 쇼, 등 추천
