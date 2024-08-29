@@ -47,8 +47,8 @@ Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들�
 |![001](flask/flask_project/templates/git_img/회원가입.gif)|![002](flask/flask_project/templates/git_img/로그인.gif)|![003](flask/flask_project/templates/git_img/구글_로그인.gif)|
 |<small><b>소셜 로그인(네이버)</b></small>|<small><b>비밀번호 찾기</b></small>|<small><b>비밀번호 변경</b></small>|
 |![004](flask/flask_project/templates/git_img/네이버_로그인.gif)|![005](flask/flask_project/templates/git_img/비밀번호_찾기.gif)|![006](flask/flask_project/templates/git_img/비밀번호_변경.gif)|
-|<small><b>회원 정보 수정</b></small>|<small><b>회원 탈퇴/b></small>|<small><b>회원계정 관리자 게시판</b></small>|
-|![007](flask/flask_project/templates/git_img/회원정보수정.gif)|![008](flask/flask_project/templates/git_img/.gif)|![009](flask/flask_project/templates/git_img/.gif)|
+|<small><b>회원 정보 수정</b></small>|<small><b>회원계정 관리자 게시판</b></small>|<small><b>회원 탈퇴</b></small>|
+|![007](flask/flask_project/templates/git_img/회원정보수정.gif)|![008](flask/flask_project/templates/git_img/회원계정_관리자_게시판.gif)|![009](flask/flask_project/templates/git_img/회원탈퇴.gif)|
 ---
 
 ## 기술 스택 💻
