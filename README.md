@@ -1,31 +1,18 @@
-<div align="center">
 
-  # 낭만해적단 파이널 프로젝트: 선택장애 해결사 🏴‍☠️
 
-  ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-  ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-  ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-  ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-  ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-  ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
-  ![Spring](https://img.shields.io/badge/springboot-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-  ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
-  ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+# 🛒 KOSMO 142기 파이널 프로젝트: 선택고민 해결사
+당신의 일상 속 작은 결정들, 저희가 도와드리겠습니다!
 
-  당신의 일상 속 작은 결정들, 저희가 도와드리겠습니다!
-</div>
-
----
-
-## 📌 목차
-- [프로젝트 소개](#프로젝트-소개-)
-- [주요 기능](#주요-기능-)
-- [기술 스택](#기술-스택-)
-- [설치 및 실행 방법](#설치-및-실행-방법-)
-- [기여 방법](#기여-방법-)
-- [팀원](#팀원-)
-- [라이선스](#라이선스-)
-- [연락처](#연락처-)
+### 💻프로젝트 개요
+💬평소에 아침에는 무엇을 입을지 고민하고, 점심에는 무엇을 먹을지 고민하며,저녁에는 무엇을 볼지 고민하다 추천해주는 사이트가 있으면 좋을것 같은 생각에 개발한 웹 사이트
+- [x] 🚀[프로젝트 소개](#프로젝트-소개-)
+- [x] 🌟[주요 기능](#주요-기능-)
+- [x] 💻[기술 스택](#기술-스택-)
+- [x] 🛠️[설치 및 실행 방법](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
+- [x] 🤝[기여 방법](#기여-방법-)
+- [x] 👥[팀원](#팀원-)
+- [x] 📄[라이선스](#라이선스-)
+- [x] 📧[연락처](#연락처-)
 
 ---
 
@@ -35,7 +22,8 @@
 
 </div>
 
-'선택장애를 위한 이 사이트'는 일상 생활에서 자주 마주치는 '뭐 입지?', '뭐 먹지?', '뭐 볼까?' 와 같은 고민들을 해결해주는 웹 애플리케이션입니다. Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들에게 빠르고 재미있는 방식으로 선택을 도와줍니다.
+'결정에 어려움을 겪는 사람들을 위한 이 사이트'는 일상 생활에서 자주 마주치는 '뭐 입지?', '뭐 먹지?', '뭐 볼까?' 와 같은 고민들을 해결해주는 웹 애플리케이션입니다. 
+Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들에게 빠르고 재미있는 방식으로 선택을 도와줍니다.
 
 ---
 
