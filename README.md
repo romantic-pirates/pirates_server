@@ -42,9 +42,11 @@ Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들�
 🍽️ 음식 추천 : 취향과 위치를 고려하여 메뉴와 주변 맛집을 추천
 🎬 콘텐츠 추천 : 사용자의 선호도를 분석하여 영화, TV 쇼 등 추천
 ```
-|<small>회원가입</small>|<small>네이버 로그인<small>|<small>구글 로그인</small>|
+|<small>회원가입</small>|<small>로그인<small>|<small>소셜 로그인(구글)</small>|
 |:-:|:-:|:-:|
-|![003](flask/flask_project/templates/git_img/회원가입.gif)|![004](flask/flask_project/templates/git_img/네이버_로그인.gif)|![005](flask/flask_project/templates/git_img/구글_로그인.gif)|
+|![001](flask/flask_project/templates/git_img/회원가입.gif)|![002](flask/flask_project/templates/git_img/로그인.gif)|![003](flask/flask_project/templates/git_img/구글_로그인.gif)|
+|<small><b>소셜 로그인(네이버)</b></small>|<small><b>비밀번호 찾기</b></small>|<small><b>비밀번호 변경</b></small>|
+|![004](flask/flask_project/templates/git_img/네이버_로그인.gif)|![005](flask/flask_project/templates/git_img/비밀번호_찾기.gif)|![006](flask/flask_project/templates/git_img/비밀번호_변경.gif)|
 
 ---
 
@@ -64,7 +66,7 @@ Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들�
 ---
 
 ## 시스템 아키텍처 🚧
-
+![architecture](flask/flask_project/templates/git_img/시스템_아키텍처.jpg)
 ---
 
 ## 설치 및 실행 방법 🛠️
