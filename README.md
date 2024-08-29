@@ -49,6 +49,10 @@ Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들�
 |![004](flask/flask_project/templates/git_img/네이버_로그인.gif)|![005](flask/flask_project/templates/git_img/비밀번호_찾기.gif)|![006](flask/flask_project/templates/git_img/비밀번호_변경.gif)|
 |<small><b>회원 정보 수정</b></small>|<small><b>회원계정 관리자 게시판</b></small>|<small><b>회원 탈퇴</b></small>|
 |![007](flask/flask_project/templates/git_img/회원정보수정.gif)|![008](flask/flask_project/templates/git_img/회원계정_관리자_게시판.gif)|![009](flask/flask_project/templates/git_img/회원탈퇴.gif)|
+|<small><b>뭐먹지 카테고리 선택</b></small>|<small><b>메뉴 추천</b></small>|<small><b>음식점 추천</b></small>|
+|![010](flask/flask_project/templates/git_img/뭐먹지1_카테고리선택.gif)|![011](flask/flask_project/templates/git_img/뭐먹지2_메뉴추천.gif)|![012](flask/flask_project/templates/git_img/뭐먹지3_음식점추천.gif)|
+|<small><b>음식점 리스트/좋아요</b></small>|<small><b>메뉴 추천</b></small>|<small><b>회원 탈퇴</b></small>|
+|![013](flask/flask_project/templates/git_img/뭐먹지4_음식점리스트_좋아요.gif)|![014](flask/flask_project/templates/git_img/)|![015](flask/flask_project/templates/git_img/)|
 ---
 
 ## 기술 스택 💻
