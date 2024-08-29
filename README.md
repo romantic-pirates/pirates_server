@@ -8,11 +8,10 @@
 - [x] 🚀[프로젝트 소개](#프로젝트-소개-)
 - [x] 🌟[주요 기능](#주요-기능-)
 - [x] 💻[기술 스택](#기술-스택-)
+- [x] 🚧[시스템 아키텍처](#시스템-아키텍처-) 
 - [x] 🛠️[설치 및 실행 방법](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
 - [x] 🤝[기여 방법](#기여-방법-)
 - [x] 👥[팀원](#팀원-)
-- [x] 📄[라이선스](#라이선스-)
-- [x] 📧[연락처](#연락처-)
 
 ---
 
@@ -35,10 +34,14 @@ Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들�
   <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/film.svg" alt="콘텐츠 추천" width="200px">
 </div>
 
-
-1. **옷 추천** 👚: 29CM 쇼핑몰의 실시간 데이터를 기반으로 인기 상품을 추천
-2. **음식 추천** 🍽️: 취향과 위치를 고려하여 메뉴와 주변 맛집을 추천
-3. **콘텐츠 추천** 🎬📚: 사용자의 선호도를 분석하여 영화, TV 쇼, 등 추천
+```
+👨‍👨‍👧 회원 : 로그인 | 회원가입 | 이메일 인증 | 소셜 로그인(네이버/구글) | 아이디 찾기 | 비밀번호 찾기 | 임시 비밀번호 발송
+🏡 마이페이지 : 회원정보수정 | 회원탈퇴
+📈 관리자페이지 : 공지사항 작성,수정,삭제 관리
+👚 옷 추천 : 29CM 쇼핑몰의 실시간 데이터를 기반으로 인기 상품을 추천
+🍽️ 음식 추천 : 취향과 위치를 고려하여 메뉴와 주변 맛집을 추천
+🎬 콘텐츠 추천 : 사용자의 선호도를 분석하여 영화, TV 쇼 등 추천
+```
 
 ---
 
@@ -55,6 +58,10 @@ Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들�
 | API | ![Kakao Maps API](https://img.shields.io/badge/kakao_maps_API-FFCD00?style=for-the-badge&logo=kakao&logoColor=white) ![Daum Postcode API](https://img.shields.io/badge/daum_postcode_API-003D3F?style=for-the-badge&logo=daum&logoColor=white) ![Naver Login API](https://img.shields.io/badge/naver_login_API-03C75A?style=for-the-badge&logo=naver&logoColor=white) ![Google Login API](https://img.shields.io/badge/google_login_API-4285F4?style=for-the-badge&logo=google&logoColor=white) ![TMDB API](https://img.shields.io/badge/tmdb_API-03A9F4?style=for-the-badge&logo=tmdb&logoColor=white) |
 | Server | ![Apache Tomcat](https://img.shields.io/badge/apache_tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black) |
 | Version Control | ![GitHub](https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white) |
+---
+
+## 시스템 아키텍처 🚧
+
 ---
 
 ## 설치 및 실행 방법 🛠️
@@ -125,19 +132,7 @@ Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들�
 
 ---
 
-## 라이선스 📄
 
-이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 `LICENSE` 파일을 참조하세요.
-
----
-
-## 연락처 📧
-
-프로젝트에 대한 문의사항은 romantic.pirates@example.com으로 연락주세요.
-
-<div align="center">
-
-  ---
   
   ⚓ Developed with ❤️ by 낭만해적단 🏴‍☠️
   
