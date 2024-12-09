@@ -1,31 +1,17 @@
-<div align="center">
 
-  # 낭만해적단 파이널 프로젝트: 선택장애 해결사 🏴‍☠️
 
-  ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-  ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-  ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-  ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-  ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-  ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
-  ![Spring](https://img.shields.io/badge/springboot-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-  ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
-  ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+# 🛒 KOSMO 142기 파이널 프로젝트: 선택고민 해결사
+당신의 일상 속 작은 결정들, 저희가 도와드리겠습니다!
 
-  당신의 일상 속 작은 결정들, 저희가 도와드리겠습니다!
-</div>
-
----
-
-## 📌 목차
-- [프로젝트 소개](#프로젝트-소개-)
-- [주요 기능](#주요-기능-)
-- [기술 스택](#기술-스택-)
-- [설치 및 실행 방법](#설치-및-실행-방법-)
-- [기여 방법](#기여-방법-)
-- [팀원](#팀원-)
-- [라이선스](#라이선스-)
-- [연락처](#연락처-)
+### 💻프로젝트 개요
+💬평소에 아침에는 무엇을 입을지 고민하고, 점심에는 무엇을 먹을지 고민하며,저녁에는 무엇을 볼지 고민하다 추천해주는 사이트가 있으면 좋을것 같은 생각에 개발한 웹 사이트
+- [x] 🚀[프로젝트 소개](#프로젝트-소개-)
+- [x] 🌟[주요 기능](#주요-기능-)
+- [x] 💻[기술 스택](#기술-스택-)
+- [x] 🚧[시스템 아키텍처](#시스템-아키텍처-) 
+- [x] 🛠️[설치 및 실행 방법](#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%8B%A4%ED%96%89-%EB%B0%A9%EB%B2%95)
+- [x] 🤝[기여 방법](#기여-방법-)
+- [x] 👥[팀원](#팀원-)
 
 ---
 
@@ -35,7 +21,8 @@
 
 </div>
 
-'선택장애를 위한 이 사이트'는 일상 생활에서 자주 마주치는 '뭐 입지?', '뭐 먹지?', '뭐 볼까?' 와 같은 고민들을 해결해주는 웹 애플리케이션입니다. Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들에게 빠르고 재미있는 방식으로 선택을 도와줍니다.
+'결정에 어려움을 겪는 사람들을 위한 이 사이트'는 일상 생활에서 자주 마주치는 '뭐 입지?', '뭐 먹지?', '뭐 볼까?' 와 같은 고민들을 해결해주는 웹 애플리케이션입니다. 
+Flask와 Spring Boot를 활용하여 개발된 이 프로젝트는 사용자들에게 빠르고 재미있는 방식으로 선택을 도와줍니다.
 
 ---
 
@@ -47,10 +34,27 @@
   <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/film.svg" alt="콘텐츠 추천" width="200px">
 </div>
 
-1. **옷 추천** 👚: 29CM 쇼핑몰의 실시간 데이터를 기반으로 인기 상품을 추천
-2. **음식 추천** 🍽️: 취향과 위치를 고려하여 메뉴와 주변 맛집을 추천
-3. **콘텐츠 추천** 🎬📚: 사용자의 선호도를 분석하여 영화, TV 쇼, 등 추천
-
+```
+👨‍👨‍👧 회원 : 로그인 | 회원가입 | 이메일 인증 | 소셜 로그인(네이버/구글) | 아이디 찾기 | 비밀번호 찾기 | 임시 비밀번호 발송
+🏡 마이페이지 : 회원정보수정 | 회원탈퇴
+📈 관리자페이지 : 공지사항 작성,수정,삭제 관리
+👚 옷 추천 : 29CM 쇼핑몰의 실시간 데이터를 기반으로 인기 상품을 추천
+🍽️ 음식 추천 : 취향과 위치를 고려하여 메뉴와 주변 맛집을 추천
+🎬 콘텐츠 추천 : 사용자의 선호도를 분석하여 영화, TV 쇼 등 추천
+```
+|<small>회원가입</small>|<small>로그인<small>|<small>소셜 로그인(구글)</small>|
+|:-:|:-:|:-:|
+|![001](flask/flask_project/templates/git_img/회원가입.gif)|![002](flask/flask_project/templates/git_img/로그인.gif)|![003](flask/flask_project/templates/git_img/구글_로그인.gif)|
+|<small><b>소셜 로그인(네이버)</b></small>|<small><b>비밀번호 찾기</b></small>|<small><b>비밀번호 변경</b></small>|
+|![004](flask/flask_project/templates/git_img/네이버_로그인.gif)|![005](flask/flask_project/templates/git_img/비밀번호_찾기.gif)|![006](flask/flask_project/templates/git_img/비밀번호_변경.gif)|
+|<small><b>회원 정보 수정</b></small>|<small><b>회원계정 관리자 게시판</b></small>|<small><b>회원 탈퇴</b></small>|
+|![007](flask/flask_project/templates/git_img/회원정보수정.gif)|![008](flask/flask_project/templates/git_img/회원계정_관리자_게시판.gif)|![009](flask/flask_project/templates/git_img/회원탈퇴.gif)|
+|<small><b>뭐먹지 카테고리 선택</b></small>|<small><b>다른 메뉴 추천</b></small>|<small><b>음식점 추천</b></small>|
+|![010](flask/flask_project/templates/git_img/뭐먹지1_카테고리선택.gif)|![011](flask/flask_project/templates/git_img/뭐먹지2_메뉴추천.gif)|![012](flask/flask_project/templates/git_img/뭐먹지3_음식점추천.gif)|
+|<small><b>음식점 리스트/좋아요</b></small>|<small><b>뭐입지 카테고리/결과</b></small>|<small><b>다른 상품 추천</b></small>|
+|![013](flask/flask_project/templates/git_img/뭐먹지4_음식점리스트_좋아요.gif)|![014](flask/flask_project/templates/git_img/뭐입지1_카테고리_결과.gif)|![015](flask/flask_project/templates/git_img/뭐입지2_다른상품추천.gif)|
+|<small><b>구매하러 가기/좋아요</b></small>|<small><b>뭐보까1</b></small>|<small><b>뭐보까2</b></small>|
+|![016](flask/flask_project/templates/git_img/뭐입지3_구매_좋아요.gif)|![017](flask/flask_project/templates/git_img/)|![018](flask/flask_project/templates/git_img/)|
 ---
 
 ## 기술 스택 💻
@@ -66,6 +70,10 @@
 | API | ![Kakao Maps API](https://img.shields.io/badge/kakao_maps_API-FFCD00?style=for-the-badge&logo=kakao&logoColor=white) ![Daum Postcode API](https://img.shields.io/badge/daum_postcode_API-003D3F?style=for-the-badge&logo=daum&logoColor=white) ![Naver Login API](https://img.shields.io/badge/naver_login_API-03C75A?style=for-the-badge&logo=naver&logoColor=white) ![Google Login API](https://img.shields.io/badge/google_login_API-4285F4?style=for-the-badge&logo=google&logoColor=white) ![TMDB API](https://img.shields.io/badge/tmdb_API-03A9F4?style=for-the-badge&logo=tmdb&logoColor=white) |
 | Server | ![Apache Tomcat](https://img.shields.io/badge/apache_tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black) |
 | Version Control | ![GitHub](https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white) |
+---
+
+## 시스템 아키텍처 🚧
+![architecture](flask/flask_project/templates/git_img/시스템_아키텍처.jpg)
 ---
 
 ## 설치 및 실행 방법 🛠️
@@ -136,19 +144,7 @@
 
 ---
 
-## 라이선스 📄
 
-이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 `LICENSE` 파일을 참조하세요.
-
----
-
-## 연락처 📧
-
-프로젝트에 대한 문의사항은 romantic.pirates@example.com으로 연락주세요.
-
-<div align="center">
-
-  ---
   
   ⚓ Developed with ❤️ by 낭만해적단 🏴‍☠️
   
